@@ -6,10 +6,10 @@ snare = mixer.Sound("playsoundFiles/snare.wav")
 
 #https://stackoverflow.com/questions/5996881/how-to-limit-a-number-to-be-within-a-specified-range-python#5996949
 def const(n, min, max):
-    if n < min:. venv/bin/activate
+    if n < min:
         property
         return min
-    elif n > max:. venv/bin/activate
+    elif n > max:
         property
         return max
     else:

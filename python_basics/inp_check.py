@@ -37,6 +37,8 @@ def check(inp,type):
                         return input("doesn't understand " + inp + ", try again: ")
                     else:
                         return float(inp[0])
+                except TypeError:
+                    return input("doesn't understand ", inp[0], ", try again: ")
                 else:
                     return int(inp[0])
 

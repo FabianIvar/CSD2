@@ -1,5 +1,6 @@
 from pygame import mixer
 from os import walk
+from inp_check import check
 # from name import beat_generator_presets
 import time
 
@@ -33,7 +34,7 @@ def preset(x):
     elif x == 'n':
         print("\n"+"-={Configure settings manually}=-", end='\n\n')
     else:
-        preset(inp_check(x,'other'))
+        preset(check(x,'other'))
 
 def preset_picker(name):
     try:
@@ -42,49 +43,49 @@ def preset_picker(name):
             return picked_preset
         print('Set configuration to',configuration)
     except:
-        return preset_picker(inp_check(name, 'other'))
+        return preset_picker(check(name, 'other'))
 
 #check if string matches expected type, if not re-enter string. Prevents ValueError
-def inp_check(inp,type):
-        match type:
-            case 'int':
-                try:
-                    int(inp)
-                except ValueError:
-                    return inp_check(input("Must be an integer, try again: "), 'int')
-                except TypeError:
-                    return inp_check(inp,'other')
-                else:
-                    return int(inp)
-            case 'float':
-                try:
-                    float(inp)
-                except ValueError:
-                    return inp_check(input("Must be a float, try again: "), 'float')
-                except TypeError:
-                    return inp_check(inp,'other')
-                else:
-                    return float(inp)
-            case 'other' | _:
-                try:
-                    int(inp[0])
-                except ValueError:
-                    try:
-                        float(inp[0])
-                    except ValueError:
-                        return input("doesn't understand " + inp + ", try again: ")
-                    else:
-                        return float(inp[0])
-                else:
-                    return int(inp[0])
+# def inp_check(inp,type):
+#         match type:
+#             case 'int':
+#                 try:
+#                     int(inp)
+#                 except ValueError:
+#                     return check(input("Must be an integer, try again: "), 'int')
+#                 except TypeError:
+#                     return check(inp,'other')
+#                 else:
+#                     return int(inp)
+#             case 'float':
+#                 try:
+#                     float(inp)
+#                 except ValueError:
+#                     return check(input("Must be a float, try again: "), 'float')
+#                 except TypeError:
+#                     return check(inp,'other')
+#                 else:
+#                     return float(inp)
+#             case 'other' | _:
+#                 try:
+#                     int(inp[0])
+#                 except ValueError:
+#                     try:
+#                         float(inp[0])
+#                     except ValueError:
+#                         return input("doesn't understand " + inp + ", try again: ")
+#                     else:
+#                         return float(inp[0])
+#                 else:
+#                     return int(inp[0])
 
 def configure():
-    track_amt = inp_check(input("Number of tracks (1-4):"),'int')
-    p_amt = inp_check(input("Number of pulses:"),'int')
-    n_amt = const(inp_check(input("Number of notes:"),'int'), 0, p_amt)
-    bpm = const(inp_check(input("Beats per minute:"),'int'), 0, 512)
-    vol = const(inp_check(input("Gain (value between 0-1):"),'float'), 0, 1)
-    rot_amt = inp_check(input('amt to rotate:'),'int')
+    track_amt = check(input("Number of tracks (1-4):"),'int')
+    p_amt = check(input("Number of pulses:"),'int')
+    n_amt = const(check(input("Number of notes:"),'int'), 0, p_amt)
+    bpm = const(check(input("Beats per minute:"),'int'), 0, 512)
+    vol = const(check(input("Gain (value between 0-1):"),'float'), 0, 1)
+    rot_amt = check(input('amt to rotate:'),'int')
     return [track_amt,p_amt,n_amt,bpm,vol,rot_amt]
 
 use_preset = input("Open preset (y-n):") #maybe need to do use_preset[0]
@@ -153,7 +154,7 @@ def rotate(list,amt):
 
 generated_rhythm = [1,2,3,4,5,6,7]
 
-rotated_list = rotate(generated_rhythm, inp_check(configuration[5], 'int'))
+rotated_list = rotate(generated_rhythm, check(configuration[5], 'int'))
 print(rotated_list)
 
 #assign deviation to notes using devatoinfactor

@@ -1,85 +1,86 @@
 from pygame import mixer
 from os import walk
 from inp_check import check
-# from name import beat_generator_presets
+# from name import
 import time
 
 mixer.init()
 
 #load soundfiles
-kick = mixer.Sound("playsoundFiles/kick.wav")
-snare = mixer.Sound("playsoundFiles/snare.wav")
-hihat = mixer.Sound("playsoundFiles/hihat.wav")
-perc = mixer.Sound("playsoundFiles/perc.wav")
+kick = mixer.Sound("assets/soundFiles/kick.wav")
+snare = mixer.Sound("assets/soundFiles/snare.wav")
+hihat = mixer.Sound("assets/soundFiles/hihat.wav")
+perc = mixer.Sound("assets/soundFiles/perc.wav")
 
-
-filenames = next(walk("beat_generator_presets"), (None, None, []))[2]
+filenames = next(walk("assets/presets"), (None, None, []))[2]
 configuration = []
 
 #contrain between two values
 const = lambda a,b,c: b if a<b else (c if a>c else a)
+
 #greatest common denominator
 gcd = lambda a,b: a if b == 0 else gcd(b,a%b)
 freq = lambda a:60/a
 
-def preset(x):
-    # print('\n')
-    if x == 'y':
+def preset(user_input):
+    if user_input == 'y':
         for i in range(len(filenames)-1):
             if i == 0:
                 print('\n','|', end=' ')
             print(filenames[i], end=' | ')
         print('\n')
         return preset_picker(input('Enter full filename including extention (e.g. <presetname>.txt): '))
-    elif x == 'n':
+    elif user_input == 'n':
         print("\n"+"-={Configure settings manually}=-", end='\n\n')
     else:
-        preset(check(x,'other'))
+        preset(check(user_input,'other'))
 
 def preset_picker(name):
     try:
-        with open('beat_generator_presets/'+name, "r") as f:
+        with open('assets/presets/'+name, "r") as f:
             picked_preset = f.read().splitlines()
             return picked_preset
         print('Set configuration to',configuration)
     except:
         return preset_picker(check(name, 'other'))
 
-#check if string matches expected type, if not re-enter string. Prevents ValueError
-# def inp_check(inp,type):
-#         match type:
-#             case 'int':
-#                 try:
-#                     int(inp)
-#                 except ValueError:
-#                     return check(input("Must be an integer, try again: "), 'int')
-#                 except TypeError:
-#                     return check(inp,'other')
-#                 else:
-#                     return int(inp)
-#             case 'float':
-#                 try:
-#                     float(inp)
-#                 except ValueError:
-#                     return check(input("Must be a float, try again: "), 'float')
-#                 except TypeError:
-#                     return check(inp,'other')
-#                 else:
-#                     return float(inp)
-#             case 'other' | _:
-#                 try:
-#                     int(inp[0])
-#                 except ValueError:
-#                     try:
-#                         float(inp[0])
-#                     except ValueError:
-#                         return input("doesn't understand " + inp + ", try again: ")
-#                     else:
-#                         return float(inp[0])
-#                 else:
-#                     return int(inp[0])
+''' Check input
+check if string matches expected type, if not re-enter string. Prevents ValueError
+def inp_check(inp,type):
+        match type:
+            case 'int':
+                try:
+                    int(inp)
+                except ValueError:
+                    return check(input("Must be an integer, try again: "), 'int')
+                except TypeError:
+                    return check(inp,'other')
+                else:
+                    return int(inp)
+            case 'float':
+                try:
+                    float(inp)
+                except ValueError:
+                    return check(input("Must be a float, try again: "), 'float')
+                except TypeError:
+                    return check(inp,'other')
+                else:
+                    return float(inp)
+            case 'other' | _:
+                try:
+                    int(inp[0])
+                except ValueError:
+                    try:
+                        float(inp[0])
+                    except ValueError:
+                        return input("doesn't understand " + inp + ", try again: ")
+                    else:
+                        return float(inp[0])
+                else:
+                    return int(inp[0])
+'''
 
-def configure():
+def configure_settings():
     track_amt = check(input("Number of tracks (1-4):"),'int')
     p_amt = check(input("Number of pulses:"),'int')
     n_amt = const(check(input("Number of notes:"),'int'), 0, p_amt)
@@ -92,21 +93,21 @@ use_preset = input("Open preset (y-n):") #maybe need to do use_preset[0]
 configuration = preset(use_preset)
 
 if use_preset == 'n':
-    configuration = configure()
+    configuration = configure_settings()
     print('\nCurrent configuration is',configuration,'save it as a new preset?',' \n - If yes, enter new preset name (e.g. <newpreset>.txt)',' \n - If no, enter n')
     new_preset = input('\n')
     if new_preset !='n':
-        new_file = open('beat_generator_presets/'+new_preset, "w")
+        new_file = open('assets/presets/'+new_preset, "w")
         for q in range(len(configuration)):
             new_file.write(str(configuration[q])+"\n")
         new_file.close()
-        with open('beat_generator_presets/'+new_preset, "r") as f:
+        with open('assets/presets/'+new_preset, "r") as f:
             print(f.read())
             # picked_preset = f.read().splitlines()
             # return picked_preset
     # configuration =
 
-"""
+""" Generate pattern (not finished)
 def euclidean(p, n): #maakt een ritme in het geval dat de noten perfect passen binnen de hoeveelheid pulsen, verdeeld daarna de overgebleven pulsen over de opgeslagen waarden
     step_size = int(p/n)
     rest = p - (n*step_size) #wat er overblijft
@@ -137,7 +138,6 @@ else:
     time.sleep(snare.get_length())
 """
 
-
 #rotate
 def rotate(list,amt):
     for i in range(const(abs(amt),0,abs(amt))):
@@ -157,7 +157,7 @@ generated_rhythm = [1,2,3,4,5,6,7]
 rotated_list = rotate(generated_rhythm, check(configuration[5], 'int'))
 print(rotated_list)
 
-#assign deviation to notes using devatoinfactor
+#assign deviation to notes using deviation_factor
 
 #Sources:
 """

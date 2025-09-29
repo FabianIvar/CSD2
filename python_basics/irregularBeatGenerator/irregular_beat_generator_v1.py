@@ -13,7 +13,7 @@ hihat = mixer.Sound("assets/soundFiles/hihat.wav")
 perc = mixer.Sound("assets/soundFiles/perc.wav")
 
 filenames = next(walk("assets/presets"), (None, None, []))[2]
-configuration = []
+settings = []
 
 #contrain between two values
 const = lambda a,b,c: b if a<b else (c if a>c else a)
@@ -22,63 +22,38 @@ const = lambda a,b,c: b if a<b else (c if a>c else a)
 gcd = lambda a,b: a if b == 0 else gcd(b,a%b)
 freq = lambda a:60/a
 
-def preset(user_input):
-    if user_input == 'y':
+def preset(use_preset):
+    if use_preset == 'y':
         for i in range(len(filenames)-1):
             if i == 0:
                 print('\n','|', end=' ')
             print(filenames[i], end=' | ')
         print('\n')
         return preset_picker(input('Enter full filename including extention (e.g. <presetname>.txt): '))
-    elif user_input == 'n':
+    elif use_preset == 'n':
         print("\n"+"-={Configure settings manually}=-", end='\n\n')
+        settings = configure_settings()
+        print('\nCurrent configuration is',settings,'save it as a new preset?',' \n - If yes, enter new preset name (e.g. <newpreset>.txt)',' \n - If no, enter n')
+        new_preset = input('\n')
+        if new_preset !='n':
+            new_file = open('assets/presets/'+new_preset, "w")
+            for q in range(len(settings)):
+                new_file.write(str(settings[q])+"\n")
+            new_file.close()
+            with open('assets/presets/'+new_preset, "r") as f:
+                print(f.read())
+        return settings
     else:
-        preset(check(user_input,'other'))
+        preset(check(use_preset,'other'))
 
 def preset_picker(name):
     try:
         with open('assets/presets/'+name, "r") as f:
             picked_preset = f.read().splitlines()
             return picked_preset
-        print('Set configuration to',configuration)
+        print('Set configuration to',settings)
     except:
         return preset_picker(check(name, 'other'))
-
-''' Check input
-check if string matches expected type, if not re-enter string. Prevents ValueError
-def inp_check(inp,type):
-        match type:
-            case 'int':
-                try:
-                    int(inp)
-                except ValueError:
-                    return check(input("Must be an integer, try again: "), 'int')
-                except TypeError:
-                    return check(inp,'other')
-                else:
-                    return int(inp)
-            case 'float':
-                try:
-                    float(inp)
-                except ValueError:
-                    return check(input("Must be a float, try again: "), 'float')
-                except TypeError:
-                    return check(inp,'other')
-                else:
-                    return float(inp)
-            case 'other' | _:
-                try:
-                    int(inp[0])
-                except ValueError:
-                    try:
-                        float(inp[0])
-                    except ValueError:
-                        return input("doesn't understand " + inp + ", try again: ")
-                    else:
-                        return float(inp[0])
-                else:
-                    return int(inp[0])
-'''
 
 def configure_settings():
     track_amt = check(input("Number of tracks (1-4):"),'int')
@@ -89,25 +64,37 @@ def configure_settings():
     rot_amt = check(input('amt to rotate:'),'int')
     return [track_amt,p_amt,n_amt,bpm,vol,rot_amt]
 
-use_preset = input("Open preset (y-n):") #maybe need to do use_preset[0]
-configuration = preset(use_preset)
+''' preset selector steps:
 
+1) ask user if they would like to use a preset; 'y' if yes 'n' if no
+2) variable called settings = output of a function called 'preset()' with user input ('y' or 'n') as argument
+3) if argument == 'y' then execute a function called 'preset_picker()'
+    if argument == 'n' then print('configure manually') and execute a fuction called 'configure()'
+4) preset_picker returns settings saved in a preset, configure asks user for input and sets values for multiple variables
+
+'''
+
+# use_preset = input("Open preset (y-n):")
+settings = preset(input("Open preset (y-n): ")) #kinda dirty code because i already use the settings variable inside the scope of the preset() function, but it works :)
+
+''' -=:Duplicate code:=- I already check at another point if use_preset == 'n' (line 33)
 if use_preset == 'n':
-    configuration = configure_settings()
-    print('\nCurrent configuration is',configuration,'save it as a new preset?',' \n - If yes, enter new preset name (e.g. <newpreset>.txt)',' \n - If no, enter n')
+    settings = configure_settings()
+    print('\nCurrent configuration is',settings,'save it as a new preset?',' \n - If yes, enter new preset name (e.g. <newpreset>.txt)',' \n - If no, enter n')
     new_preset = input('\n')
     if new_preset !='n':
         new_file = open('assets/presets/'+new_preset, "w")
-        for q in range(len(configuration)):
-            new_file.write(str(configuration[q])+"\n")
+        for q in range(len(settings)):
+            new_file.write(str(settings[q])+"\n")
         new_file.close()
         with open('assets/presets/'+new_preset, "r") as f:
             print(f.read())
             # picked_preset = f.read().splitlines()
             # return picked_preset
-    # configuration =
+    # settings =
+'''
 
-""" Generate pattern (not finished)
+""" 🌀 -=:Generate pattern:=- 🌀 (not finished)
 def euclidean(p, n): #maakt een ritme in het geval dat de noten perfect passen binnen de hoeveelheid pulsen, verdeeld daarna de overgebleven pulsen over de opgeslagen waarden
     step_size = int(p/n)
     rest = p - (n*step_size) #wat er overblijft
@@ -154,7 +141,7 @@ def rotate(list,amt):
 
 generated_rhythm = [1,2,3,4,5,6,7]
 
-rotated_list = rotate(generated_rhythm, check(configuration[5], 'int'))
+rotated_list = rotate(generated_rhythm, check(settings[5], 'int'))
 print(rotated_list)
 
 #assign deviation to notes using deviation_factor

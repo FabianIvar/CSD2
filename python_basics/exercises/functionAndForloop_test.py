@@ -21,17 +21,38 @@ def halve_values_alt(values):
 
 """list = [0.5,2.5,3.8,4.6,5.1] # Won't work because the index of the array can't be a float"""
 
-list = [1,2,3,4,5]
+# list = [1,2,3,4,5]
 
 """ ?!!! """
 
-test_list = [3,1,7,3,4]
+# test_list = [3,1,7,3,4]
 
-def test(values):
+# def test(values):
+#     for value in values:
+#         print(value)
+
+
+# halve_values_alt(list)
+# test(test_list)
+
+# print(list)
+
+"""Another Test"""
+def test2(x,y):
+    for i in range(y): #only works with range(), int is not iterable
+        x += 1
+        print(x)
+
+test2(0,10)
+
+
+def get_half_values(values):
+    """Returns a new list containing the halved values from the values list"""
+    half_values = []
     for value in values:
-        print(value)
+        half_values.append(value * 0.5)
+    return half_values # -> returned niet een variable die buiten de scope van de functie te gebruiken is
 
-halve_values_alt(list)
-test(test_list)
+# Je zou dan dit moeten doen
 
-print(list)
+half_values = get_half_values(list)

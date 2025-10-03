@@ -42,4 +42,20 @@ def check(inp,type):
                 else:
                     return int(inp[0])
 
-const = lambda a,b,c: b if a<b else (c if a>c else a)
+def constrain(value, minimum, maximum):
+    """ Constrains value between minimum and maximum """
+    return min(maximum, max(minimum, value))
+
+def rotate(list,amt):
+    """ Rotates a list """
+    for i in range(constrain(abs(amt),0,abs(amt))):
+        if amt <0:
+            n=list[0].pop(0) #have to add another forloop later so that multitrack works (replace [0] with [i])
+            list.append(n)
+        elif amt >0:
+            n=list.pop(-1)
+            list.insert(0, n)
+        else:
+            print("something went wrong")
+        # print(list)
+    return list

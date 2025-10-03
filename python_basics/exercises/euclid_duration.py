@@ -1,26 +1,22 @@
 """
 1) make var for pulse, note and bpm
 2) make def for generate pattern
-3) duration = int(pulses/notes)
+3) duration = int(num_pulses/num_notes)
 
 
 """
 
-pulses = 16
-notes = 5
+num_pulses = 16
+num_notes = 5
 
-def euclidean(pulses, notes): #maakt een ritme in het geval dat de noten perfect passen binnen de hoeveelheid pulsen, verdeeld daarna de overgebleven pulsen over de opgeslagen waarden
-    duration = int(pulses/notes)
-    remainder = pulses - (notes*duration) #wat er overblijft
-    euclidean_rhythm = []
-    for i in range(notes):
-		if i % step_size  == 0: #i % step_size is nul wanneer i een veelvoud is van 3, dus bij 3, 6, 9, 12 etc. zo wordt True alleen gepushed op de plekken waar die een sample moet afspelen
-			generated_rhythm[i].push(True)
-			instert_point.push(i)
-		else:
-			generated_rhythm[i].push(False)
-	for r in rest:
-		generated_rhythm[instert_point[j]].push(False) #distribuute remaining pulses amongst durations stored in the generated_rhythm array
-	return generated_rhythm
+def euclidean(num_pulses, num_notes):
+    """ Generates a Euclidean Rhythm """
+    duration = int(num_pulses/num_notes)            # Lengte van de noot
+    remainder = num_pulses - (num_notes*duration)   # Wat er overblijft
+    euclidean_rhythm = [duration] * num_notes       # Vult lijst met duration
 
-euclidean(pulses,notes):
+    for i in range(remainder):
+        euclidean_rhythm[i] += 1                    # Distribute remaining pulsees amongst durations stored in the generated_rhythm array
+    return euclidean_rhythm
+
+print('euclidean rhythm is: ',euclidean(num_pulses,num_notes))

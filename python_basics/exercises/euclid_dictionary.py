@@ -1,8 +1,10 @@
-# largely the same as euclid_multiTrack.py but with user input stored in a dictionary
+# mostly the same as euclid_multiTrack.py but with user input stored in a dictionary
 
 from list_transform import rotate
 from list_transform import constrain
 import inp
+
+def newline():(print('\n'))
 
 def settings(**set):
     """global_settings and sample_settings stored in a dictionary"""
@@ -36,13 +38,11 @@ def pack_sample_settings():
 
     for i in range(num_layers):
         sample_name = input('Pick sample for layer ' + str(i+1) + ': ')
-        configuration[sample_name+str(i)] = settings(type = "sample", file_name = sample_name)
+        configuration[sample_name + '_' + str(i)] = settings(type = "sample", file_name = sample_name) # + str(i) to prevent sample settings not being saved because of duplicates
 
     return configuration
 
-# names are kinda confusing, global_settings are the saved in an array. global_config is the variable in the scope of the settings function
-
-global_settings = settings(type = 'global')
+global_settings = settings(type = 'global') # names are kinda confusing, global_settings are the saved in an array. global_config is the variable in the scope of the settings function
 sample_settings = pack_sample_settings()
 
 print(sample_settings.keys())
@@ -85,28 +85,17 @@ def generate_sequence():
             duration_sequence[j] += 1
         print('post-remainder distribution:',duration_sequence)
 
-        euclidean_sequence[this_sample] = {'duration': duration_sequence, 'volume': sound['volume']} # voor nu gewoon duration ipv timestamps
+        rotated_duration_sequence = inp.rotate(duration_sequence, sound['rotation_amt'])
+
+        euclidean_sequence[this_sample] = {'duration': rotated_duration_sequence, 'volume': sound['volume']} # voor nu gewoon duration ipv timestamps
 
     return euclidean_sequence
 
-        # timestamps = duration_to_timestamp(duration, sound)
-        # timestamps = 'timestamp'
-
-        # euclidean_sequence.update({"sample": input('Pick sample for layer ' + str(i+1) + ': ')})
-
 euclidean_sequence = generate_sequence()
 
-for i in range(len(list(euclidean_sequence.keys()))):
-    print(euclidean_sequence[list(euclidean_sequence.keys())[i]])
-
-
+newline()
+for i in range(len(list(euclidean_sequence.keys()))): # unreadable mess, but it works just trust me lol
+    print(list(euclidean_sequence.keys())[i],euclidean_sequence[list(euclidean_sequence.keys())[i]])
 
 def deviation_factor():
     pass
-
-# num_pulses,num_notes,num_layers
-
-# euclidean_sequence = euclidean(setting['num_layers'],setting['num_pulses'],setting['num_notes'])
-# print(set.keys(), '\n', set.values())
-# print('euclidean rhythm is: ',euclidean_sequence)
-# print('rotated list is: ', rotate(euclidean_sequence[0], setting['rotation_amt']))

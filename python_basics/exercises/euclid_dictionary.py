@@ -1,18 +1,11 @@
-#largely the same as euclid_multiTrack.py but with user input stored in a dictionary
+# largely the same as euclid_multiTrack.py but with user input stored in a dictionary
 
 from list_transform import rotate
 from list_transform import constrain
 import inp
 
-"""
-
-1) include tracks amount in arguments of euclidean function
-2) create nested array filled with durations
-3) create nested for loop that distributes remainder amongst stored values in each array
-
-"""
-
 def settings(**set):
+    """global_settings and sample_settings stored in a dictionary"""
     match set['type']:
 
         case 'global':
@@ -37,13 +30,13 @@ def settings(**set):
                 return sample_config
 
 def pack_sample_settings():
-    """Starts sample setting configuration and saves the settings in nested dictionary's"""
+    """Starts sample settings configuration and saves the settings of each sample in nested dictionaries"""
     num_layers = global_settings['num_layers']
     configuration = {}
 
     for i in range(num_layers):
         sample_name = input('Pick sample for layer ' + str(i+1) + ': ')
-        configuration[sample_name] = settings(type = "sample", file_name = sample_name)
+        configuration[sample_name+str(i)] = settings(type = "sample", file_name = sample_name)
 
     return configuration
 
@@ -54,7 +47,7 @@ sample_settings = pack_sample_settings()
 
 print(sample_settings.keys())
 
-""" question:
+""" question?
 euclidean_sequence = [[duration] * num_notes] * num_layers
 Dit werkt niet for some reason???
 als je dan een index probeert aan te passen verandert die alle indexes.
@@ -73,39 +66,43 @@ def duration_to_timestamp(duration,sample): # should be done after deviated_dura
 
     return timestamps"""
 
-def euclidean(num_layers, num_pulses, num_notes):
+def generate_sequence():
     """Generates a Euclidean Rhythm"""
 
-    euclidean_sequence = {} # .update lijkt handig voor als je dingen achteraf nog wilt veranderen terwijl het al aan het afspelen is ofzo? kan geen kwaad in ieder geval
+    euclidean_sequence = {} # .update lijkt handig voor als je dingen achteraf nog wilt veranderen misschien? kan geen kwaad in ieder geval
 
     for i in range(global_settings['num_layers']):
         this_sample = list(sample_settings.keys())[i] # sample that's relevant in the current cycle of the for-loop
-        print(this_sample)
+        sound = sample_settings[this_sample] # did this just for clarity. sound stands for sample; it is a dictionary that contains the settings of the sample thats relevant in the current cycle of the for-loop
+        print('current sample:',this_sample)
 
-        duration = int(global_settings['num_pulses'] / sample_settings[this_sample]['num_notes'])       # pulses/notes
-        remainder = global_settings['num_pulses'] - (num_notes*duration)                                # Wat er overblijft -> pulses - (notes*duration)
-        # timestamps = duration_to_timestamp(duration, sample_settings[this_sample])
-        timestamps = 'timestamp'
+        duration = int(global_settings['num_pulses'] / sound['num_notes'])          # pulses/notes
+        remainder = global_settings['num_pulses'] - (sound['num_notes'] * duration) # Wat er overblijft -> pulses - (notes*duration)
+        duration_sequence = [duration] * sound['num_notes']
+        print('pre-remainder distribution:',duration_sequence)
 
-        # euclidean_sequence.update({"sample": input('Pick sample for layer ' + str(i+1) + ': ')})
-        euclidean_sequence[list(sample_settings.keys())[i]] = {'timestamp': timestamps, 'volume': sample_settings[this_sample]['volume']}
-        for j in range(num_notes):
-            pass
+        for j in range(remainder): # distribute remainder amongst values in duration_sequence
+            duration_sequence[j] += 1
+        print('post-remainder distribution:',duration_sequence)
 
-    print(euclidean_sequence)
-
-    # print(euclidean_sequence)
-
-    print('remainder', remainder)
-
-    for i in range(num_layers):         # Distribute remaining pulsees amongst durations stored in the generated_sequence array
-        for j in range(remainder):
-            euclidean_sequence[j][i] = euclidean_sequence[j][i] + 1
-            print(euclidean_sequence[j])
-            print(j)
+        euclidean_sequence[this_sample] = {'duration': duration_sequence, 'volume': sound['volume']} # voor nu gewoon duration ipv timestamps
 
     return euclidean_sequence
 
+        # timestamps = duration_to_timestamp(duration, sound)
+        # timestamps = 'timestamp'
+
+        # euclidean_sequence.update({"sample": input('Pick sample for layer ' + str(i+1) + ': ')})
+
+euclidean_sequence = generate_sequence()
+
+for i in range(len(list(euclidean_sequence.keys()))):
+    print(euclidean_sequence[list(euclidean_sequence.keys())[i]])
+
+
+
+def deviation_factor():
+    pass
 
 # num_pulses,num_notes,num_layers
 

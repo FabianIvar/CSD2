@@ -4,8 +4,6 @@ from list_transform import rotate
 from list_transform import constrain
 import inp
 
-def newline():(print('\n'))
-
 def settings(**set):
     """global_settings and sample_settings stored in a dictionary"""
     match set['type']:
@@ -38,16 +36,19 @@ def pack_sample_settings():
 
     for i in range(num_layers):
         sample_name = input('Pick sample for layer ' + str(i+1) + ': ')
-        configuration[sample_name + '_' + str(i)] = settings(type = "sample", file_name = sample_name) # + str(i) to prevent sample settings not being saved because of duplicates
+        # + str(i) to prevent sample settings not being saved because of duplicates, can also be done with ennumerate but I didn't know this at the time
+        configuration[sample_name + '_' + str(i)] = settings(type = "sample", file_name = sample_name)
 
     return configuration
 
-global_settings = settings(type = 'global') # names are kinda confusing, global_settings are the saved in an array. global_config is the variable in the scope of the settings function
+# names are kinda confusing, global_settings & sample_settings are the settings saved in an list.
+# global_config & sample_config is the variable in the scope of the settings function.
+global_settings = settings(type = 'global')
 sample_settings = pack_sample_settings()
 
 print(sample_settings.keys())
 
-""" question?
+""" Question?
 euclidean_sequence = [[duration] * num_notes] * num_layers
 Dit werkt niet for some reason???
 als je dan een index probeert aan te passen verandert die alle indexes.
@@ -55,25 +56,14 @@ Dus in dit geval moet je wel gewoon een for-loop gebruiken om duration te initia
 !! Stel deze vraag misschien in de les !!
 """
 
-""" duration to timestamp -> not finished yet
-def duration_to_timestamp(duration,sample): # should be done after deviated_duration is calculated with deviation_factor
-    timestamps = []
-    playLength = 60/global_settings['bpm'] # length in seconds of one beat
-    full_cycle_length = playLength*global_settings['num_pulses']
-
-    for i in range(sample['num_notes']):
-        timestamps.append(duration*playLength)
-
-    return timestamps"""
-
 def generate_sequence():
     """Generates a Euclidean Rhythm"""
 
-    euclidean_sequence = {} # .update lijkt handig voor als je dingen achteraf nog wilt veranderen misschien? kan geen kwaad in ieder geval
+    euclidean_sequence = {}
 
     for i in range(global_settings['num_layers']):
-        this_sample = list(sample_settings.keys())[i]   # sample that's relevant in the current cycle of the for-loop
-        sound = sample_settings[this_sample]            # did this just for clarity. sound stands for sample; it is a dictionary that contains the settings of the sample thats relevant in the current cycle of the for-loop
+        this_sample = list(sample_settings.keys())[i]   # Sample relevant in the current cycle of the for-loop
+        sound = sample_settings[this_sample]            # For readability, 'sound' is a dictionary that contains the settings of the sample relevant in the current cycle of the for-loop
         print('current sample:',this_sample)
 
         duration = int(global_settings['num_pulses'] / sound['num_notes'])          # pulses/notes
@@ -81,21 +71,23 @@ def generate_sequence():
         duration_sequence = [duration] * sound['num_notes']
         print('pre-remainder distribution:',duration_sequence)
 
-        for j in range(remainder): # distribute remainder amongst values in duration_sequence
+        # Distribute remainder amongst values in duration_sequence
+        for j in range(remainder):
             duration_sequence[j] += 1
         print('post-remainder distribution:',duration_sequence)
 
-        rotated_duration_sequence = inp.rotate(duration_sequence, sound['rotation_amt'])
+        # Rotate duration_sequence
+        rotated_sequence = inp.rotate(duration_sequence, sound['rotation_amt'])
 
-        euclidean_sequence[this_sample] = {'duration': rotated_duration_sequence, 'volume': sound['volume']}
+        euclidean_sequence[this_sample] = {'duration': rotated_sequence, 'volume': sound['volume']}
 
     return euclidean_sequence
 
 euclidean_sequence = generate_sequence()
 print(euclidean_sequence)
 
-newline()
-for i in range(len(list(euclidean_sequence.keys()))): # unreadable mess, but it works
+print('\n')
+for i in range(len(list(euclidean_sequence.keys()))): # unreadable mess, prints
     print(list(euclidean_sequence.keys())[i],euclidean_sequence[list(euclidean_sequence.keys())[i]])
 
 def deviation_factor():

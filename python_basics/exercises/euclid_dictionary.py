@@ -72,8 +72,8 @@ def generate_sequence():
     euclidean_sequence = {} # .update lijkt handig voor als je dingen achteraf nog wilt veranderen misschien? kan geen kwaad in ieder geval
 
     for i in range(global_settings['num_layers']):
-        this_sample = list(sample_settings.keys())[i] # sample that's relevant in the current cycle of the for-loop
-        sound = sample_settings[this_sample] # did this just for clarity. sound stands for sample; it is a dictionary that contains the settings of the sample thats relevant in the current cycle of the for-loop
+        this_sample = list(sample_settings.keys())[i]   # sample that's relevant in the current cycle of the for-loop
+        sound = sample_settings[this_sample]            # did this just for clarity. sound stands for sample; it is a dictionary that contains the settings of the sample thats relevant in the current cycle of the for-loop
         print('current sample:',this_sample)
 
         duration = int(global_settings['num_pulses'] / sound['num_notes'])          # pulses/notes
@@ -87,14 +87,15 @@ def generate_sequence():
 
         rotated_duration_sequence = inp.rotate(duration_sequence, sound['rotation_amt'])
 
-        euclidean_sequence[this_sample] = {'duration': rotated_duration_sequence, 'volume': sound['volume']} # voor nu gewoon duration ipv timestamps
+        euclidean_sequence[this_sample] = {'duration': rotated_duration_sequence, 'volume': sound['volume']}
 
     return euclidean_sequence
 
 euclidean_sequence = generate_sequence()
+print(euclidean_sequence)
 
 newline()
-for i in range(len(list(euclidean_sequence.keys()))): # unreadable mess, but it works just trust me lol
+for i in range(len(list(euclidean_sequence.keys()))): # unreadable mess, but it works
     print(list(euclidean_sequence.keys())[i],euclidean_sequence[list(euclidean_sequence.keys())[i]])
 
 def deviation_factor():

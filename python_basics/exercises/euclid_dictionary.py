@@ -89,6 +89,3 @@ print(euclidean_sequence)
 print('\n')
 for i in range(len(list(euclidean_sequence.keys()))): # unreadable mess, prints
     print(list(euclidean_sequence.keys())[i],euclidean_sequence[list(euclidean_sequence.keys())[i]])
-
-def deviation_factor():
-    pass

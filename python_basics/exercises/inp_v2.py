@@ -34,13 +34,14 @@ Source: https://www.w3schools.com/python/python_classes.asp
 
 """
 
-# Dictionary containing values type can be casted to | int float and str are a classes! cool, don't fully get it yet :)
+# Dictionary containing value_types that input_value can be casted to
 cast = {"int":int, "float":float, "string":str}
+# int float and str are a classes! cool, don't fully get it yet :)
 
 def validateType(input_value, type):
     """
-    Tries to cast input_value to type, if succesful return True.
-    If input_value can't be casted to type return False.
+    Tries to cast input_value to type, if succesful return casted_value.
+    If input_value can't be casted to type return ask again for user input.
 
     Parameter input_value:  Value this function tries to cast
     Parameter type:         Type this function tries to cast to
@@ -52,46 +53,14 @@ def validateType(input_value, type):
     """
 
     try:
-        cast[type](input_value) # If unable to run it will skip the 'return True' and run the code after except:
-        return True
+        casted_value = cast[type](input_value) # If unable to run it will skip the 'return True' and run the code after except:
+        return casted_value
     except:
-        return False
+        return input(str(input_value) + " is not a " + type + "try again: ")
 
 def constrain(value, minimum, maximum):
     """ Constrains value between minimum and maximum """
     return min(maximum, max(minimum, value))
-
-#input_value, expected_type, minimum, maximum
-def check(**argument):
-    """"Checks if input_value is of the expected type and within range of minimum & maximum
-
-    ===========================================================
-    Based off of code from Ciska Vriezenga
-    Source: https://github.com/ciskavriezenga/CSD_25-26/blob/main/csd2a/session5/5f_ui_func_type_range.py#L37
-    ===========================================================
-    """
-
-    if(validateType(argument['input_value'], argument['expected_type']):
-        try:
-
-
-                return cast[argument['expected_type']]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 def rotate(list,amt):
     """ Rotates a list """

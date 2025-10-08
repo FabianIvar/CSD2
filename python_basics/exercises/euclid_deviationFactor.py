@@ -105,6 +105,7 @@ def generate_sequences():
         # Rotate duration_sequence
         rotated_sequence = inp.rotate(duration_sequence, sample_value['rotation_amt'])
 
+        # Stores the
         euclidean_sequence[sample_keyName] = rotated_sequence
         # euclidean_sequence = rotated_sequence
 
@@ -177,7 +178,6 @@ def generate_deviations(**arg):
     deviation = [amt*shuffledFactor.pop() for value in scaledFactor]
 
     return deviation
-    # print('\nDeviation:',deviation)
 
 # Collect generated euclidean sequences into a dictionary
 euclidean_durations = generate_sequences()
@@ -206,8 +206,6 @@ packed_layers = pack_layers()
 # Prints the values in generate_sequences
 print()
 [print(i, euclidean_durations[i]) for i in euclidean_durations]
-
-
 
 '''Sources
 values between range:   https://stackoverflow.com/questions/64338441/how-to-get-the-values-between-a-range-in-python#64338552

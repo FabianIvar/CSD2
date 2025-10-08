@@ -32,7 +32,14 @@ from inp_v2 import validateType as check
                 return sample_config"""
 
 def settings(**set):
-    """global_settings and sample_settings stored in a dictionary"""
+    """
+    Returns global_settings and sample_settings stored in a dictionary
+
+    Parameter set['file_name']: The name of the sample to configure and return settings of
+    Parameter set['type']: The type of setting to configure and return
+            Options: "global", "sample"
+
+    """
     match set['type']:
 
         case 'global':

@@ -4,40 +4,45 @@ import random
 import numpy as np
 import math
 
-# input: start, stop, amount
-def listRange(**inp):
+# arg stands for argument, arg is a dictionary containing the arguments used this function
+def listRange(**arg):
     """
     Returns a list of a given length with even steps between two given values
 
-    parameter start: The starting value of the sequence
-    parameter stop: The end value of the sequence
-    parameter num: The amount of values
+    parameter arg['start']: The starting value of the sequence
+    parameter arg['stop']: The end value of the sequence
+    parameter arg['num']: The amount of values
     """
 
-    # Sets devault value if 'start' or 'num' argument aren't present in the inp (input) dictionary
+    # Sets devault value if 'start' or 'num' argument aren't present in the arg dictionary
     default = {'start':0, 'num':10}
     for i in default:
-        if(not {True for key in inp.keys() if i in key}): # very hard to understand but very cool! dictionary comprehension!
-            inp[i] = default[i]
+        if(not {True for key in arg.keys() if i in key}): # very hard to understand but very cool! dictionary comprehension!
+            arg[i] = default[i]
 
-    listRange = np.linspace(inp['start'], inp['stop'], num=inp['num'], endpoint=True)
+    listRange = np.linspace(arg['start'], arg['stop'], num=arg['num'], endpoint=True)
 
     return listRange
 
 sequence = [1]*11
 
-def deviation(**inp):
+# arg is a dictionary containing the arguments used this function
+def deviation(**arg):
 
     """
     Returns a list of a given length containing the deviation values to add to... maybe duration? *subject to change
 
-    parameter list: list with duration values to dertermine the amount of notes and the total length
-    parameter amt: maximum deviation
-    (parameter min: minimum deviation) *not implemented yet
+    parameter arg['list']: list with duration values to dertermine the amount of notes and the total length
+    parameter arg['amt']: maximum deviation
+    *parameter arg['min']: minimum deviation not implemented yet
     """
 
-    list = inp['list'] # For readability, 'list' represents the list thats given as an argument to the function
-    amt = inp['amt'] # Also for readability, 'amt' represents the maximum deviation
+    # For readability, 'list' represents the list thats given as an argument to the function
+    list = arg['list']
+
+    # Also for readability, 'amt' represents the maximum deviation
+    amt = arg['amt']
+
     halfDuration = sum(list)/2
 
     # list <len(list)> values between -halfDuration and halfDuration in even steps
@@ -52,7 +57,6 @@ def deviation(**inp):
     # Shuffle scaledFactor
     shuffledFactor = random.sample(scaledFactor, len(scaledFactor)) # random.sample makes a copy, random.shuffle modifies list
 
-    # Max amount
     deviation = [amt*shuffledFactor.pop() for value in scaledFactor]
 
     print('\nDeviation:',deviation)

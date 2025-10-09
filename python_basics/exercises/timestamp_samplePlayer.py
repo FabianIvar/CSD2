@@ -1,7 +1,7 @@
 from pygame import mixer
 import time
-from inp_check import check
-from inp_check import const
+from inp import check
+from inp import const
 
 mixer.init()
 snr = mixer.Sound("playsoundFiles/snare.wav")

@@ -38,6 +38,8 @@ Source: https://www.w3schools.com/python/python_classes.asp
 cast = {"int":int, "float":float, "string":str}
 # int float and str are a classes! cool, don't fully get it yet :)
 
+
+
 def validateType(input_value, type):
     """
     Tries to cast input_value to type, if succesful return casted_value.
@@ -56,11 +58,15 @@ def validateType(input_value, type):
         casted_value = cast[type](input_value) # If unable to run it will skip the 'return True' and run the code after except:
         return casted_value
     except:
-        return input(str(input_value) + " is not a " + type + "try again: ")
+        return validateType(input(str(input_value) + " is not a " + type + "try again: "), type)
+
+
 
 def constrain(value, minimum, maximum):
     """ Constrains value between minimum and maximum """
     return min(maximum, max(minimum, value))
+
+
 
 def rotate(list,amt):
     """ Rotates a list """

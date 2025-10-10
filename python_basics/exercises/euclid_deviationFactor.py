@@ -6,9 +6,16 @@ import inp_v2 as inp
 import numpy as np
 from inp_v2 import validateType as check
 
-"""def settings(**set):
-    #global_settings and sample_settings stored in a dictionary
-    match set['type']:
+""" settings function with user input certain values need to be constrained
+def settings(**set):
+
+    # Returns global_settings and sample_settings stored in a dictionary
+    #
+    # Parameter set['file_name']: The name of the sample to configure and return settings of
+    # Parameter set['type']: The type of setting to configure and return
+            # Options: "global", "sample"
+
+
 
         case 'global':
             global_config = {
@@ -68,12 +75,13 @@ def pack_sample_settings():
     num_layers = global_settings['num_layers']
     configuration = {}
 
-    for i in range(num_layers):
+    for i in range(global_settings['num_layers']):
         """->"""# sample_name = input('Pick sample for layer ' + str(i+1) + ': ')
         # + str(i) to prevent sample settings not being saved because of duplicates, can also be done with ennumerate but I didn't know this at the time
 
         """->"""#configuration[sample_name + '_' + str(i)] = settings(type = "sample", file_name = sample_name)
         configuration['sample_name' + '_' + str(i)] = settings(type = "sample", file_name = 'sample_name')
+    print(configuration)
     return configuration
 
 # names are kinda confusing, global_settings & sample_settings are the settings saved in an list.
@@ -90,27 +98,22 @@ def generate_sequences():
 
     for i in range(global_settings['num_layers']):
 
-        # Sample relevant in the current cycle of the for-loop
         sample_keyName = list(sample_settings.keys())[i]
-
-        # For readability, 'sample_value' is a dictionary that contains the settings of the sample relevant in the current cycle of the for-loop
         sample_value = sample_settings[sample_keyName]
 
-        # duration = pulses/notes
         duration = int(global_settings['num_pulses'] / sample_value['num_notes'])
-
-        # remainder = pulses - (notes * duration)
         remainder = global_settings['num_pulses'] - (sample_value['num_notes'] * duration)
 
         # Fill a list with a length of <num_notes> with duration
         duration_sequence = [duration] * sample_value['num_notes']
 
         # Distribute remainder amongst values in duration_sequence
-        for j in range(remainder):
-            duration_sequence[j] + 1
+        with_remainder = [duration_sequence[j]+1 for j in range(remainder)]
+        # for j in range(remainder):
+        #     duration_sequence[j] + 1
 
         # Rotate duration_sequence
-        rotated_sequence = inp.rotate(duration_sequence, sample_value['rotation_amt'])
+        rotated_sequence = inp.rotate(with_remainder, sample_value['rotation_amt'])
 
         # Stores the
         euclidean_sequence[sample_keyName] = rotated_sequence
@@ -174,7 +177,7 @@ def generate_deviations(**arg):
     savedRange = listRange(start = -halfDuration, stop = (halfDuration), num = len(list))
 
     # Convert the numpy array 'sanvedRange' to a list with rounded float values
-    roundedRange = [round(float(value),10) for value in savedRange] # List comprehension!!!
+    roundedRange = [round(float(value),4) for value in savedRange] # List comprehension!!!
 
     # Scale roundedRange to (min = -1 max = 1)
     scaledFactor = [value / halfDuration for value in roundedRange]
@@ -226,3 +229,5 @@ shuffle list:           https://www.geeksforgeeks.org/python/python-ways-to-shuf
 random:                 https://www.w3schools.com/python/ref_module_random.asp
 random.sample:          https://www.w3schools.com/python/ref_random_sample.asp
 '''
+
+# /Volumes/T7/Documenten/Git/CSD2/python_basics/exercises/euclid_deviationFactor.py

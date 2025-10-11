@@ -320,5 +320,3 @@ shuffle list:           https://www.geeksforgeeks.org/python/python-ways-to-shuf
 random:                 https://www.w3schools.com/python/ref_module_random.asp
 random.sample:          https://www.w3schools.com/python/ref_random_sample.asp
 '''
-
-# /Volumes/T7/Documenten/Git/CSD2/python_basics/exercises/euclid_deviationFactor.py

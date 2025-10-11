@@ -58,7 +58,7 @@ def validateType(input_value, type):
         casted_value = cast[type](input_value) # If unable to run it will skip the 'return True' and run the code after except:
         return casted_value
     except:
-        return validateType(input(str(input_value) + " is not a " + type + "try again: "), type)
+        return validateType(input("Doesn't understand ", input_value, "expected type:", type, "\ntry again: "))
 
 
 

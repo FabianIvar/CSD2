@@ -11,21 +11,28 @@ cycle_duration = 17
 
 # sorted_timestamps per layer
 event_dictionary = {
-    'layer_0': {'timestamps':[0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.5, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0],
+    'layer_0': {
+        'timestamps': [0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.5, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0],
         'audio_file_name': 'kick.wav',
-        'time_durations' : [0.5, 0.5, 0.5, 0.5, 0.5, 1.0, 1.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]},
+        'time_durations': [0.5, 0.5, 0.5, 0.5, 0.5, 1.0, 1.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5],
+        'channel': 0},
     'layer_1': {
-        'timestamps':[0, 1.0, 2.0, 3.0, 4.5, 6.0, 7.5],
+        'timestamps': [0, 1.0, 2.0, 3.0, 4.5, 6.0, 7.5],
         'audio_file_name': 'snare.wav',
-        'time_durations' : [1.0, 1.0, 1.0, 1.5, 1.5, 1.5, 1.0]},
+        'time_durations': [1.0, 1.0, 1.0, 1.5, 1.5, 1.5, 1.0],
+        'channel': 1},
     'layer_2': {
-        'timestamps':[0, 1.0, 2.5, 4.0, 5.5, 6.5, 7.5],
+        'timestamps': [0, 1.0, 2.5, 4.0, 5.5, 6.5, 7.5],
         'audio_file_name': 'hihat.wav',
-        'time_durations' : [1.0, 1.5, 1.5, 1.5, 1.0, 1.0, 1.0]},
+        'time_durations': [1.0, 1.5, 1.5, 1.5, 1.0, 1.0, 1.0],
+        'channel': 2},
     'layer_3': {
-        'timestamps':[0, 4.5],
+        'timestamps': [0, 4.5],
         'audio_file_name': 'perc.wav',
-        'time_durations' : [4.5, 4.0]}}
+        'time_durations': [4.5, 4.0],
+        'channel': 3}}
+
+
 
 """ Quick syntax test from Ciska's code
 
@@ -128,34 +135,46 @@ pygame.init()
 
 # creates a channel for every layer
 pygame.mixer.set_num_channels(len(event_dictionary)) # Should be len(sample_settings) when implementing
-print('\n\nAmount of layers:',len(event_dictionary))
-
-
-example_list = [[1,2],[2,'bruh'],[6,'yoo'],[3,'should be third'],[4,11253.123126],[5,'should be fifth']]
-
-
+print('\n\nAmount of layers:',len(event_dictionary),'\n')
 
 ts = []
 for i in event_dictionary:
     ts += event_dictionary[i]['timestamps']
 
-def sort_timestamp(input_list):
-    print('input_list')
+
+
+
+def sort_by_timestamp(input_list):
     return input_list[0]
 
+
+
+
 def zip_own_values(input_dictionary):
-    zipped_dictionary = []
-    keys = []
-    unsorted_values = []
-    # expected number of values in a layer
-    num_layer_values = sum([len(input_dictionary[key]) for key in input_dictionary])/4
 
-    if(False in [num_layer_values == for num_layer_values in ]) == )
-        for index in range(num_layer_values):
+    # expected number of values in a layer (every layer should be the same length)
+    expected_length = int(sum([len(input_dictionary[key]) for key in input_dictionary])/4)
 
+    if(False in [(expected_length == input_dictionary[key_name]) for key_name in input_dictionary]):
+        print('All note events in cycle:')
+
+        zipped_dictionary = []
+        sort_values = []
+
+
+        for index in range(expected_length):
             values = [input_dictionary[layer][index] for layer in input_dictionary]
             print('Values of index', str(index)+':', values)
-            unsorted_values.append(values)
+            sort_values.append(values)
+
+        print('\nValues to be sorted:', '\n'+str(sort_values))
+        sort_values.sort(key=sort_by_timestamp)
+
+        print('\nSorted values:', '\n'+str(sort_values))
+
+    else:
+        print('Something went wrong, not every key has the same amount of values')
+
 
 
     # print('\n\nlisted_keys:',len(keys),'\n')
@@ -165,34 +184,137 @@ def zip_own_values(input_dictionary):
 
     return zipped_dictionary
 
-def combine_layers_and_sort():
 
-    channel = 0
 
-    all_timestamps = []
+def combine(*inputs):
+    """Combines all inputs into one list"""
+
+    print('\ninput is:',inputs)
+
+    output = [i for i in inputs][0]
+
+    print('\ntest output for lists:', [(i,isinstance(i,list)) for i in output],'\n')
+
+    if True in [isinstance(i,list) for i in output]:
+        print('!!there are still lists left in output!!')
+        return combine(output[0])
+    else:
+        print('output is:',output,'\n')
+        return output
+
+
+def combine_layers_and_sort(input_dict):
+
+    """# channel = 0
+
+    # all_timestamps = []
+    # all_time_durations =[]
+    # samples = []
+    # channels = []
+
+    # There must be a wayy better way to do this -> fix later
+    for index, layer_name in enumerate(event_dictionary):
+        # all_timestamps += event_dictionary[layer_name]['timestamps']
+        # all_time_durations += event_dictionary[layer_name]['time_durations']
+        pass"""
+
+    # input_dict = event_dictionary -> For readability
+    expected_length = len(combine([combine(input_dict[i]['timestamps']) for i in input_dict]))
+    print('Expected_length:\n',expected_length, '\n')
+
+    layers = [i for i in input_dict]
+    print('Layers:\n',layers, '\n')
+
+    key_dict = [input_dict[j] for j in layers]
+    print('Key_dict:\n',[key_dict[i]['timestamps'] for i in range(len(key_dict))], '\n')
+
+
+    key_names = [k for k in key_dict[0]]
+    print('Key_names:\n',key_names, '\n')
+
+    value_dict = [[key_dict[index][key_names[l]]
+        for l in range(len(key_names))]
+        for index in range(len(key_dict))]
+    print('Value_dict:\n',value_dict, '\n')
+
+
+
+                        #   [0,1,2,3]
+    not_combined = dict(zip([i for i in range(len(key_names))], value_dict))
+
+    not_combined[index]['samples'] = [[key_dict[index]['audio_file_name']
+        for length in [not_combined[nr]['timestamps'] for nr in range(len(layers))]
+
+        for index in range(len(layers))
+
+
+
+]
+        for i in range(len(key_dict[index]['timestamps']))]
+
+    print('Values_not_combined:')
+    [print(str(i)+':', not_combined[i]) for i in not_combined]
+    print()
+
+
+    # values
+    # samples += [event_dictionary[layer_name]['audio_file_name'] for i in event_dictionary[layer_name]['timestamps']]
+    # channels += [index for i in event_dictionary[layer_name]['timestamps']]
+
+    for i, name in enumerate(key_names):
+        combined_values = combine([values_seperate[index][i] for index in range(len(layers))])
+
+
+
+    # print('Values:\n',[[key_dict[index][key_names[l]] for l in range(len(key_names))][index] for index in range(len(key_dict))], '\n')
+
+
+    # [combine([key_dict[index][key_names[l]] for l in range(len(key_names))]) for index in range(len(key_dict))]
+
+    """# values = [combine([input_dict[k] for k in input_dict][0][l]) for l in layers]
+
+    # for l in layers:
+        # values =
+        # values = dict.fromkeys(keys, event_dict[l])[l for l in event_dict[]]
+
+    # print('\n\n',keys,'\n')
+    # values = [event_dict[layers[index]][k] for k in (keys)]
+    # timestamps
+
+    # [print(event_dict[i]) for index, i in enumerate(event_dict.values())]
+    # all_timestamps = combine()
+    # list_
+    # print('\n\ntest',[event_dict[i for i in event_dict][j] for j in event_dict[k for k in event_dict]])"""
+
     all_time_durations =[]
     samples = []
     channels = []
-    # keyname_list = []
 
-    for index, layer_name in enumerate(event_dictionary):
-        all_timestamps += event_dictionary[layer_name]['timestamps']
-        all_time_durations += event_dictionary[layer_name]['time_durations']
-        samples += [event_dictionary[layer_name]['audio_file_name'] for i in event_dictionary[layer_name]['timestamps']]
-        channels += [index for i in event_dictionary[layer_name]['timestamps']]
 
-    keyname_list = [i for i in event_dictionary[layer_name]]
-    keyname_list.append('channels')
-    combined_dictionary = dict(zip(keyname_list,[all_timestamps, samples, all_time_durations, channels]))
-    zip_dictionary = zip_own_values(combined_dictionary)
+    """
+    # for-loop above defines variable 'layer_name'.
+    # Last value of layer_name was 'layer_3' in this case.
+    # But the specific layer won't matter because they all should be the same length
+    # keyname_list = [i for i in event_dict[layers]]
+    # print('\n\ntest',[i for i in event_dictionary],'\n')
+    # print('hehhh????',x,keyname_list)
+    # keyname_list.append('channels')
+    # combined_dictionary = dict(zip(keyname_list,[all_timestamps, samples, all_time_durations, channels]))
+    # combined_dictionary = dict.fromkeys(keyname_list,[all_timestamps, samples, all_time_durations, channels])
+    # dict(zip(keyname_list,[all_timestamps, samples, all_time_durations, channels]))"""
 
-    print('\n\Combined_dictionary:\n',combined_dictionary,'\n\n')
-    print('this',keyname_list)
-    print('this',len(all_timestamps))
-    print('this',len(all_time_durations))
-    print('this',len(samples))
-    print('this',len(channels))
 
+    print('\nCombined_dictionary:\n',combined_dictionary,'\n\n')
+
+    # zipped_dictionary = zip_own_values(combined_dictionary)
+
+    # print('this',keyname_list)
+    # print('this',len(all_timestamps))
+    # print('this',len(all_time_durations))
+    # print('this',len(samples))
+    # print('this',len(channels))
+
+    return zipped_dictionary
 
     # sorted_event = dict(sort_event_list)
 
@@ -206,7 +328,6 @@ def combine_layers_and_sort():
 
     # sorted_event.sort(key=sort_timestamp)
 
-    return zip_dictionary
 
 # event_dictionary['old'] = len(ts)
 
@@ -214,10 +335,10 @@ def combine_layers_and_sort():
 # channel = pygame.mixer.Channel(index)
 
 
+event = combine_layers_and_sort(event_dictionary)
 
-old = len(ts)
+"""old = len(ts)
 
-event = combine_layers_and_sort()
 time_zero = time.time()
 
 if ts:
@@ -243,17 +364,17 @@ while True:
                 print('No timestamps left -> exit program')
                 break
 
-    time.sleep(0.001)
+    time.sleep(0.001)"""
 
 # event_player = [start_timestamp_player]*len(event_dictionary)
 
-# for index, layer in enumerate(event_dictionary):
+"""# for index, layer in enumerate(event_dictionary):
 #     print('List of Parameters for',str(layer)+':')
 #     print('- Audio File Name:\n'+event_dictionary[layer]['audio_file_name'],'\n')
 #     print('- Timestamps:','\n'+str(event_dictionary[layer]['timestamps']))
 #     print('- Time Durations:\n'+str(time_durations[layer]))
 #     print('- Channel Number:',index)
-    # start_timestamp_player(event_dictionary[layer]['audio_file_name'], event_dictionary[layer]['timestamps'], time_durations['layer_0'], index)
+    # start_timestamp_player(event_dictionary[layer]['audio_file_name'], event_dictionary[layer]['timestamps'], time_durations['layer_0'], index)"""
 
 
 
@@ -261,4 +382,7 @@ while True:
 Exit function:              https://www.geeksforgeeks.org/python/python-exit-commands-quit-exit-sys-exit-and-os-_exit/
 Find available channel:     https://www.pygame.org/docs/ref/mixer.html#pygame.mixer.find_channel
 Run functions in parallel:  https://stackoverflow.com/questions/7207309/how-to-run-functions-in-parallel
+.fromkeys dict method:      https://www.geeksforgeeks.org/python/python-dictionary-fromkeys-method/
+.extend list method:        https://www.geeksforgeeks.org/python/python-list-extend-method/
+isinstance function:        https://www.w3schools.com/python/ref_func_isinstance.asp
 """

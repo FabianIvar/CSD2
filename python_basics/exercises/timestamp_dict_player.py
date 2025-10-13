@@ -180,47 +180,46 @@ def zip_own_values(input_dictionary): #give expected_length as input
 def combine(*inputs):
     """Combines all inputs into one list"""
 
-    print('\ninput is:\n',inputs, '\nType', type(inputs), len(inputs))
+    # print('\ninput is:\n',inputs, '\nType', type(inputs), len(inputs))
 
-    print('\ncheck if list in:\n',[[i for i in inputs[j]] for j in range(len(inputs))][0])
+    # print('\ncheck if input is a list:\n',inputs[0], '\nType', type(inputs[0]))
+
+    if isinstance(inputs[0],int):
+        # print("\ninput is an int and can't be combined:\n\noutput is:\n",inputs[0])
+        return list(inputs)
+
+    # print('\ncheck if list in:\n',[[i for i in inputs[j]] for j in range(len(inputs))][0])
 
     if False in [isinstance(value, list) for value in [[lists
         for lists in inputs[tuple_number]]
             for tuple_number in range(len(inputs))][0]]:
 
-        print('\nno lists in inputs...\ncheck if inputs are in a tuple:\n',type(inputs),'\n', inputs)
+        # print('\nno lists in inputs...\ncheck if inputs are in a tuple:\n',type(inputs),'\n', inputs)
         if isinstance(inputs, tuple):
             inputs = list(inputs)[0]
-            print('\ninput was in tuple,\n remove tuple\n return:', inputs)
+            # print('\ninput was in tuple,\n remove tuple\n return:', inputs)
             return inputs
         else:
-            print('!!something went wrong!!')
+            # print('!!something went wrong!!')
             return inputs
 
-    print('\nfound at least one list!')
+    # print('\nfound at least one list!')
 
     output = []
 
     for j in range(len(inputs)):
         for i in inputs[j]:
             output.extend(i)
-        print('\ntemporary output is:\n',type(output),'\n', output)
+        # print('\ntemporary output is:\n',type(output),'\n', output)
 
-    print('\noutput is:\n',type(output),'\n', output)
+    # print('\noutput is:\n',type(output),'\n', output)
     return output
-
-combine([[1,2,3,4],[5,6,7,8]])
 
 def combine_layers_and_sort():
 
     # input_dict = event_dictionary -> For readability
     input_dict = event_dictionary
     print('\ninput_dict:\n',input_dict, '\n')
-
-
-    # expected number of values in a layer (every layer should be the same length)
-    expected_length = sum([len(input_dict[layer]['time_durations']) for layer in input_dict])
-    print('Expected_length:\n',expected_length, '\n')
 
     print('Layers:\n',[i for i in input_dict], '\n')
 
@@ -240,36 +239,77 @@ def combine_layers_and_sort():
 
     key = [i for i in range(len(all_values[0]))]
     all_combined_lengths = {}
+    combined_dict = {}
+    combined_layer_dict = {}
 
     # test = []
     for index, name in enumerate(key_names):
-        combined_dict = dict(zip(key, all_values[index]))
-        print('\n\ncombined_dict:\n',combined_dict)
-        # test += [combined_dict[i] for i in combined_dict][index]
-        print('\ndict values:\n',[combined_dict[i] for i in range(len(combined_dict))])
-        print('\nlength of current dict:\n',len(combine([combined_dict[i] for i in range(len(combined_dict))])))
+        combined_layer_dict[name] = dict(zip(key, all_values[index]))
+        combined_dict[name] = combine(list(combined_layer_dict[name].values()))
+        # test += [combined_layer_dict[i] for i in combined_layer_dict][index]
+        print('\ndict values:\n',[combined_layer_dict[name][i] for i in range(len(combined_layer_dict[name]))])
+        print('\nlength of current dict:\n',len(combine([combined_layer_dict[name][i] for i in range(len(combined_layer_dict[name]))])))
 
-        all_combined_lengths[name] = len(combine([combined_dict[i] for i in range(len(combined_dict))]))
-    # print('\n\ntest:\n',test)
+        all_combined_lengths[name] = len(combine([combined_layer_dict[name][i]
+            for i in range(len(combined_layer_dict[name]))]))
 
+    print('\n\ncombined_layer_dict:\n',combined_layer_dict)
+
+    print('\n--->all_combined_lengths:\n',all_combined_lengths)
+
+    print('\n\ncombined_dict:\n',combined_dict)
+
+    # expected number of values in a layer (every layer should be the same length)
+    expected_length = max([all_combined_lengths[i] for i in all_combined_lengths])
+    print('\n\n expected_length:\n',expected_length)
+
+    names_below_expected = [key_name
+        for key_name in all_combined_lengths
+        if all_combined_lengths[key_name] != expected_length]
+
+    print('\n\n names_below_expected:\n',names_below_expected)
+
+    """ test:
+    Assigning a new value to an existing key overwrites the values stored in this key.
+    did a test:
+    ========================================================================
+    >>> dict1 = dict.fromkeys(['a','b','c','d'], [1,2,3,4])
+    >>> dict1['a'] = 'test if this works'
+    >>> dict1
+    {'a': 'test if this works', 'b': [1, 2, 3, 4], 'c': [1, 2, 3, 4], 'd': [1, 2, 3, 4]}
+    ========================================================================
+    """
+
+    print('------------\n',list(combined_layer_dict[name].keys()))
+
+    #keyname to base expected layer length off of
+    length_keyname = [name for name in all_combined_lengths if all_combined_lengths[name] == expected_length][0]
+    print('length_keyname\n',length_keyname)
+
+    layer_lengths = [len(length) for length in [combined_layer_dict[length_keyname][i] for i in range(len(combined_layer_dict))]]
+
+    print('layer_lengths:',layer_lengths)
+
+    for name in names_below_expected: #loopt 2x (voor audio_file en channel)
+        values_to_add = []
+        for index, layer in enumerate(combined_dict): #loopt 4x (voor elke layer)
+            values_to_add += [combined_dict[name][index] for number in range(layer_lengths[index])]
+
+            print('------------\n',combined_layer_dict[name][index])
+
+        combined_dict[name] = values_to_add
+
+    print('\nHERE------------combined_dict:\n',combined_dict)
     exit()
 
-        # combined_layer_length = sum([len([value
-        #     for value in combined_dict[str(num)]])
-        #     for num in combined_dict])
-
-    print('\ncombined_layer_length:\n',combined_layer_length)
-    all_combined_lengths[name] = combined_layer_length
-
-    print('combined_lengths:',all_combined_lengths)
+    print('\ncombined_dict:\n',combined_dict)
 
 
 
 
 
 
-
-    # print('\n[value for value in combined_dict[num]]:',[value for value in combined_dict[0]],'\n')
+    # print('\n[value for value in combined_layer_dict[num]]:',[value for value in combined_dict[0]],'\n')
 
     # [print(str('Combined_Length')+':', combined_length[i]) for i in key_names]
 
@@ -285,15 +325,14 @@ def combine_layers_and_sort():
 
     # print('combined_length:',combined_length,'\n')
 
-    below_expected = [[name for name in enumerate(key_names) if combined_length[index] < expected_length]
-        for index in range(len(key_names))]
+
 
     print('below_expected:',below_expected)
-
-    values_to_add = []
-    for value in below_expected:
-        print('value to add',value)
-        values_to_add += [key_names.pop(value)] # maybe for all values less than expected_length
+    #
+    # values_to_add = []
+    # for value in below_expected:
+    #     print('value to add',value)
+    #     values_to_add += [key_names.pop(value)] # maybe for all values less than expected_length
 
 
 
@@ -309,9 +348,7 @@ def combine_layers_and_sort():
     #     for layer in input_dict]
     #     for number in range(expected_length)]
 
-    for value in values_to_be_added:
-        for index, layer in enumerate(input_dict):
-            value_dict[index].append([input_dict[layer][value] for number in range(expected_length)])
+
 
 
     print('Value_dict with values added:',value_dict)

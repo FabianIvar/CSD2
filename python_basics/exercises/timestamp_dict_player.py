@@ -150,10 +150,7 @@ def sort_by_timestamp(input_list):
 
 
 
-def zip_own_values(input_dictionary):
-
-    # expected number of values in a layer (every layer should be the same length)
-    expected_length = int(sum([len(input_dictionary[key]) for key in input_dictionary])/4)
+def zip_own_values(input_dictionary): #give expected_length as input
 
     if(False in [(expected_length == input_dictionary[key_name]) for key_name in input_dictionary]):
         print('All note events in cycle:')
@@ -184,8 +181,6 @@ def zip_own_values(input_dictionary):
 
     return zipped_dictionary
 
-
-
 def combine(*inputs):
     """Combines all inputs into one list"""
 
@@ -204,65 +199,87 @@ def combine(*inputs):
 
 
 def combine_layers_and_sort(input_dict):
-
-    """# channel = 0
-
-    # all_timestamps = []
-    # all_time_durations =[]
-    # samples = []
-    # channels = []
-
-    # There must be a wayy better way to do this -> fix later
-    for index, layer_name in enumerate(event_dictionary):
-        # all_timestamps += event_dictionary[layer_name]['timestamps']
-        # all_time_durations += event_dictionary[layer_name]['time_durations']
-        pass"""
-
     # input_dict = event_dictionary -> For readability
-    expected_length = len(combine([combine(input_dict[i]['timestamps']) for i in input_dict]))
+
+    # expected number of values in a layer (every layer should be the same length)
+    expected_length = sum([len(input_dict[layer]['timestamps']) for layer in input_dict])
     print('Expected_length:\n',expected_length, '\n')
 
-    layers = [i for i in input_dict]
-    print('Layers:\n',layers, '\n')
+    print('Layers:\n',[i for i in input_dict], '\n')
 
-    key_dict = [input_dict[j] for j in layers]
-    print('Key_dict:\n',[key_dict[i]['timestamps'] for i in range(len(key_dict))], '\n')
+    key_dict = [input_dict[j] for j in input_dict]
+    print('Key_dict:\n',key_dict, '\n')
+    # print('Key_dict:\n',[key_dict[i]['timestamps'] for i in range(len(key_dict))], '\n')
 
-
-    key_names = [k for k in key_dict[0]]
+    key_names = [name for name in key_dict[0]]
     print('Key_names:\n',key_names, '\n')
 
-    value_dict = [[key_dict[index][key_names[l]]
-        for l in range(len(key_names))]
-        for index in range(len(key_dict))]
+
+    combined_length = dict.fromkeys(key_names,[[input_dict[layer][name]
+        for layer in input_dict]
+        for name in key_names])
+
+    print()
+    print()
+    [print(str('Combined_Length')+':', combined_length[i]) for i in key_names]
+
+    test = []
+    for k in range(len(input_dict)):
+        for index in range(len(combined_length[i][k])):
+            test += [combined_length[name][index] for name in key_names]  #bug in combine
+    print()
+    print()
+    print('test',test)
+    exit()
+    # for layer in input_dict:
+    #     for name in key_names:
+    #         combined_length.append(sum(len([input_dict[layer][name]])))
+
+    # print('combined_length:',combined_length,'\n')
+
+    below_expected = [[name for name in enumerate(key_names) if combined_length[index] < expected_length]
+        for index in range(len(key_names))]
+
+    print('below_expected:',below_expected)
+
+    values_to_add = []
+    for value in below_expected:
+        print('value',value)
+        values_to_add += [key_names.pop(value)] # maybe for all values less than expected_length
+
+    value_dict = [[input_dict[layer][name]
+        for name in key_names]
+        for layer in input_dict]
     print('Value_dict:\n',value_dict, '\n')
-
-
-
                         #   [0,1,2,3]
-    not_combined = dict(zip([i for i in range(len(key_names))], value_dict))
+    # not_combined = dict(zip([i for i in range(len(key_names))], value_dict))
+    # print('not_combined:\n',not_combined, '\n')
+    # for index in range(len(not_)):
+    # not_combined[index] = [[[input_dict[layer]['audio_file_name']
+    #     for layer in input_dict]
+    #     for number in range(expected_length)]
 
-    not_combined[index]['samples'] = [[key_dict[index]['audio_file_name']
-        for length in [not_combined[nr]['timestamps'] for nr in range(len(layers))]
-
-        for index in range(len(layers))
-
+    for value in values_to_be_added:
+        for index, layer in enumerate(input_dict):
+            value_dict[index].append([input_dict[layer][value] for number in range(expected_length)])
 
 
-]
-        for i in range(len(key_dict[index]['timestamps']))]
+    print('Value_dict with values added:',value_dict)
 
     print('Values_not_combined:')
-    [print(str(i)+':', not_combined[i]) for i in not_combined]
-    print()
+    [print(str(i)+':', not_combined[i],'\n') for i in not_combined]
+
+        # for i in range(len(key_dict[index]['timestamps']))]
+    #
+    # [print(str(i)+':', not_combined[i]) for i in not_combined]
+    # print()
 
 
     # values
     # samples += [event_dictionary[layer_name]['audio_file_name'] for i in event_dictionary[layer_name]['timestamps']]
     # channels += [index for i in event_dictionary[layer_name]['timestamps']]
 
-    for i, name in enumerate(key_names):
-        combined_values = combine([values_seperate[index][i] for index in range(len(layers))])
+
 
 
 
@@ -286,9 +303,9 @@ def combine_layers_and_sort(input_dict):
     # list_
     # print('\n\ntest',[event_dict[i for i in event_dict][j] for j in event_dict[k for k in event_dict]])"""
 
-    all_time_durations =[]
-    samples = []
-    channels = []
+    # all_time_durations =[]
+    # samples = []
+    # channels = []
 
 
     """

@@ -1,7 +1,9 @@
 # plays timestamps out of a dictionary once
 import pygame
 import time
+import itertools
 from multiprocessing import Process
+
 
 # sum(duration_sequence)*quarter_note = cycle_time in seconds in this case 8.5
 cycle_time = 8.5
@@ -31,8 +33,6 @@ event_dictionary = {
         'audio_file_name': 'perc.wav',
         'time_durations': [4.5, 4.0],
         'channel': 3}}
-
-
 
 """ Quick syntax test from Ciska's code
 
@@ -69,9 +69,7 @@ def retrieve_timestamp(layer_name, playback_pos):
         print(layer_name,'has no timestamps left.'+'\n'+'something went wrong...')
         # return 'cycle_finished' # for looping maybe playback_position = 0?"""
 
-
 # print("time zero:", time_zero,'\n')
-
 
 """while playback_position < cycle_duration:
     current_time = time.time() - time_zero
@@ -147,11 +145,9 @@ for i in event_dictionary:
 def sort_by_timestamp(input_list):
     return input_list[0]
 
-
-
-
 def zip_own_values(input_dictionary): #give expected_length as input
 
+    expected_length = 31
     if(False in [(expected_length == input_dictionary[key_name]) for key_name in input_dictionary]):
         print('All note events in cycle:')
 
@@ -184,25 +180,46 @@ def zip_own_values(input_dictionary): #give expected_length as input
 def combine(*inputs):
     """Combines all inputs into one list"""
 
-    print('\ninput is:',inputs)
+    print('\ninput is:\n',inputs, '\nType', type(inputs), len(inputs))
 
-    output = [i for i in inputs][0]
+    print('\ncheck if list in:\n',[[i for i in inputs[j]] for j in range(len(inputs))][0])
 
-    print('\ntest output for lists:', [(i,isinstance(i,list)) for i in output],'\n')
+    if False in [isinstance(value, list) for value in [[lists
+        for lists in inputs[tuple_number]]
+            for tuple_number in range(len(inputs))][0]]:
 
-    if True in [isinstance(i,list) for i in output]:
-        print('!!there are still lists left in output!!')
-        return combine(output[0])
-    else:
-        print('output is:',output,'\n')
-        return output
+        print('\nno lists in inputs...\ncheck if inputs are in a tuple:\n',type(inputs),'\n', inputs)
+        if isinstance(inputs, tuple):
+            inputs = list(inputs)[0]
+            print('\ninput was in tuple,\n remove tuple\n return:', inputs)
+            return inputs
+        else:
+            print('!!something went wrong!!')
+            return inputs
 
+    print('\nfound at least one list!')
 
-def combine_layers_and_sort(input_dict):
+    output = []
+
+    for j in range(len(inputs)):
+        for i in inputs[j]:
+            output.extend(i)
+        print('\ntemporary output is:\n',type(output),'\n', output)
+
+    print('\noutput is:\n',type(output),'\n', output)
+    return output
+
+combine([[1,2,3,4],[5,6,7,8]])
+
+def combine_layers_and_sort():
+
     # input_dict = event_dictionary -> For readability
+    input_dict = event_dictionary
+    print('\ninput_dict:\n',input_dict, '\n')
+
 
     # expected number of values in a layer (every layer should be the same length)
-    expected_length = sum([len(input_dict[layer]['timestamps']) for layer in input_dict])
+    expected_length = sum([len(input_dict[layer]['time_durations']) for layer in input_dict])
     print('Expected_length:\n',expected_length, '\n')
 
     print('Layers:\n',[i for i in input_dict], '\n')
@@ -214,23 +231,54 @@ def combine_layers_and_sort(input_dict):
     key_names = [name for name in key_dict[0]]
     print('Key_names:\n',key_names, '\n')
 
-
-    combined_length = dict.fromkeys(key_names,[[input_dict[layer][name]
+    # everytime I use list comprehension it puts everything in another list. I do [0] to fix this
+    all_values = [[[input_dict[layer][name]
         for layer in input_dict]
-        for name in key_names])
+        for name in key_names]][0]
 
-    print()
-    print()
-    [print(str('Combined_Length')+':', combined_length[i]) for i in key_names]
+    print('\nall_values:\n',all_values,'\n\n',all_values[0])
 
-    test = []
-    for k in range(len(input_dict)):
-        for index in range(len(combined_length[i][k])):
-            test += [combined_length[name][index] for name in key_names]  #bug in combine
-    print()
-    print()
-    print('test',test)
+    key = [i for i in range(len(all_values[0]))]
+    all_combined_lengths = {}
+
+    # test = []
+    for index, name in enumerate(key_names):
+        combined_dict = dict(zip(key, all_values[index]))
+        print('\n\ncombined_dict:\n',combined_dict)
+        # test += [combined_dict[i] for i in combined_dict][index]
+        print('\ndict values:\n',[combined_dict[i] for i in range(len(combined_dict))])
+        print('\nlength of current dict:\n',len(combine([combined_dict[i] for i in range(len(combined_dict))])))
+
+        all_combined_lengths[name] = len(combine([combined_dict[i] for i in range(len(combined_dict))]))
+    # print('\n\ntest:\n',test)
+
     exit()
+
+        # combined_layer_length = sum([len([value
+        #     for value in combined_dict[str(num)]])
+        #     for num in combined_dict])
+
+    print('\ncombined_layer_length:\n',combined_layer_length)
+    all_combined_lengths[name] = combined_layer_length
+
+    print('combined_lengths:',all_combined_lengths)
+
+
+
+
+
+
+
+    # print('\n[value for value in combined_dict[num]]:',[value for value in combined_dict[0]],'\n')
+
+    # [print(str('Combined_Length')+':', combined_length[i]) for i in key_names]
+
+    # test = []
+    # for index in range(len([combined_length[i] for i in key_names])):
+    #     test += [combined_length[index] for name in key_names]  #bug in combine
+
+    print()
+    print('test:\n',test)
     # for layer in input_dict:
     #     for name in key_names:
     #         combined_length.append(sum(len([input_dict[layer][name]])))
@@ -244,8 +292,10 @@ def combine_layers_and_sort(input_dict):
 
     values_to_add = []
     for value in below_expected:
-        print('value',value)
+        print('value to add',value)
         values_to_add += [key_names.pop(value)] # maybe for all values less than expected_length
+
+
 
     value_dict = [[input_dict[layer][name]
         for name in key_names]
@@ -317,7 +367,6 @@ def combine_layers_and_sort(input_dict):
     # print('hehhh????',x,keyname_list)
     # keyname_list.append('channels')
     # combined_dictionary = dict(zip(keyname_list,[all_timestamps, samples, all_time_durations, channels]))
-    # combined_dictionary = dict.fromkeys(keyname_list,[all_timestamps, samples, all_time_durations, channels])
     # dict(zip(keyname_list,[all_timestamps, samples, all_time_durations, channels]))"""
 
 
@@ -352,7 +401,7 @@ def combine_layers_and_sort(input_dict):
 # channel = pygame.mixer.Channel(index)
 
 
-event = combine_layers_and_sort(event_dictionary)
+event = combine_layers_and_sort()
 
 """old = len(ts)
 

@@ -2,6 +2,10 @@
 from pygame import mixer
 import time
 
+"""Discovered a bug with rotation:
+my rotate function rotates durations,
+so all layers always start at timestamp 0,
+might sound kinda boring so look into this maybe"""
 
 # sum(duration_sequence)*quarter_note = cycle_time in seconds in this case 8.5
 cycle_time = 8.5
@@ -54,78 +58,6 @@ True
 emtpy list makes if statement run the code after else:
 
 """
-
-"""
-def retrieve_timestamp(layer_name, playback_pos):
-
-    timestamp_list = event_dictionary[layer_name]['timestamp']
-    # e.g. [0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.5, 4.5, 5.0, 5.5, 6.0, 6.5, 7.0, 7.5, 8.0]
-
-    if playback_pos < cycle_duration:
-        return timestamp_list[playback_pos]
-    else:
-        print(layer_name,'has no timestamps left.'+'\n'+'something went wrong...')
-        # return 'cycle_finished' # for looping maybe playback_position = 0?"""
-
-# print("time zero:", time_zero,'\n')
-
-"""while playback_position < cycle_duration:
-    current_time = time.time() - time_zero
-
-    for index, layer_name in enumerate(event_dictionary):
-
-        inactive_channel = pygame.mixer.find_channel(force = True)
-        current_sample = pygame.mixer.Sound('assets/soundFiles/'+event_dictionary[layer_name]['sound'])
-        current_timestamp = event_dictionary[layer_name]['timestamp'][playback_position]
-
-
-        if(current_time >= event_dictionary[layer_name]['timestamp'][playback_position]):
-
-            play_time = int(time_durations[layer_name][playback_position]*1000)
-            inactive_channel.play(current_sample, maxtime = play_time)
-    playback_position += 1
-    # print('playback_position',playback_position)
-    print('\n\nCurrent Timestamp: '+str(current_timestamp),'\nCurrent Sample: '+event_dictionary[layer_name]['sound'],'\nPlayback Position:', playback_position,'\n')
-else:
-    time.sleep(max([max(time_durations[layer_name]) for layer_name in time_durations]))
-    print('length of longest sample:',max([max(time_durations[layer_name]) for layer_name in time_durations]))
-    exit()"""
-
-
-#first only one layer
-
-"""for layer in event_dictionary:
-    time_zero = time.time()
-    layer_timestamps = event_dictionary[layer]['timestamp']
-    playback_position = 0
-
-    print('Current layer is:', layer)
-    print("Time zero is:", time_zero,'\n')
-
-    if layer_timestamps:
-        ts = layer_timestamps.pop(0)
-    else:
-        continue
-
-
-    while playback_position < cycle_duration:
-        now = time.time() - time_zero
-
-        channel = pygame.mixer.find_channel(force = True)
-        sample = pygame.mixer.Sound('assets/soundFiles/'+event_dictionary[layer]['sound'])
-
-        if(now >= ts):
-            print('now:',now)
-            channel.play(sample)
-            if layer_timestamps:
-                ts = layer_timestamps.pop(0)
-            else:
-                break
-
-        time.sleep(0.001)
-else:
-    print('No timestamps left -> exit program')
-    exit()"""
 
 mixer.init()
 
@@ -303,47 +235,26 @@ event = convert_to_events(combined_dictionary[0], expected_length)
 
 print('\n|=------------=(NOTE_EVENTS)=------------=|\n  evnt_num | ts | sample | dur_sec | chan')
 [print('|-----------------------------------------|\n',i, event[i]) for i in event]
+print()
+
 
 # player :) finally
-
-# pos stands for playback position -> decides what event to play
-
-# old = len(ts)
-
-
-# if ts:
-#     timestamp = ts.pop(0)
-# else:
-#     print('No timestamps left -> exit program')
-#     exit()
 
 # pos stands for playback position
 pos = 0
 time_zero = time.time()
 
-# enable_check = input('check? y/N')
-
-# time.sleep(1)
-# mixer.Sound('assets/soundFiles/kick.wav').play()
-
 while pos < expected_length:
 
-    # channel = pygame.mixer.Channel(event[pos][3])
+    # channel = pygame.mixer.Channel(event[pos][3]) # !!!mixer.find_channel()!!!
     # sample = pygame.mixer.Sound('assets/soundFiles/'+event[pos][1])
 
     # For readability
     timestamp = event[pos][0]
     sample = mixer.Sound('assets/soundFiles/'+event[pos][1])
     play_time = event[pos][2]
+    # maybe just make a whole bunch of channels and let it pick a free one by itsel, at higher bpms soudfiles still overlap
     channel = mixer.Channel(event[pos][3])
-
-    # print(pos)
-    # print(pos,event[pos][0],event[pos][1],event[pos][3])
-
-    # if enable_check == 'y':
-    #     print(pos,timestamp,sample,channel)
-    #     time.sleep(0.1)
-    #     pos += 1
 
     now = time.time() - time_zero
 
@@ -351,27 +262,16 @@ while pos < expected_length:
         # print(sound_file,'played at',now)
 
         channel.play(sample)
-        print('playing:',sample, '\nat timestamp:',pos)
+        print(timestamp,'|',event[pos][1])
         pos += 1
 
     time.sleep(0.001)
 
-
-        # timestamp = ts.pop(0)
+print()
+while channel.get_busy():
+    time.sleep(0.001)
 else:
-    if(not channel.get_busy()):
-        print('No timestamps left -> exit program')
-
-
-# event_player = [start_timestamp_player]*len(event_dictionary)
-
-"""# for index, layer in enumerate(event_dictionary):
-#     print('List of Parameters for',str(layer)+':')
-#     print('- Audio File Name:\n'+event_dictionary[layer]['audio_file_name'],'\n')
-#     print('- Timestamps:','\n'+str(event_dictionary[layer]['timestamps']))
-#     print('- Time Durations:\n'+str(time_durations[layer]))
-#     print('- Channel Number:',index)
-    # start_timestamp_player(event_dictionary[layer]['audio_file_name'], event_dictionary[layer]['timestamps'], time_durations['layer_0'], index)"""
+print('\nNo timestamps left -> exit player')
 
 """ Sources
 Exit function:              https://www.geeksforgeeks.org/python/python-exit-commands-quit-exit-sys-exit-and-os-_exit/

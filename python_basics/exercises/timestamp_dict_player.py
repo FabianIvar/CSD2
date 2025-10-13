@@ -1,8 +1,6 @@
 # plays timestamps out of a dictionary once
-import pygame
+from pygame import mixer
 import time
-import itertools
-from multiprocessing import Process
 
 
 # sum(duration_sequence)*quarter_note = cycle_time in seconds in this case 8.5
@@ -129,53 +127,40 @@ else:
     print('No timestamps left -> exit program')
     exit()"""
 
-pygame.init()
+mixer.init()
 
 # creates a channel for every layer
-pygame.mixer.set_num_channels(len(event_dictionary)) # Should be len(sample_settings) when implementing
+mixer.set_num_channels(len(event_dictionary)) # Should be len(sample_settings) when implementing
 print('\n\nAmount of layers:',len(event_dictionary),'\n')
-
-ts = []
-for i in event_dictionary:
-    ts += event_dictionary[i]['timestamps']
-
-
-
 
 def sort_by_timestamp(input_list):
     return input_list[0]
 
-def zip_own_values(input_dictionary): #give expected_length as input
+def convert_to_events(zip_dict, expected_length): #give expected_length as input
 
-    expected_length = 31
-    if(False in [(expected_length == input_dictionary[key_name]) for key_name in input_dictionary]):
-        print('All note events in cycle:')
+    if(False in [(expected_length == zip_dict[key_name]) for key_name in zip_dict]):
+        print('\n\n================ZIP_OWN_DICT================\n\nAll note events in cycle:')
 
-        zipped_dictionary = []
-        sort_values = []
-
+        sorted_values = []
 
         for index in range(expected_length):
-            values = [input_dictionary[layer][index] for layer in input_dictionary]
+            values = [zip_dict[layer][index] for layer in zip_dict]
             print('Values of index', str(index)+':', values)
-            sort_values.append(values)
+            sorted_values.append(values)
 
-        print('\nValues to be sorted:', '\n'+str(sort_values))
-        sort_values.sort(key=sort_by_timestamp)
+        print('\nValues to be sorted:', '\n'+str(sorted_values))
+        sorted_values.sort(key=sort_by_timestamp)
 
-        print('\nSorted values:', '\n'+str(sort_values))
+        print('\nSorted values:', '\n'+str(sorted_values))
 
     else:
         print('Something went wrong, not every key has the same amount of values')
 
+    zipped_dict = dict(zip([index for index in range(len(sorted_values))],sorted_values))
 
+    print('\nzipped_dict:','\n'+str(zipped_dict))
 
-    # print('\n\nlisted_keys:',len(keys),'\n')
-    # print('\n\nZIPPED DICTIONARY:',zipped_dictionary)
-
-    # zipped_dictionary = {k:v for (k,v) in zip(keys, values)}
-
-    return zipped_dictionary
+    return zipped_dict
 
 def combine(*inputs):
     """Combines all inputs into one list"""
@@ -215,19 +200,22 @@ def combine(*inputs):
     # print('\noutput is:\n',type(output),'\n', output)
     return output
 
-def combine_layers_and_sort():
+def combine_layers():
 
     # input_dict = event_dictionary -> For readability
     input_dict = event_dictionary
     print('\ninput_dict:\n',input_dict, '\n')
 
-    print('Layers:\n',[i for i in input_dict], '\n')
+    print('Layers:\n',[i
+        for i in input_dict], '\n')
 
-    key_dict = [input_dict[j] for j in input_dict]
+    key_dict = [input_dict[j]
+        for j in input_dict]
     print('Key_dict:\n',key_dict, '\n')
     # print('Key_dict:\n',[key_dict[i]['timestamps'] for i in range(len(key_dict))], '\n')
 
-    key_names = [name for name in key_dict[0]]
+    key_names = [name
+        for name in key_dict[0]]
     print('Key_names:\n',key_names, '\n')
 
     # everytime I use list comprehension it puts everything in another list. I do [0] to fix this
@@ -254,19 +242,17 @@ def combine_layers_and_sort():
             for i in range(len(combined_layer_dict[name]))]))
 
     print('\n\ncombined_layer_dict:\n',combined_layer_dict)
-
     print('\n--->all_combined_lengths:\n',all_combined_lengths)
-
     print('\n\ncombined_dict:\n',combined_dict)
 
     # expected number of values in a layer (every layer should be the same length)
-    expected_length = max([all_combined_lengths[i] for i in all_combined_lengths])
+    expected_length = max([all_combined_lengths[i]
+        for i in all_combined_lengths])
     print('\n\n expected_length:\n',expected_length)
 
     names_below_expected = [key_name
         for key_name in all_combined_lengths
         if all_combined_lengths[key_name] != expected_length]
-
     print('\n\n names_below_expected:\n',names_below_expected)
 
     """ test:
@@ -282,192 +268,100 @@ def combine_layers_and_sort():
 
     print('------------\n',list(combined_layer_dict[name].keys()))
 
-    #keyname to base expected layer length off of
-    length_keyname = [name for name in all_combined_lengths if all_combined_lengths[name] == expected_length][0]
+    #keyname to base expected layer lengths off of
+    """length_keyname might not always be at the same index in a list..
+    maybe fix later? very low priority"""
+    length_keyname = [name
+        for name in all_combined_lengths if all_combined_lengths[name] == expected_length][0]
     print('length_keyname\n',length_keyname)
 
-    layer_lengths = [len(length) for length in [combined_layer_dict[length_keyname][i] for i in range(len(combined_layer_dict))]]
+    layer_lengths = [len(length)
+        for length in [combined_layer_dict[length_keyname][i]
+        for i in range(len(combined_layer_dict))]]
 
     print('layer_lengths:',layer_lengths)
 
-    for name in names_below_expected: #loopt 2x (voor audio_file en channel)
+    for name in names_below_expected:
         values_to_add = []
-        for index, layer in enumerate(combined_dict): #loopt 4x (voor elke layer)
+        for index, layer in enumerate(combined_dict):
             values_to_add += [combined_dict[name][index] for number in range(layer_lengths[index])]
 
             print('------------\n',combined_layer_dict[name][index])
 
         combined_dict[name] = values_to_add
 
-    print('\nHERE------------combined_dict:\n',combined_dict)
-    exit()
-
     print('\ncombined_dict:\n',combined_dict)
 
+    return [combined_dict,expected_length]
+    # zipped_dictionary = convert_to_events(combined_dict, expected_length)
+
+combined_dictionary = combine_layers()
+# index 1 = expected amount of values of each key in the dict
+expected_length = combined_dictionary[1]
+# index 0 = the combined_dictionary
+event = convert_to_events(combined_dictionary[0], expected_length)
+
+print('\n|=------------=(NOTE_EVENTS)=------------=|\n  evnt_num | ts | sample | dur_sec | chan')
+[print('|-----------------------------------------|\n',i, event[i]) for i in event]
+
+# player :) finally
+
+# pos stands for playback position -> decides what event to play
+
+# old = len(ts)
 
 
+# if ts:
+#     timestamp = ts.pop(0)
+# else:
+#     print('No timestamps left -> exit program')
+#     exit()
 
-
-
-    # print('\n[value for value in combined_layer_dict[num]]:',[value for value in combined_dict[0]],'\n')
-
-    # [print(str('Combined_Length')+':', combined_length[i]) for i in key_names]
-
-    # test = []
-    # for index in range(len([combined_length[i] for i in key_names])):
-    #     test += [combined_length[index] for name in key_names]  #bug in combine
-
-    print()
-    print('test:\n',test)
-    # for layer in input_dict:
-    #     for name in key_names:
-    #         combined_length.append(sum(len([input_dict[layer][name]])))
-
-    # print('combined_length:',combined_length,'\n')
-
-
-
-    print('below_expected:',below_expected)
-    #
-    # values_to_add = []
-    # for value in below_expected:
-    #     print('value to add',value)
-    #     values_to_add += [key_names.pop(value)] # maybe for all values less than expected_length
-
-
-
-    value_dict = [[input_dict[layer][name]
-        for name in key_names]
-        for layer in input_dict]
-    print('Value_dict:\n',value_dict, '\n')
-                        #   [0,1,2,3]
-    # not_combined = dict(zip([i for i in range(len(key_names))], value_dict))
-    # print('not_combined:\n',not_combined, '\n')
-    # for index in range(len(not_)):
-    # not_combined[index] = [[[input_dict[layer]['audio_file_name']
-    #     for layer in input_dict]
-    #     for number in range(expected_length)]
-
-
-
-
-    print('Value_dict with values added:',value_dict)
-
-    print('Values_not_combined:')
-    [print(str(i)+':', not_combined[i],'\n') for i in not_combined]
-
-        # for i in range(len(key_dict[index]['timestamps']))]
-    #
-    # [print(str(i)+':', not_combined[i]) for i in not_combined]
-    # print()
-
-
-    # values
-    # samples += [event_dictionary[layer_name]['audio_file_name'] for i in event_dictionary[layer_name]['timestamps']]
-    # channels += [index for i in event_dictionary[layer_name]['timestamps']]
-
-
-
-
-
-    # print('Values:\n',[[key_dict[index][key_names[l]] for l in range(len(key_names))][index] for index in range(len(key_dict))], '\n')
-
-
-    # [combine([key_dict[index][key_names[l]] for l in range(len(key_names))]) for index in range(len(key_dict))]
-
-    """# values = [combine([input_dict[k] for k in input_dict][0][l]) for l in layers]
-
-    # for l in layers:
-        # values =
-        # values = dict.fromkeys(keys, event_dict[l])[l for l in event_dict[]]
-
-    # print('\n\n',keys,'\n')
-    # values = [event_dict[layers[index]][k] for k in (keys)]
-    # timestamps
-
-    # [print(event_dict[i]) for index, i in enumerate(event_dict.values())]
-    # all_timestamps = combine()
-    # list_
-    # print('\n\ntest',[event_dict[i for i in event_dict][j] for j in event_dict[k for k in event_dict]])"""
-
-    # all_time_durations =[]
-    # samples = []
-    # channels = []
-
-
-    """
-    # for-loop above defines variable 'layer_name'.
-    # Last value of layer_name was 'layer_3' in this case.
-    # But the specific layer won't matter because they all should be the same length
-    # keyname_list = [i for i in event_dict[layers]]
-    # print('\n\ntest',[i for i in event_dictionary],'\n')
-    # print('hehhh????',x,keyname_list)
-    # keyname_list.append('channels')
-    # combined_dictionary = dict(zip(keyname_list,[all_timestamps, samples, all_time_durations, channels]))
-    # dict(zip(keyname_list,[all_timestamps, samples, all_time_durations, channels]))"""
-
-
-    print('\nCombined_dictionary:\n',combined_dictionary,'\n\n')
-
-    # zipped_dictionary = zip_own_values(combined_dictionary)
-
-    # print('this',keyname_list)
-    # print('this',len(all_timestamps))
-    # print('this',len(all_time_durations))
-    # print('this',len(samples))
-    # print('this',len(channels))
-
-    return zipped_dictionary
-
-    # sorted_event = dict(sort_event_list)
-
-    # sorted_event = {
-    #     'values': { all_timestamps,
-    #         'time_duration': all_time_durations,
-    #         'sample': samples,
-    #         'channel': channels,
-    #         'old': len(ts)}}
-
-
-    # sorted_event.sort(key=sort_timestamp)
-
-
-# event_dictionary['old'] = len(ts)
-
-# timestamps = [values[0] for values in sorted_event]
-# channel = pygame.mixer.Channel(index)
-
-
-event = combine_layers_and_sort()
-
-"""old = len(ts)
-
+# pos stands for playback position
+pos = 0
 time_zero = time.time()
 
-if ts:
-    timestamp = ts.pop(0)
-else:
-    print('No timestamps left -> exit program')
-    exit()
+# enable_check = input('check? y/N')
 
-while True:
+# time.sleep(1)
+# mixer.Sound('assets/soundFiles/kick.wav').play()
+
+while pos < expected_length:
+
+    # channel = pygame.mixer.Channel(event[pos][3])
+    # sample = pygame.mixer.Sound('assets/soundFiles/'+event[pos][1])
+
+    # For readability
+    timestamp = event[pos][0]
+    sample = mixer.Sound('assets/soundFiles/'+event[pos][1])
+    play_time = event[pos][2]
+    channel = mixer.Channel(event[pos][3])
+
+    # print(pos)
+    # print(pos,event[pos][0],event[pos][1],event[pos][3])
+
+    # if enable_check == 'y':
+    #     print(pos,timestamp,sample,channel)
+    #     time.sleep(0.1)
+    #     pos += 1
 
     now = time.time() - time_zero
-    sample = pygame.mixer.Sound('assets/soundFiles/'+event[old-len(ts)]['sample'])
-    channel = pygame.mixer.Channel(event[old-len(ts)]['channel'])
 
     if(now >= timestamp):
         # print(sound_file,'played at',now)
-        if ts:
-            event[old-len(ts)]['channel'].play(sample)
-            print('playback:',old-len(ts))
-            timestamp = ts.pop(0)
-        else:
-            if(not channel.get_Busy):
-                print('No timestamps left -> exit program')
-                break
 
-    time.sleep(0.001)"""
+        channel.play(sample)
+        print('playing:',sample, '\nat timestamp:',pos)
+        pos += 1
+
+    time.sleep(0.001)
+
+
+        # timestamp = ts.pop(0)
+else:
+    if(not channel.get_busy()):
+        print('No timestamps left -> exit program')
+
 
 # event_player = [start_timestamp_player]*len(event_dictionary)
 
@@ -478,8 +372,6 @@ while True:
 #     print('- Time Durations:\n'+str(time_durations[layer]))
 #     print('- Channel Number:',index)
     # start_timestamp_player(event_dictionary[layer]['audio_file_name'], event_dictionary[layer]['timestamps'], time_durations['layer_0'], index)"""
-
-
 
 """ Sources
 Exit function:              https://www.geeksforgeeks.org/python/python-exit-commands-quit-exit-sys-exit-and-os-_exit/

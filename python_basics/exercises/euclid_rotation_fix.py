@@ -9,9 +9,17 @@ import numpy as np
 from inp_v3 import validateType as check
 from inp_v3 import toggle_print
 
-#settings function with user input certain values need to be constrained TODO: validate input for 'type name of sample'
+#settings function with user input certain values need to be constrained
+# TODO: player uses volume of samples
+# TODO: validate input for 'name of sample' -> let user pick sample from list -> list is composed of files present in  the directory /assets/soundFiles
+# TODO: Full input validation working
+# TODO: player actually loops
+# TODO: implement partial randomize -> user decides bounds of random function -> input is less boring
+# TODO: export as MIDI
+# TODO: prepare for presentation in class -> collect deliverables
+# TODO: implement decreasing deviation
+# TODO: implement sample variation and better sound design
 # maybe a dictionary with possible options and an enumerate over the dictionary so the user can just type a number to pick a sample
-# extra// use that same walk thing to make it possible for the user to input own samples
 
 def settings(**set):
 
@@ -28,7 +36,7 @@ def settings(**set):
             global_config = {
                 "num_layers": max(check(input("Number of layers: "),'int'), 1),
                 "num_pulses": max(check(input("Number of pulses: "),'int'),1),
-                "bpm": inp.constrain(check(input("Beats per minute: "),'int'), 10, 512),
+                "bpm": inp.constrain(check(input("Beats per minute: "),'int'), 10, 10000),
                 "state": 'configured'}
             return global_config
 
@@ -484,8 +492,12 @@ while pos < expected_length:
 
     if(now >= timestamp):
         # print(sound_file,'played at',now)
-
-        channel.play(sample)
+        try:
+            channel.play(sample)
+        except:
+            mixer.Channel(event[pos][3])
+        else:
+            channel.play(sample)
         print(timestamp,'|',event[pos][1],event[pos][2],event[pos][3])
         pos += 1
 

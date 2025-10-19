@@ -123,18 +123,18 @@ def combine(*inputs):
     toggle_print('\noutput is:\n',type(output),'\n', output, enable_comments)
     return output
 
-def rotate(list,amount):
+def rotate(input_list,amount): #input_list[
 
-    enable_comments = False
+    enable_comments = True
 
     index_list = []
 
     toggle_print('\n======[Durations -> Indexes]======',enable_comments)
 
-    for index, i in enumerate(list):
+    for index, i in enumerate(input_list):
         for j in range(i):
             index_list.append(index)
-            toggle_print('\nlist:', list,enable_comments)
+            toggle_print('\nlist:', input_list,enable_comments)
             toggle_print('times:', i, '\nindex:', index,enable_comments)
             toggle_print('index_list:',index_list,enable_comments)
 
@@ -146,18 +146,52 @@ def rotate(list,amount):
     wrapped_amt = abs(amount) % len(index_list)
     toggle_print('amount_wrapped',wrapped_amt,enable_comments)
 
-    if amount >0:      # rotate_right
-        rotated_indexes = index_list[-wrapped_amt:] + index_list[:-wrapped_amt]
+    # Nested function whatt
+    def rotate_indexes(inp_list):
+        if amount >0:      # rotate_right
+            return inp_list[-wrapped_amt:] + inp_list[:-wrapped_amt]
+        elif amount <0:    # rotate_left
+            return inp_list[wrapped_amt:]+inp_list[:wrapped_amt]
+        else:
+            return inp_list
 
-    elif amount <0:    # rotate_left
-        rotated_indexes = index_list[wrapped_amt:]+index_list[:wrapped_amt]
-
-    else:
-        rotated_indexes = index_list
+    rotated_indexes = rotate_indexes(index_list)
 
     toggle_print('result --> rotated_indexes:', rotated_indexes,enable_comments)
 
     toggle_print('\n=========[Calculate Rest]=========',enable_comments)
+
+    """ found another bug with rotation!
+
+    Rest calculation won't work if there is only one note
+        -> 4 pulses and 1 note
+        -> note has duration of 4
+        -> [0,0,0,0] with rotate = 2 (right) returns [0,0,0,0]
+
+    Scenario with more than one note
+        -> rotated_index_list = [1,0,0,1]
+        -> duration of input_list[rotated_index_list[0]] = 2 at index 0   *list is the normal list containing durations
+        -> check first two indexes:
+            -> 1 = 1, rest_duration + 0 | 1 != 0, rest duration +1
+                -> result: rest_duration = 1 which checks out
+
+    Scenario with only one note:
+        -> index 0 with duration 4 so check first four durations if they are the same as index 0.
+            -> If they are, duration isn't split between first and last index (all values are next together in list)
+            -> If they are not, duration is split
+                -> count all values that != index 0
+                -> the amount of values that != index 0 = rest_duration
+        -> BUT value IS split between first and last index, it is not detected because there is only one value:
+            -> 0 == 0 == 0 == 0 -> rest value = 0
+
+    Fix with enumerate if len(input_list) == 0:
+        -> enumerate(index_list) = [(1,0),(2,0),(3,0),(4,0)]
+        -> with rotate = 2 (right) returns [(3,0),(4,0),(1,0),(2,0)]    *not a list at first but an enumerate object
+        -> get index of index, i in <rotated_enumerated_index_list>]
+            -> [index for index, (i,j) in enumerate(rotated_enumerated_index_list) if i == 1][0]      *[0] to remove [] brackets
+                -> result = 3
+                    -> rest_duration = result-1
+    """
 
     rotated_list = []
     append_value = 0
@@ -165,27 +199,36 @@ def rotate(list,amount):
 
     for index, i in enumerate(rotated_indexes):
 
-        duration_at_index = list[i]
+        duration_at_index = input_list[i]
         if index == 0:
+
             if duration_at_index > 1:
-                toggle_print('\nduration at index[0] is at least 2',enable_comments)
 
-                # Ceck if duration at index[0] is split between last and first index because of the rotation
-                toggle_print('same number?:', rotated_indexes[:duration_at_index],enable_comments)
-                for j in rotated_indexes[:duration_at_index]:
+                if len(input_list) == 1:
+                    toggle_print('\nlength of list is 1...\nuse alternate method for determining rest_duration',enable_comments)
+                    enumerated_rotated_indexes = rotate_indexes(list(enumerate(index_list)))
+                    toggle_print(f'\nenumerate index_list: {enumerate(index_list)}\nand rotate: {enumerated_rotated_indexes}',enable_comments)
+                    rest_duration = max(0, [index for index, (i,j) in enumerate(enumerated_rotated_indexes) if i == 1][0])
 
-                    # Add 1 to rest_duration for every pulse that's at the beginning of the sequence instead of at the end
-                    if(j != i):
-                        toggle_print(j,'is not same number, add 1 to rest duration',enable_comments)
-                        rest_duration += 1
-                    else:
-                        toggle_print(j,'is same number',enable_comments)
+                else:
+                    toggle_print('\nduration of index[0] is at least 2',enable_comments)
 
-                toggle_print('result --> rest_duration:', rest_duration, '\n\n======[Indexes -> Durations]======\n',enable_comments)
+                    # Ceck if duration at index[0] is split between last and first index because of the rotation
+                    toggle_print('same number?:', rotated_indexes[:duration_at_index],enable_comments)
+                    for j in rotated_indexes[:duration_at_index]:
+
+                        # Add 1 to rest_duration for every pulse that's at the beginning of the sequence instead of at the end
+                        if(j != i):
+                            toggle_print(j,'is not same number, add 1 to rest duration',enable_comments)
+                            rest_duration += 1
+                        else:
+                            toggle_print(j,'is same number',enable_comments)
+
+                    toggle_print('result --> rest_duration:', rest_duration, '\n\n======[Indexes -> Durations]======\n',enable_comments)
 
             if rest_duration == 0:
-                rotated_list.append(list[rotated_indexes[0]])
-                toggle_print(i,'append_value:', list[rotated_indexes[0]], '\nrotated_list:',rotated_list, '\n',enable_comments)
+                rotated_list.append(input_list[rotated_indexes[0]])
+                toggle_print(i,'append_value:', input_list[rotated_indexes[0]], '\nrotated_list:',rotated_list, '\n',enable_comments)
 
         if i != rotated_indexes[0]:
             if append_value < duration_at_index:
@@ -201,6 +244,7 @@ def rotate(list,amount):
             continue
     else:
         if rest_duration != 0:
-            rotated_list.append(list[rotated_indexes[0]]-rest_duration)
+            rotated_list.append(input_list[rotated_indexes[0]]-rest_duration) # If you want to stop the note at the end of the cycle
+            # rotated_list.append(input_list[rotated_indexes[0]]) if you want the note to continue after the cycle has ended
         toggle_print("\nstored recombined indexes in 'rotated_list' \n\nresult --> rotated_list:", rotated_list, '\nresult --> rest_duration:', rest_duration,'\n',enable_comments)
         return (rotated_list, rest_duration)

@@ -52,7 +52,7 @@ def settings(**set):
         case 'global':
             global_config = {
                 "num_layers": inp.constrain(check(4,'int'), 0, 4),
-                "num_pulses": check(random.randint(1,20),'int'),  # cant be zero because division by zero
+                "num_pulses": check(random.randint(10,25),'int'),  # cant be zero because division by zero
                 "bpm": inp.constrain(check(120,'int'), 0, 512),
                 "state": 'configured'}
             return global_config

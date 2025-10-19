@@ -156,7 +156,6 @@ def get_values_between(**arg): # arg is a dictionary containing the arguments us
     parameter arg['num']: The amount of values
     """
 
-
     """ Uitleg & Voorbeeld default_values:
 
     Het is een soort forloop die waardes uit een dictionary leest en op basis van

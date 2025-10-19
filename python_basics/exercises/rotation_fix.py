@@ -2,52 +2,17 @@ from inp_v2 import constrain
 
 """     rotation fix:
 
-[2, 2, 2, 2, 2, 1, 1, 1, 1] -> rotation = -1 (left) -> [2, 2, 2, 2, 1, 1, 1, 1, 1] & {'rest_duration': 1}
+[2, 2, 2, 2, 2, 1, 1, 1, 1] -> rotation = -1 (left) -> [2, 2, 2, 2, 1, 1, 1, 1, 1] & rest_duration = 1
 
-first index removed and appended 1, also made a dictionary containing 'rest_duration' that, when converted to seconds, is a value that will be added to all timestamps in a layer.
+first index removed and appended 1, also made a variable containing 'rest_duration' that, when converted to seconds, is a value that will be added to all timestamps in a layer.
 
 """
 
 durations = [2, 2, 2, 2, 2, 1, 1, 1, 1]
 print('durations:',durations, '\n')
 
-# def rotate_old(list,amt):
-#     """ Rotates a list """
-#     for i in range(constrain(abs(amt),0,abs(amt))):
-#         if amt <0:
-#             n=list[0].pop(0)
-#             if n > 1:
-#                 list.insert(0, n-1)
-#                 list[-1] += 1
-#             else:
-#                 list.append(n)
-#         elif amt >0:
-#             n=list.pop(-1)
-#             if n > 1:
-#                 list.append(n-1)
-#                 list[0] += 1
-#             else:
-#                 list.insert(0,n)
-#         else:
-#             print("something went wrong")
-#         print(i,'list',list)
-#     return list
-
-# def rotate_interesting(list):
-#     pulses = sum(list)
-#     notes = len(list)
-#     duration = int(pulses/notes) # stepsize
-#     print('duration:',duration)
-#     remainder = pulses - duration
-#     rotated_list = [0]*pulses
-#
-#     for i in range(0, pulses, 2):
-#         rotated_list[i] = 1
-#         print('i:',i)
-
 def rotate(list,amount):
 
-    # Create index_list
     index_list = []
 
     print('\n======[Durations -> Indexes]======')
@@ -125,14 +90,6 @@ def rotate(list,amount):
             rotated_list.append(list[rotated_indexes[0]]-rest_duration)
 
         print("\nstored recombined indexes in 'rotated_list' \n\nresult --> rotated_list:", rotated_list, '\nresult --> rest_duration:', rest_duration,'\n')
-
-
-    # for index, i in reversed(rotated_indexes):
-    #     duration_at_index = sum([1 for j in rotated_indexes if j == i])
-    #     for i in range(duration_at_index):
-
-
-    # rotated_list[value] += 1
 
 rotated_durations = rotate(durations,int(input('rotate: ')))
 

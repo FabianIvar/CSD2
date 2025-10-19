@@ -237,7 +237,6 @@ print('\n|=------------=(NOTE_EVENTS)=------------=|\n  evnt_num | ts | sample |
 [print('|-----------------------------------------|\n',i, event[i]) for i in event]
 print()
 
-
 # player :) finally
 
 # pos stands for playback position
@@ -271,7 +270,7 @@ print()
 while channel.get_busy():
     time.sleep(0.001)
 else:
-print('\nNo timestamps left -> exit player')
+    print('\nNo timestamps left -> exit player')
 
 """ Sources
 Exit function:              https://www.geeksforgeeks.org/python/python-exit-commands-quit-exit-sys-exit-and-os-_exit/

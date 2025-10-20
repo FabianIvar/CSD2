@@ -1,4 +1,4 @@
-# Almost final version of code
+# Almost final version
 
 import os
 from os import walk
@@ -14,18 +14,16 @@ from inp_v3 import toggle_print
 from inp_v3 import color
 from midiutil import MIDIFile
 
-#settings function with user input certain values need to be constrained
 
-# TODO: Full input validation working Kinda done? have to check this
-# TODO: player actually loops
-# TODO: make event dictionary a list containing dictionaries, and give a name to the values in the dict. e.g. volume is event[pos][-1] --make--> event[pos]['vol']
+# TODO: make event dictionary a list containing dictionaries not a dictionary containing lists, and give a name to the values in the dict. e.g. volume is event[pos][-1] --make--> event[pos]['vol']
 # TODO: implement partial randomize -> user decides bounds of random function -> input is less boring
-# TODO: export as MIDI
 # TODO: prepare for presentation in class -> collect deliverables
 # TODO: implement decreasing deviation
 # TODO: implement sample variation and better sound design
-# maybe a dictionary with possible options and an enumerate over the dictionary so the user can just type a number to pick a sample
 
+    # DONE: export as MIDI
+    # DONE: Full input validation working
+    # DONE: player actually loops
     # DONE: player uses volume of samples
     # DONE: validate input for 'name of sample' -> let user pick sample from list -> list is composed of files present in  the directory /assets/soundFiles
 
@@ -43,10 +41,10 @@ def settings(**set):
 
         case 'global':
             global_config = {
-                "num_layers": 4,
-                "num_pulses": 16,
-                "bpm": 400,
-                "cycle_amount": 1,
+                "num_layers": max(check(input("\nNumber of layers: "),'int'), 1),
+                "num_pulses": max(check(input("Number of pulses: "),'int'),1),
+                "bpm": inp.constrain(check(input("Beats per minute: "),'int'), 10, 10000),
+                "cycle_amount": max(check(input("Number of cycles: "),'int'),1),
                 "state": 'configured'}
             return global_config
 
@@ -57,9 +55,9 @@ def settings(**set):
                 sample_config = {
                     "sample": set['file_name'],
                     "num_pulses": global_settings['num_pulses'],
-                    "num_notes": 5,
-                    "volume": 1,
-                    "rotation_amt": 2}
+                    "num_notes": check(input("Number of notes: "),'int'),
+                    "volume": inp.constrain(check(input("Gain (value between 0-1): "),'float'), 0, 1),
+                    "rotation_amt": check(input("Rotation: "),'int')}
                 sample_config.update({'num_notes': inp.constrain(sample_config['num_notes'], 1, global_settings['num_pulses'])})
                 return sample_config
 

@@ -1,5 +1,8 @@
-# timestamp_dict_player combined with all other code
+# Almost final version of code
 
+import os
+from os import walk
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 from pygame import mixer
 import time
 from list_transform import rotate
@@ -8,12 +11,12 @@ import inp_v3 as inp
 import numpy as np
 from inp_v3 import validateType as check
 from inp_v3 import toggle_print
-import json
+from inp_v3 import color
+from midiutil import MIDIFile
 
 #settings function with user input certain values need to be constrained
 
-# TODO: validate input for 'name of sample' -> let user pick sample from list -> list is composed of files present in  the directory /assets/soundFiles
-# TODO: Full input validation working
+# TODO: Full input validation working Kinda done? have to check this
 # TODO: player actually loops
 # TODO: make event dictionary a list containing dictionaries, and give a name to the values in the dict. e.g. volume is event[pos][-1] --make--> event[pos]['vol']
 # TODO: implement partial randomize -> user decides bounds of random function -> input is less boring
@@ -23,57 +26,27 @@ import json
 # TODO: implement sample variation and better sound design
 # maybe a dictionary with possible options and an enumerate over the dictionary so the user can just type a number to pick a sample
 
-# DONE: player uses volume of samples DONE
+    # DONE: player uses volume of samples
+    # DONE: validate input for 'name of sample' -> let user pick sample from list -> list is composed of files present in  the directory /assets/soundFiles
 
+# Colors in terminal! source: https://stackoverflow.com/questions/3940128/how-do-i-reverse-a-list-or-loop-over-it-backwards#3940144
 
-# def settings(**set):
-#
-#     """Returns global_settings and sample_settings stored in a dictionary
-#
-#     Parameter set['file_name']: The name of the sample to configure and return settings of
-#     Parameter set['type']: The type of setting to configure and return
-#             Options: "global", "sample"""
-#
-#
-#     match set['type']:
-#
-#         case 'global':
-#             global_config = {
-#                 "num_layers": max(check(input("Number of layers: "),'int'), 1),
-#                 "num_pulses": max(check(input("Number of pulses: "),'int'),1),
-#                 "bpm": inp.constrain(check(input("Beats per minute: "),'int'), 10, 10000),
-#                 "state": 'configured'}
-#             return global_config
-#
-#         case 'sample':
-#             if global_settings['state'] != 'configured':
-#                 print("global settings are not yet configured")
-#             else:
-#                 sample_config = {
-#                     "sample": set['file_name'] + '.wav',
-#                     "num_pulses": global_settings['num_pulses'],
-#                     "num_notes": check(input("Number of notes: "),'int'),
-#                     "volume": inp.constrain(check(input("Gain (value between 0-1): "),'float'), 0, 1),
-#                     "rotation_amt": check(input("amt to rotate: "),'int')}
-#                 sample_config.update({'num_notes': inp.constrain(sample_config['num_notes'], 1, global_settings['num_pulses'])})
-#                 return sample_config
+def settings(**set):
 
-def settings(**set): # temp
+    """Returns global_settings and sample_settings stored in a dictionary
 
-    #Returns global_settings and sample_settings stored in a dictionary
-
-    #Parameter set['file_name']: The name of the sample to configure and return settings of
-    #Parameter set['type']: The type of setting to configure and return
-            # Options: "global", "sample"
-
+    Parameter set['file_name']: The name of the sample to configure and return settings of
+    Parameter set['type']: The type of setting to configure and return
+            Options: "global", "sample"""
 
     match set['type']:
 
         case 'global':
             global_config = {
-                "num_layers": 100,
-                "num_pulses": 4,  # cant be zero because division by zero
-                "bpm": 60,
+                "num_layers": 4,
+                "num_pulses": 16,
+                "bpm": 400,
+                "cycle_amount": 1,
                 "state": 'configured'}
             return global_config
 
@@ -82,11 +55,11 @@ def settings(**set): # temp
                 print("global settings are not yet configured")
             else:
                 sample_config = {
-                    "sample": set['file_name'] + '.wav',
+                    "sample": set['file_name'],
                     "num_pulses": global_settings['num_pulses'],
-                    "num_notes": 1, #can't be 0 because division by zero
-                    "volume": 0.7,
-                    "rotation_amt": 0}                       # inp.constrain(check(input('vol: '),'int'), 0, 1)   |   # check(input('rotation: '),'int')
+                    "num_notes": 5,
+                    "volume": 1,
+                    "rotation_amt": 2}
                 sample_config.update({'num_notes': inp.constrain(sample_config['num_notes'], 1, global_settings['num_pulses'])})
                 return sample_config
 
@@ -122,34 +95,38 @@ def settings(**set): # temp
                 sample_config.update({'num_notes': inp.constrain(sample_config['num_notes'], 0, global_settings['num_pulses'])})
                 return sample_config"""
 
-# Colors in terminal! source: https://stackoverflow.com/questions/3940128/how-do-i-reverse-a-list-or-loop-over-it-backwards#3940144
-class color:
-    GRAY = '\x1b[90m'
-    REDB = '\x1b[91m'
-    GREENB = '\x1b[92m'
-    YELLOWB = '\x1b[93m'
-    BLUEB = '\x1b[94m'
-    MAGENTAB = '\x1b[95m'
-    CYANB = '\x1b[96m'
-    WHITEB = '\x1b[97m'
-    RED = '\x1b[31m'
-    GREEN = '\x1b[32m'
-    YELLOW = '\x1b[33m'
-    BLUE = '\x1b[34m'
-    MAGENTA = '\x1b[35m'
-    CYAN = '\x1b[36m'
-    WHITE = '\x1b[37m'
-    RESET = '\x1b[0m'
-
 def pack_sample_settings():
     """Starts sample settings configuration and saves the settings of each sample in nested dictionaries"""
+
+    enable_comments = True
+
     num_layers = global_settings['num_layers']
     configuration = {}
+    audiofile_names_cluttered = next(walk("assets/soundFiles"), (None, None, []))[2]
+    audiofile_names = [j for j in audiofile_names_cluttered if(not '._' in j)]
 
-    for i in range(global_settings['num_layers']):
-        """--->"""#sample_name = input('Pick sample for layer ' + str(i+1) + ': ')
+    toggle_print(f'\naudiofile_names_cluttered: {audiofile_names_cluttered}', enable_comments)
+    toggle_print(f'ignore: {[i for i in audiofile_names_cluttered if '._' in i]}', enable_comments)
+    toggle_print(f'audiofile_names: {audiofile_names}', enable_comments)
+
+
+    for l in range(global_settings['num_layers']):
+
+        # print(f'\n{color.GRAY}| ',end = '')
+        print()
+        [print(f'{color.GRAY}| {color.CYANB}{k} {color.RESET}-> {color.CYAN}{audiofile_names[k]} {color.RESET}',
+            end = [f' {color.GRAY}|\n{color.RESET}', '', '', ''][(k+1)%4]) for k in range(len(audiofile_names))]
+
+        picked_sample = inp.constrain(check(input(f'\nEnter sample_nr '+
+            f'{color.WHITE}({color.CYANB}0{color.WHITE} t/m {color.CYANB}{len(audiofile_names)-1}{color.WHITE})'+
+            f'{color.RESET} to pick sample for layer {color.CYANB}{l+1}{color.RESET}: '),
+            'int'), 0, len(audiofile_names)-1)
+
+        toggle_print(f'picked_sample: {audiofile_names[picked_sample]}\n', enable_comments)
+
+        sample_name = audiofile_names[picked_sample]
         # + str(i) to prevent sample settings not being saved because of duplicates, can also be done with ennumerate but I didn't know this at the time
-        configuration[f'layer_{i}'] = settings(type = "sample", file_name = 'kick') # ---> file_name = sample_name
+        configuration[f'layer_{l}'] = settings(type = "sample", file_name = sample_name) # ---> file_name = sample_name
 
     print(configuration)
     return configuration
@@ -162,7 +139,7 @@ def generate_euclidean_durations():
     Creates a nested dictionary containing durations generated by a euclidean algorithm for every layer
     """
 
-    enable_comments = 1
+    enable_comments = True
 
     euclidean_sequence = {}
 
@@ -181,14 +158,15 @@ def generate_euclidean_durations():
         for j in range(remainder):
             duration_sequence[j] += 1
 
-        toggle_print('duration_sequence',duration_sequence,enable_comments)
+        toggle_print(f'duration_sequence {layer_name}: {duration_sequence}', enable_comments)
+
 
         rotated_sequence = inp.rotate(duration_sequence, rotation_amount)
 
-        toggle_print((rotated_sequence),enable_comments)
+        toggle_print(f'rotated_sequence {layer_name}: {rotated_sequence[0]}',
+            f'\nrest_duration {layer_name}: {rotated_sequence[1]}', enable_comments)
 
         euclidean_sequence[layer_name] = rotated_sequence
-
 
     return euclidean_sequence
 
@@ -253,7 +231,7 @@ def get_values_between(**arg): # arg is a dictionary containing the arguments us
     toggle_print(f'start/stop values: {arg['start']}, {arg['stop']} \nlist_range: {list_range}',enable_comments)
     return list_range
 
-def generate_deviations(amount): # arg is a dictionary containing the arguments used in this function
+def generate_deviations(amount):
 
     """
     Returns a nested dictionary for every layer containing the values that will deviate the timestamps
@@ -312,25 +290,29 @@ def generate_deviations(amount): # arg is a dictionary containing the arguments 
 
     """
 
+    enable_comments = True
+
     deviation = {}
+
+    toggle_print('=======[GENERATE_DEVIATION]=======', enable_comments)
 
     for layer_name in euclidean_durations:
         duration_list = euclidean_durations[layer_name][0]
-        print('\n\nlayer_name: '+layer_name+'\n'+str(euclidean_durations[layer_name]))
+        toggle_print(f'\nDurations {layer_name}: {euclidean_durations[layer_name][0]}\nRest_duration {layer_name}: {euclidean_durations[layer_name][1]}', enable_comments)
 
         half_duration = sum(duration_list)/2
 
         range_half_duration = get_values_between(start = -half_duration, stop = (half_duration), num = len(duration_list))
-        print(range_half_duration)
+        toggle_print(f'range_half_duration: {range_half_duration}', enable_comments)
         rounded_range = [round(float(value),4) for value in range_half_duration]
         scaled_rounded_range = [value / half_duration for value in rounded_range]
 
         shuffledFactor = random.sample(scaled_rounded_range, len(scaled_rounded_range)) # random.sample makes a copy, random.shuffle modifies list
         deviation[layer_name] = [amount*shuffledFactor.pop() for value in scaled_rounded_range]
 
-    print('\n\nDeviations:')
-    [print(i, deviation[i]) for i in deviation]
-    print('\n')
+    toggle_print('\n\nDeviations:', enable_comments)
+    [toggle_print(i, deviation[i],enable_comments) for i in deviation]
+    toggle_print('\n', enable_comments)
     return deviation
 
 # Collect generated deviations into a dictionary
@@ -343,16 +325,20 @@ def duration_to_timestamp():
     Convert durations to timestamps
     """
 
+    enable_comments = True
+
+    toggle_print('========[DUR_TO_TIMESTAMP]========\n', enable_comments)
+
     timestamp_dictionary = {}
 
     for layer_name in sample_settings:
         timestamps = []
         durations_current_layer = euclidean_durations[layer_name][0]
-        rest_duration = euclidean_durations[layer_name][1] # Delay before first timestamp starts
         quarter_note = 60/global_settings['bpm']
+        rest_duration = euclidean_durations[layer_name][1]*quarter_note # Delay before first timestamp starts
         time_duration = [durations_current_layer[i]*quarter_note for i in range(len(durations_current_layer))]
 
-        print('Timedurations '+str(layer_name)+':',time_duration)
+        toggle_print(f'Timedurations {layer_name}: {time_duration}', enable_comments)
 
         for j in range(len(durations_current_layer)):
             timestamps.append(sum([time_duration[k] for k in range(j)]))
@@ -360,7 +346,7 @@ def duration_to_timestamp():
         timestamp_dictionary[layer_name] = [i+rest_duration for i in timestamps]
         sample_settings[layer_name]['time_durations'] = time_duration #kinda a weird way to add time durations to the sample settings dictionary
 
-    print('\n\nTimestamp Dictionary:', timestamp_dictionary,'\n')
+    toggle_print(f'\nTimestamp Dictionary: {timestamp_dictionary} \n', enable_comments)
     return timestamp_dictionary
 
 timestamps = duration_to_timestamp()
@@ -383,22 +369,22 @@ def pack_layers():
             'volume': sample_settings[i]['volume']}
         print('\n'+i + '\n\n' + str(packed_layers[i]))
 
+    print(f'packed_layers: {packed_layers}')
     return packed_layers
 
-# generate a list with durations with 'generate_sequence' for every track and combine them into a dictionary
+# generate a list for every track and combine them into a dictionary
 packed_layers = pack_layers()
 
-# Prints the values in generate_sequences
 print()
 [print(i, packed_layers[i]) for i in packed_layers]
 
 mixer.init()
 
-# creates a channel for every layer
-mixer.set_num_channels(len(packed_layers))
+# creates more than enough channels
+mixer.set_num_channels(50)
 print('\n\nAmount of layers:',len(packed_layers),'\n')
 
-def convert_to_events(zip_dict, expected_length): #give expected_length as input
+def convert_to_events(zip_dict, expected_length):
 
     enable_comments = False
 
@@ -430,7 +416,7 @@ def transform_layers():
 
     enable_comments = False
 
-    # everytime I use list comprehension with nested listsit puts everything in another list. I do [0] sometimes to fix this
+    # everytime I use list comprehension with nested lists it puts everything in another list. I do [0] sometimes to fix this
     input_dict = packed_layers
     key_dict = [input_dict[j]
         for j in input_dict]
@@ -502,54 +488,115 @@ event = convert_to_events(combined_dictionary[0], expected_length)
 
 print(f'{color.REDB}\n|=------------------------=({color.RESET}NOTE_EVENTS{color.REDB})=------------------------=|\n')
 print(f'{color.WHITE} evnt_num {color.GRAY}| {color.WHITE}timestamp {color.GRAY}|',
-    f'{color.WHITE}sample {color.GRAY}| {color.WHITE} chan {color.GRAY}|',
-    f'{color.WHITE}dur_sec {color.GRAY}| {color.WHITE}dur {color.GRAY}|',
+    f'{color.WHITE}sample {color.GRAY}| {color.WHITE} dur_sec {color.GRAY}|',
+    f'{color.WHITE}chan {color.GRAY}| {color.WHITE}dur {color.GRAY}|',
     f'{color.WHITE}dev {color.GRAY}| {color.WHITE}vol ')
 [print(f'{color.GRAY}-------------------------------------------------------------------\n',
     color.WHITE, i, color.GRAY, event[i]) for i in event]
 print(f'{color.RESET}')
 
-# pos = playback_position
-pos = 0
-time_zero = time.time()
+def player(time_zero):
 
-while pos < expected_length:
+    enable_comments = True
+    pos = 0 # pos = playback_position
 
-    # For readability
-    timestamp = event[pos][0]
-    sample = mixer.Sound('assets/soundFiles/'+event[pos][1])
-    play_time = event[pos][2]
+    while pos < expected_length:
 
-    # Uses assigned channel unless that channel is busy, then it will pick an available channel
-    if(not mixer.Channel(event[pos][3]).get_busy()):
-        channel = mixer.Channel(event[pos][3])
-    else:
-        try:
-            channel = mixer.find_channel()
-            volume = channel.set_volume(event[pos][-1]) # right now volume is at the last position in the list
-        except:
-            print(f'no channel is available, set channel to {event[pos][3]}')
+        # For readability
+        timestamp = event[pos][0]
+        sample = mixer.Sound('assets/soundFiles/'+event[pos][1])
+        play_time = event[pos][2]
+
+        # Uses assigned channel unless that channel is busy, then it will pick an available channel
+        if(not mixer.Channel(event[pos][3]).get_busy()):
             channel = mixer.Channel(event[pos][3])
+            # toggle_print(f'assigned channel {color.GREENB}was {color.RESET}available channel set to: {event[pos][3]}',False)
         else:
-            print(f'{color.REDB}assigned channel was not available \n set channel to: {type(channel)}',color.RESET)
+            try:
+                channel = mixer.find_channel()
+                 # right now volume is at the last position in the list
+            except:
+                # toggle_print(f'no channel is available, overwrite channel {color.CYANB}{event[pos][3]}{color.RESET}',False)
+                channel = mixer.Channel(event[pos][3])
+            else:
+                pass
+                # toggle_print(f'assigned channel was {color.REDB}not {color.RESET}available, channel set to available channel',False)
 
-    now = time.time() - time_zero
+        now = time.time() - time_zero
 
-    if(now >= timestamp):
-        # print(sound_file,'played at',now)
+        if(now >= timestamp):
+            volume = channel.set_volume(event[pos][-1])
+            channel.play(sample)
+            toggle_print(timestamp,'|',event[pos][1],event[pos][2],event[pos][3], enable_comments)
+            pos += 1
 
-        channel.play(sample)
+        time.sleep(0.001)
 
-        print(timestamp,'|',event[pos][1],event[pos][2],event[pos][3])
-        pos += 1
 
-    time.sleep(0.001)
+    while True:
+        now = time.time() - time_zero
 
-print()
-while channel.get_busy():
+        if now >= (timestamp + play_time):
+            toggle_print(f'play_time: {play_time}', enable_comments)
+            break
+        else:
+            time.sleep(0.001)
+
+    return channel
+
+for i in range(global_settings['cycle_amount']):
+    print(f'\n{color.YELLOWB}Cycle {i+1}: {color.RESET}')
+    last_used_channel = player(time.time())
+
+while last_used_channel.get_busy():
     time.sleep(0.001)
 else:
-    print(f'{color.YELLOWB}No timestamps left -> exit player{color.RESET}')
+    print(f'\n{color.YELLOWB}Finished playing all cycles -> exit player{color.RESET}\n')
+
+if input(f'{color.WHITE}Save as MIDI file? {color.YELLOWB}y/N{color.RESET}') == 'y':
+    enable_midi_comments = False
+
+    pitch_offset = max(60 - ((global_settings['num_layers']) % 127), 0)
+
+    pitches = [pitch_offset + i for i in range(len(sample_settings))] # MIDI note number
+    toggle_print(f'pitches: {pitches}', enable_midi_comments)
+
+    tempo = global_settings['bpm']  # In BPM
+    toggle_print(f'tempo: {tempo}', enable_midi_comments)
+
+    positions = [[i/(60/tempo) for i in packed_layers[layer_name]['timestamp']] for layer_name in sample_settings]
+    toggle_print(f'positions: {positions}', enable_midi_comments)
+
+    position_offset = [sum(inp.combine(positions[:j])) for j in range(len(pitches))]
+    toggle_print(f'position_offset: {position_offset}', enable_midi_comments)
+
+    volume = [int(127*packed_layers[layer_name]['volume']) for layer_name in sample_settings]
+    toggle_print(f'volume: {volume}', enable_midi_comments)
+
+    toggle_print(f'amount of notes: {len(inp.combine(positions))}', enable_midi_comments)
+
+    MyMIDI = MIDIFile(1) # One track, defaults to format 1 (tempo track
+                         # automatically created)
+    for j in range(global_settings['cycle_amount']):
+        for layer_index, layer_name in enumerate(sample_settings):
+            for i in range(len(positions[layer_index])):
+                offset = int(sum(packed_layers[layer_name]['time_durations'])/(60/tempo))*j
+
+                # print(0, 0, pitches[layer_index], positions[layer_index][i]+offset, packed_layers[layer_name]['duration'][i], int(127*packed_layers[layer_name]['volume']))
+
+                MyMIDI.addTempo(0,0, tempo)
+                MyMIDI.addNote(0, 0, pitches[layer_index], positions[layer_index][i]+offset, packed_layers[layer_name]['duration'][0][i], int(127*packed_layers[layer_name]['volume']))
+                # time = time + 1
+
+    midifile_name = check(input('Enter name for MIDI file: '), 'string')
+
+    with open(f'assets/midiFiles/{midifile_name}.mid', "wb") as output_file:
+        MyMIDI.writeFile(output_file)
+
+    print(f'{midifile_name}.mid was saved to {color.CYANB} assets/midiFiles/{color.RESET}')
+else:
+    print(f'{color.REDB}F{color.YELLOW}I{color.YELLOWB}N{color.GREENB}I{color.CYANB}S{color.BLUEB}H{color.BLUE}E{color.MAGENTA}D',
+        f'\n{color.YELLOWB}-> {color.GRAY}exiting program{color.RESET}')
 
 """ Sources
 Exit function:              https://www.geeksforgeeks.org/python/python-exit-commands-quit-exit-sys-exit-and-os-_exit/
@@ -569,4 +616,9 @@ shuffle list:               https://www.geeksforgeeks.org/python/python-ways-to-
 random:                     https://www.w3schools.com/python/ref_module_random.asp
 random.sample:              https://www.w3schools.com/python/ref_random_sample.asp
 colored text in terminal:   https://stackoverflow.com/questions/287871/how-do-i-print-colored-text-to-the-terminal#287944
+write to JSON file:         https://www.geeksforgeeks.org/python/reading-and-writing-json-to-a-file-in-python/
+importing a class:          https://stackoverflow.com/questions/64998533/how-to-import-a-class-from-another-file-in-python
+list.remove() function:     https://stackoverflow.com/questions/21510140/best-way-to-remove-elements-from-a-list#21511293
+save as MIDIFile:           https://stackoverflow.com/questions/11059801/how-can-i-write-a-midi-file-with-python#11060178
+midiutil documentation:     https://midiutil.readthedocs.io/en/latest/
 """

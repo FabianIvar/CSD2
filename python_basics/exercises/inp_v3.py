@@ -34,9 +34,23 @@ Source: https://www.w3schools.com/python/python_classes.asp
 
 """
 
-# Dictionary containing value_types that input_value can be casted to
-cast = {"int":int, "float":float, "string":str}
-# int float and str are a classes! cool, don't fully get it yet :)
+class color:
+    GRAY = '\x1b[90m'
+    REDB = '\x1b[91m'
+    GREENB = '\x1b[92m'
+    YELLOWB = '\x1b[93m'
+    BLUEB = '\x1b[94m'
+    MAGENTAB = '\x1b[95m'
+    CYANB = '\x1b[96m'
+    WHITEB = '\x1b[97m'
+    RED = '\x1b[31m'
+    GREEN = '\x1b[32m'
+    YELLOW = '\x1b[33m'
+    BLUE = '\x1b[34m'
+    MAGENTA = '\x1b[35m'
+    CYAN = '\x1b[36m'
+    WHITE = '\x1b[37m'
+    RESET = '\x1b[0m'
 
 def sort_by_timestamp(input_list):
     """Sorts by index 0 of list -> for sort function"""
@@ -72,15 +86,24 @@ def validateType(input_value, type):
     ===========================================================
     """
 
+    # Dictionary containing value_types that input_value can be casted to
+    cast = {"int":int, "float":float, "string":str}
+
     try:
-        casted_value = cast[type](input_value) # If unable to run it will skip the 'return True' and run the code after except:
+        casted_value = cast[type](input_value) # If unable to run it will skip the 'return casted_value' and run the code after except:
         return casted_value
     except:
-        return validateType(input("Doesn't understand ", input_value, "expected type:", type, "\ntry again: "))
+        return validateType(input(f"Doesn't understand '{input_value}', expected {type}, try again: "), type)
 
 def constrain(value, minimum, maximum):
     """ Constrains value between minimum and maximum """
-    return min(maximum, max(minimum, value))
+
+    enable_comments = True
+
+    constrained_value = min(maximum, max(minimum, value))
+    if value != constrained_value:
+        print(f'\n{color.YELLOWB}Value is out of bounds, {color.RESET}returning {constrained_value}')
+    return constrained_value
 
 def combine(*inputs):
     """Combines all inputs into one list"""
@@ -207,8 +230,8 @@ def rotate(input_list,amount): #input_list[
                 if len(input_list) == 1:
                     toggle_print('\nlength of list is 1...\nuse alternate method for determining rest_duration',enable_comments)
                     enumerated_rotated_indexes = rotate_indexes(list(enumerate(index_list)))
-                    toggle_print(f'\nenumerate index_list: {enumerate(index_list)}\nand rotate: {enumerated_rotated_indexes}',enable_comments)
-                    rest_duration = max(0, [index for index, (i,j) in enumerate(enumerated_rotated_indexes) if i == 1][0])
+                    toggle_print(f'\nenumerate index_list: {list(enumerate(index_list))}\nand rotate: {enumerated_rotated_indexes}',enable_comments)
+                    rest_duration = [index for index, (i,j) in enumerate(enumerated_rotated_indexes) if i == 0][0]
 
                 else:
                     toggle_print('\nduration of index[0] is at least 2',enable_comments)
@@ -246,5 +269,5 @@ def rotate(input_list,amount): #input_list[
         if rest_duration != 0:
             rotated_list.append(input_list[rotated_indexes[0]]-rest_duration) # If you want to stop the note at the end of the cycle
             # rotated_list.append(input_list[rotated_indexes[0]]) if you want the note to continue after the cycle has ended
-        toggle_print("\nstored recombined indexes in 'rotated_list' \n\nresult --> rotated_list:", rotated_list, '\nresult --> rest_duration:', rest_duration,'\n',enable_comments)
+        toggle_print("stored recombined indexes in 'rotated_list' \n\nresult --> rotated_list:", rotated_list, '\nresult --> rest_duration:', rest_duration,'\n',enable_comments)
         return (rotated_list, rest_duration)

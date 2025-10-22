@@ -138,12 +138,12 @@ def rotate(input_list,amount):
                 -> rotated_index_list = [1,0,0,1]
                 -> duration of input_list[rotated_index_list[0]] = 2 at index 0   *input_list is the normal list containing durations
                 -> check first two indexes:
-                    -> 1 = 1, rest_duration + 0 | 1 != 0, rest duration +1
-                        -> result: rest_duration = 1
+                    -> 1 = 1, + 0 | 1 != 0, +1
+                        -> result = 1 | rest_duration = duration_at_index - result = 1
         4) Convert index list back to duration list
     """
 
-    enable_comments = False
+    enable_comments = True
 
     index_list = []
 
@@ -182,6 +182,7 @@ def rotate(input_list,amount):
 
     rotated_list = []
     append_value = 0
+    subtract_value = 0
     rest_duration = 0
 
     for index, i in enumerate(rotated_indexes):
@@ -199,7 +200,7 @@ def rotate(input_list,amount):
                     rest_duration = [index for index, (i,j) in enumerate(enumerated_rotated_indexes) if i == 0][0]
 
                 else:
-                    toggle_print('\nduration of index[0] is at least 2',enable_comments)
+                    toggle_print('\nduration of index[0] and list length are both at least 2',enable_comments)
 
                     # Check if duration at index[0] is split between last and first index because of the rotation
                     toggle_print(f'compare with {i}:', rotated_indexes[:duration_at_index],enable_comments)
@@ -207,8 +208,12 @@ def rotate(input_list,amount):
 
                         # Add 1 to rest_duration for every pulse that's at the beginning of the sequence instead of at the end
                         if(j != i):
-                            toggle_print(f'{j} is not the same number as {i}, add 1 to rest duration',enable_comments)
-                            rest_duration += 1
+                            toggle_print(f'{j} is not the same number as {i}',enable_comments)
+                            subtract_value += 1
+                            rest_duration = duration_at_index - subtract_value
+                            toggle_print(f'\nrest_duration calculation: {duration_at_index} {color.GRAY}(duration_at_index) {color.RESET}-',
+                                f'{subtract_value} {color.GRAY}(subtract_value) {color.RESET}= {rest_duration}',
+                                f'{color.GRAY}(rest_duration){color.RESET}', enable_comments)
                         else:
                             toggle_print(f'{j} is the same number as {i}',enable_comments)
 

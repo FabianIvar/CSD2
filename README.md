@@ -2,7 +2,7 @@
 
 [Final Python Assignment](/python_basics/irregularBeatGenerator/irregular_beat_generator.py)<br>
 [Pseudo code | Not updated version](/python_basics/irregularBeatGenerator/pseudo_code.pdf)<br>
-[Description Generation Strategy | Not updated version](/python_basics/irregularBeatGenerator/strategy_pros_cons.pdf)<br>
+[Description Generation Strategy](/python_basics/irregularBeatGenerator/strategy_pros_cons.pdf)<br>
 [Reflection | Not finished yet]<br>
 [Slides | Not uploaded yet]<br>
 [Uren overzicht | Not finished yet]<br>

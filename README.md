@@ -8,7 +8,7 @@
 - [Description Generation Strategy](/python_basics/irregularBeatGenerator/strategy_pros_cons.pdf)<br>
 - [Generation Strategy Flow Diagram](/python_basics/irregularBeatGenerator/strategy_flowchart.pdf)<br>
 - [Slides](/python_basics/irregularBeatGenerator/slides.pdf)<br>
-- Reflection | *Not finished yet*<br>
+- [Reflection](/python_basics/irregularBeatGenerator/reflection.pdf)<br>
 
 <h6>Python exercises</h6>
 

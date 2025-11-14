@@ -169,7 +169,6 @@ def rotate(input_list,amount): #input_list[
     wrapped_amt = abs(amount) % len(index_list)
     toggle_print('amount_wrapped',wrapped_amt,enable_comments)
 
-    # Nested function whatt
     def rotate_indexes(inp_list):
         if amount >0:      # rotate_right
             return inp_list[-wrapped_amt:] + inp_list[:-wrapped_amt]

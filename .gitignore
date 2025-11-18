@@ -9,4 +9,4 @@
 **/__pycache__/
 
 # C++
-**/cpp_synthsong/build
+**/build

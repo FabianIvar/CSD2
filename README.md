@@ -1,7 +1,7 @@
 <h2>Repository for Creative System Design</h2>
 
 
-<h6>Final python assignment</h6>
+<h5>Python Basics</h5>
 
 - [Irregular Beat Generator](/python_basics/irregularBeatGenerator/irregular_beat_generator.py)<br>
 - [Pseudo code](/python_basics/irregularBeatGenerator/pseudo_code.pdf)<br>
@@ -13,3 +13,8 @@
 <h6>Python exercises</h6>
 
 - [Self-study and exercises from opdrachten.md](/python_basics/exercises)<br>
+
+<h5>C++ SynthSong</h5>
+
+- [SynthSong](/cpp_synthsong/synthSong)
+- [Self-study and exercises from 1_opdrachten.md](cpp_synthsong/exercises)

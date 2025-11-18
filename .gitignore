@@ -1,6 +1,12 @@
 # Created by venv; see https://docs.python.org/3/library/venv.html
 # Ignore virtual environment directory
+# Syntax for .gitignore https://www.w3schools.com/git/git_ignore.asp
+
+# Python
 **/venv/
 **/test.py
 **/._*
 **/__pycache__/
+
+# C++
+**/cpp_synthsong/build

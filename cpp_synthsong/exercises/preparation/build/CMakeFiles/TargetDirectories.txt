@@ -1,3 +1,0 @@
-/Volumes/T7/Documenten/Git/CSD2/cpp_synthsong/exercises/preparation/build/CMakeFiles/hello.dir
-/Volumes/T7/Documenten/Git/CSD2/cpp_synthsong/exercises/preparation/build/CMakeFiles/edit_cache.dir
-/Volumes/T7/Documenten/Git/CSD2/cpp_synthsong/exercises/preparation/build/CMakeFiles/rebuild_cache.dir

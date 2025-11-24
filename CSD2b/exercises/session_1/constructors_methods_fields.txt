@@ -1,0 +1,53 @@
+Definitie constructor:
+
+ In C++, constructors are special methods that are automatically called whenever an object of a class is created.
+
+ A constructor is different from normal functions in following ways:
+
+  -   A constructor has same name as the class itself
+  -   Don't have return type
+  -   Automatically called when an object is created.
+  -   If we do not specify a constructor, C++ compiler generates a default constructor for us (expects no parameters and has an empty body).
+
+ Source: https://www.geeksforgeeks.org/cpp/constructors-c/
+ -------------------------------------------------------------------------------
+Definitie method:
+
+ A method is a function that belongs to a class.
+
+ A Class is a blueprint of an object, which has data members and member functions also known as methods. A method is a procedure or function in the oop concept.
+
+ There are two ways to define a procedure or function that belongs to a class:
+
+     Inside Class Definition
+     Outside Class Definition
+
+ Source: https://www.geeksforgeeks.org/cpp/cpp-class-methods/
+ -------------------------------------------------------------------------------
+Definitie field:
+
+ Het lijkt alsof de term 'field' niet van toepassing is op c++ maar eigenlijk 'member variable' zou moeten heten? Maar ik baseer dit op een bericht van een random user op stackoverflow dus ik kan het mis hebben
+
+ User op stack overflow:
+ The term field is not a thing in C++. Languages like Java or Kotlin refer to members of classes as field, and it's the same concept.
+
+ "Field" in C++ context is a common malopropism denoting a non-static member variable of class or of any of its base classes, i.e. a sub-object.
+
+ In C++ a member variable is a named object in context of concrete class. It can be shared between all instances of class when it was declared as static. Member variable belongs to scope of particular class and is not a member variable of derived class, although it can be accessed (usually) through derived classes.
+
+ Dit stuk begrijp ik nog niet helemaal, maar lijkt wel belangrijk.
+  'Non-static member variable's storage (memory it occupies) is part of object's storage, i.e it is a sub-object. An object of base class is also a sub-object of instance of derived class, therefore a member variable of base class is naming a subobject of derived class's instance.''
+
+ Source: https://stackoverflow.com/questions/77659612/what-is-the-difference-between-c-data-member-and-field
+ -------------------------------------------------------------------------------
+
+De constructor van Note is:
+- Note
+
+De methods van Note zijn:
+- play
+- getVelocity
+
+De Fields (non-static member variables) van Note zijn:
+- midiNoteValue
+- velocity

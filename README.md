@@ -6,12 +6,14 @@
 > <h5>Synth Song</h5>
 >
 > - [SynthSong](/CSD2b/synthSong)
-> - [Design & Pseudo code *(pseudo code not added yet)*](/CSD2b/synthSong/design.pdf)
+> - [Design & Pseudo code](/CSD2b/synthSong/design.pdf)
 > - [Learning Goals](/CSD2b/synthSong/learningGoals.pdf)
 >
 > <h5>C++ Exercises</h5>
 >
-> - [Self-study and exercises](/CSD2b/exercises)
+> - [Session Assignments](/CSD2b/exercises)
+> - [Self-study](/CSD2b/exercises/self_study)
+> - [Study in FM with ratios](/CSD2b/exercises/self_study/FM_Synthesis_with_Ratios.pdf)
 > <br><br><br>
 
 > ## &nbsp;&nbsp;&nbsp;*Python*

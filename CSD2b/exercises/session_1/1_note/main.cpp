@@ -9,7 +9,7 @@
  */
 
 
-
+// gesplitst -> dit zou nogrmaalgesproken in de header file zitten
 class Note {
 public:
   // default constructor
@@ -28,8 +28,7 @@ public:
   int velocity;
 };
 
-// is Dit de constructor?
-//  Kan je de constructor functie maken buiten de class?
+// Van class Note -> de Constructor Note -> Initialiseer midiNoteValue en Velocity
 Note::Note() {
   // std::cout << "Note - constructor\n";
   midiNoteValue = 0;
@@ -37,6 +36,7 @@ Note::Note() {
 }
 
 // Voorbeeld van method buiten de class
+// returned void -> uit class Note -> play method
 void Note::play() {
   // cout is command output*
   std::cout << "PLAYING NOTE: " << midiNoteValue

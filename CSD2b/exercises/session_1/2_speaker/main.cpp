@@ -1,6 +1,6 @@
 #include <iostream>
 
-class Tweeter{
+class Tweeter : Public Speaker{
 public:
   // default constructor
   Tweeter();
@@ -8,8 +8,7 @@ public:
   Tweeter(float diam);
 
   // fields
-  float diameter;
-  float conePosition;
+
 };
 
 Tweeter::Tweeter() {
@@ -28,7 +27,7 @@ Tweeter::Tweeter() {
 //  ik de constructor de code van een andere
 //  constructor overnemen? -> inheritance?
 
-class Woofer{
+class Woofer : Public Speaker{
 public:
   // constructor
   Woofer();
@@ -36,27 +35,27 @@ public:
   Woofer(float diam);
 
   // member_variables
-  float diameter;
-  float conePosition;
+
 };
 
 Woofer::Woofer() {
   std::cout << "Woofer - default constructor\n";
-  float diameter = 15.0f;
-  float conePosition = 0.0f;
+  diameter = 15.0f;
+  conePosition = 0.0f;
 }
 
+// arguments are 'diam'
 Tweeter::Tweeter(float diam) {
   std::cout << "Tweeter - constructor with float diam parameter\n";
-  // in cm
   diameter = diam;
-  // number with an f --> indicate it is a float
   conePosition = 0.0f;
 }
 
 
 class Speaker{
 public:
+  float diameter;
+  float conePosition;
   Speaker();
   Tweeter aTweeter;
   Woofer aWoofer;

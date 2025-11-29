@@ -1,0 +1,23 @@
+Sources:
+
+> Public and Private
+ All the class members declared under public will be available to everyone. The data members and member functions declared public can be accessed by other classes too. The public members of a class can be accessed from anywhere in the program using the direct member access operator (.)
+
+ Link: https://www.geeksforgeeks.org/cpp/difference-between-public-and-private-in-c-with-example/
+
+ ===============================================================================
+> Environment variables
+ Environment variables are globally accessible named values that store information about the system environment where your code is executed. They are also used to store configuration settings, paths to important directories, and other system-specific data as well. In this article, we will learn how to get environment variables in C++.
+
+ Link: https://www.geeksforgeeks.org/cpp/how-to-get-environment-variable-in-c/
+ ===============================================================================
+> Inheritance in C++
+ https://www.geeksforgeeks.org/cpp/inheritance-in-c/
+> Parameter passing techniques
+ https://www.geeksforgeeks.org/cpp/parameter-passing-techniques-in-cpp/
+
+> Include Guards
+ https://medium.com/@tomsvoj/implementing-member-methods-in-c-classes-9eb4fb1a258f
+
+> 'This->' pointer
+ https://www.geeksforgeeks.org/cpp/this-pointer-in-c/

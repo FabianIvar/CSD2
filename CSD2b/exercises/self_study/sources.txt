@@ -8,15 +8,17 @@ Sources:
  Link: https://www.geeksforgeeks.org/cpp/difference-between-public-and-private-in-c-with-example/
 
  ===============================================================================
+
 > Environment variables
  Environment variables are globally accessible named values that store information about the system environment where your code is executed. They are also used to store configuration settings, paths to important directories, and other system-specific data as well. In this article, we will learn how to get environment variables in C++.
 
  Link: https://www.geeksforgeeks.org/cpp/how-to-get-environment-variable-in-c/
  ===============================================================================
+
 > Inheritance in C++
  https://www.geeksforgeeks.org/cpp/inheritance-in-c/
 
-> Parameter passing techniques
+> Parameter passing techniques (over mutable variables enzo)
  https://www.geeksforgeeks.org/cpp/parameter-passing-techniques-in-cpp/
 
 > Include Guards
@@ -24,3 +26,30 @@ Sources:
 
 > 'This->' pointer
  https://www.geeksforgeeks.org/cpp/this-pointer-in-c/
+
+> Constructor delegation
+ Constructor delegation kan gebruikt worden voor constructor overloading wanneer de tweede constructor dezelfde code heeft als de eerste maar nu met meer dingen erbij.
+ Het kan ook wanneer je een derived class hebt en daar code aan wilt toevoegen uit de superclass. dit heet constructor delegation in inheritance.
+ https://www.geeksforgeeks.org/cpp/constructor-delegation-c/
+
+> iostream cin object
+ https://www.w3schools.com/cpp/ref_iostream_cin.asp
+
+> if else ternery operator
+ https://www.w3schools.com/cpp/cpp_conditions_shorthand.asp
+
+> Comparing strings in c++
+ https://www.geeksforgeeks.org/cpp/stdstringcompare-in-c/
+
+> Switch Case in c++
+ 0 if the same, 1 if not the same
+ https://www.geeksforgeeks.org/cpp/switch-statement-in-cpp/
+
+> Exceptions (equivalent of try except in python)
+ https://www.w3schools.com/cpp/cpp_exceptions.asp
+
+> Input validation
+ https://www.w3schools.com/cpp/cpp_input_validation.asp
+
+> cin methods (cin.ignore and cin.newline are useful for input validation)
+ https://www.w3schools.com/cpp/ref_iostream_cin.asp

@@ -1,3 +1,5 @@
+(ctrl + shift + o to open link) (pulsar on mac)
+
 Sources:
 
 > Public and Private
@@ -13,6 +15,7 @@ Sources:
  ===============================================================================
 > Inheritance in C++
  https://www.geeksforgeeks.org/cpp/inheritance-in-c/
+
 > Parameter passing techniques
  https://www.geeksforgeeks.org/cpp/parameter-passing-techniques-in-cpp/
 

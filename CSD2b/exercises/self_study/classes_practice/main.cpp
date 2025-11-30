@@ -28,7 +28,12 @@ public:
   void bark(int amount); // method overloading!
 };
 
-// : Pet(name) snap ik nog niet helemaal, maar vgm is dit hoe je zorgt dat name weer gebruikt kan worden in alle functies doordat je wat je intypt bij de class dog ook naar pet gaat en bij pet heb je die this-> pointer
+/*
+Constructor delegation in inheritance
+dit is hoe je zorgt dat name weer gebruikt kan worden in alle functies doordat je wat je intypt bij de class dog ook naar pet gaat en bij pet heb je
+die 'this->' pointer
+*/
+
 Dog::Dog(string name) : Pet(name) {
   cout << "constructor Dog\n" << endl;
   cout << "My dog is called " << name << endl;;
@@ -42,11 +47,9 @@ void Dog::bark(int amount) {
     } else {
       cout << " bark";
     }
-
   };
   cout << "'" << endl;
 }
-
 
 int main() {
   Dog myPet("George");

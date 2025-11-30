@@ -26,26 +26,12 @@ void Pet::drink() {
   cout << name << " drinks some water.." << endl;
 }
 
-int species_to_int(string species) {
-  if (species.compare("dog") == 0) {
-    // cout << "input was dog" << endl;
-    return 1;
-  }
-  else if (species.compare("cat") == 0) {
-    // cout << "input was cat" << endl;
-    return 2;
-  }
-  else {
-    return 0;
-  }
-}
-
 class Dog : public Pet {
 public:
   Dog(string name);
   void sound() {
     cout << name <<" stays silent" << endl;
-  };
+  }
   void sound(int amount); // method overloading!
 };
 
@@ -81,6 +67,9 @@ void Dog::sound(int amount) {
 class Cat : public Pet {
 public:
   Cat(string name);
+  void sound() {
+    cout << name <<" stays silent" << endl;
+  }
   void sound(int amount);
 };
 
@@ -105,47 +94,19 @@ void Cat::sound(int amount) {
 }
 
 int main() {
-  string petName;
+  string pet_name;
   cout << "I have a pet called ";
-  getline(cin, petName);
+  getline(cin, pet_name);
 
   string species;
-  cout << petName << " is a ";
+  cout << pet_name << " is a ";
   getline(cin, species);
 
-  int species_as_int = species_to_int(species);
+  Cat my_pet(pet_name);
 
-
-// Switch case doesn't work for creating objects?
-  // switch (species_as_int) {
-  //   case 1:
-  //     Dog myPet(petName);
-  //     cout << "dog" << endl;
-  //     break;
-  //   case 2:
-  //     // Cat myPet(petName);
-  //     cout << "cat" << endl;
-  //     break;
-  //   default:
-  //     cout << "Doesn't know the species '" << species << "'" << endl;
-  //     break;
-  // }
-
-  if (species_as_int == 1) {
-    Dog myPet(petName);
-    Dog* ptr = &myPet;
-  }
-  else if (species_as_int == 2) {
-    Cat myPet(petName);
-    Cat* ptr = &myPet;
-  }
-  else if (species_as_int == 0) {
-    cout << "Invalid input... closing program" << endl;
-  };
-
-  *ptr.action();
-  *ptr.sound();
-  *ptr.sound(6);
-  *ptr.drink();
+  my_pet.action();
+  my_pet.sound();
+  my_pet.sound(6);
+  my_pet.drink();
   return 0;
 }

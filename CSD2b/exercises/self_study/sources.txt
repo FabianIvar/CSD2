@@ -51,5 +51,20 @@ Sources:
 > Input validation
  https://www.w3schools.com/cpp/cpp_input_validation.asp
 
-> cin methods (cin.ignore and cin.newline are useful for input validation)
+> cin methods (cin.ignore is useful for input validation)
  https://www.w3schools.com/cpp/ref_iostream_cin.asp
+
+> getline function (is different from cin.getline!)
+ https://www.geeksforgeeks.org/cpp/getline-string-c/
+
+> Functions in c++
+ https://www.geeksforgeeks.org/cpp/functions-in-cpp/
+
+> Converting variable type (string to char)
+ https://www.geeksforgeeks.org/cpp/how-to-convert-std-string-to-char-in-cpp/
+
+> Get the length of a string
+ https://www.geeksforgeeks.org/cpp/5-different-methods-to-find-length-of-a-string-in-cpp/
+
+> Object delegation
+ https://www.geeksforgeeks.org/cpp/object-delegation-in-cpp/

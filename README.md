@@ -2,18 +2,18 @@
 <br>
 
 > ## &nbsp;&nbsp;&nbsp;*C++*
->
 > <h5>Synth Song</h5>
 >
 > - [SynthSong](/CSD2b/synthSong)
 > - [Design & Pseudo code](/CSD2b/synthSong/design.pdf)
 > - [Learning Goals](/CSD2b/synthSong/learningGoals.pdf)
+> - [Class Diagram](/CSD2b/synthSong/class_diagram.pdf)
 >
 > <h5>C++ Exercises</h5>
 >
 > - [Session Assignments](/CSD2b/exercises)
 > - [Self-study](/CSD2b/exercises/self_study)
-> - [Study in FM with ratios](/CSD2b/exercises/self_study/FM_Synthesis_with_Ratios.pdf)
+> - [Study in FM with ratios](/CSD2b/exercises/self_study/fm_synthesis_with_ratios.pdf)
 > <br><br><br>
 
 > ## &nbsp;&nbsp;&nbsp;*Python*

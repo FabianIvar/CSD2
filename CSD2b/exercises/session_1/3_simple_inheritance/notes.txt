@@ -1,0 +1,15 @@
+Overloaded constructor
+ In C++, We can have more than one constructor in a class with same name, as long as each has a different list of arguments.This concept is known as Constructor Overloading and is quite similar to function overloading.
+
+
+    Overloaded constructors essentially have the same name (exact name of the class) and different by number and type of arguments.
+    A constructor is called depending upon the number and type of arguments passed.
+    While creating the object, arguments must be passed to let compiler know, which constructor needs to be called.
+
+  Dus je kan in een class meerdere constructors met dezelfde naam hebben, en je kan deze constructors onderscheiden door te tellen hoe veel arguments worden meegegeven aan de class.
+
+Constructor delegation
+ Constructor delegation kan gebruikt worden voor constructor overloading wanneer de tweede constructor dezelfde code heeft als de eerste maar nu met meer dingen erbij.
+ Het kan ook wanneer je een derived class hebt en daar code aan wilt toevoegen uit de superclass. dit heet constructor delegation in inheritance.
+
+ Met 'constructor delegation is a better strategy' wordt bedoelt dat er duplicate code is tussen de constructor van de derived class en de constructor van de base class, en dat een manier om dit op te lossen constructor delegation is.

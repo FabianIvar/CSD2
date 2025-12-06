@@ -1,0 +1,12 @@
+De constructor met arguments wordt als eerste aangeroepen.
+Er is sprake van constructor overloading waardoor c++ kijkt
+naar de hoeveelheid arguments die zijn meegegeven.
+
+3 redenen mogelijk:
+ - To avoid default initialization followed by reassignment, to save time and resources.
+ - It mandatory for certain types of const variables, reference members, and base class members.
+ - It keeps all initialization logic in one place, separate from the constructor body.
+
+Je wilt niet altijd een nieuwe oscillator maken als je alleen de amplitude of de frequency wilt aanpassen.
+
+Je zou een destructor kunnen gebruiken om bijvoorbeeld een oscillator niet direct te laten stoppen maar een soort fade-out te geven.

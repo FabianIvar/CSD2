@@ -68,3 +68,46 @@ Sources:
 
 > Object delegation
  https://www.geeksforgeeks.org/cpp/object-delegation-in-cpp/
+
+> What is const
+ https://www.geeksforgeeks.org/cpp/const-keyword-in-cpp/
+
+> Destructor
+ A destructor is a special member function of a class that is executed automatically whenever an object of its class goes out of scope or whenever the delete expression is applied to a pointer to the object of that class.
+
+ Dus een functie in een class die uitgevoerd wordt wanneer het object 'out of scope' gaat of wanneer het object wordt verwijdert met 'delete'
+
+ Een tilde ~ betekent dat iets een destructor is.
+
+ Eigenschappen van een destructor:
+
+  - Destructors are automatically called when an object goes out of scope.
+  - Destructor has the same name as the class and is denoted using tilde(~) sign.
+  - It is automatically created when a class is created.
+  - Destructors do not have any return type and do not accept any parameters/arguments.
+  - You can not define more than one destructor.
+  - Destructors cannot be inherited.
+  - Destructors cannot be overloaded.
+
+> New and Delete operators in c++
+ https://www.geeksforgeeks.org/cpp/new-and-delete-operators-in-cpp-for-dynamic-memory/
+
+> Scope resolution indicator '::'
+ https://www.tutorialspoint.com/cplusplus/cpp_scope_resolution_operator.htm
+
+> Namespace
+
+ A namespace is used to differentiate similar functions, classes, variables, etc., with the same name available in different libraries. To access members which are defined inside a namespace, we use the scope resolution operator '::'.
+
+ https://www.tutorialspoint.com/cplusplus/cpp_scope_resolution_operator.htm
+
+> Conditional processing blocks
+#ifdef identifier is essentially equivalent to #if defined identifier.
+
+#ifndef identifier is essentially equivalent to #if !defined identifier.
+
+#elifdef identifier is essentially equivalent to #elif defined identifier.
+
+#elifndef identifier is essentially equivalent to #elif !defined identifier.
+ (since C++23)
+ https://en.cppreference.com/w/cpp/preprocessor/conditional

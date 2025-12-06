@@ -5,7 +5,7 @@ class Cat : public Pet
 public:
   //constructor and destructor
   Cat(std::string name);
-  ~Cat();
+  ~Cat(); // Dit is een distructor
 
   // methods
   void climb();

@@ -1,3 +1,4 @@
+// if not defined, define oscillator
 #ifndef OSCILLATOR_H
 #define OSCILLATOR_H
 #include <iostream>
@@ -12,5 +13,3 @@ public:
 class
 
 #endif
-
-// 😂

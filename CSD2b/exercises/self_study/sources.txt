@@ -102,12 +102,13 @@ Sources:
  https://www.tutorialspoint.com/cplusplus/cpp_scope_resolution_operator.htm
 
 > Conditional processing blocks
-#ifdef identifier is essentially equivalent to #if defined identifier.
 
-#ifndef identifier is essentially equivalent to #if !defined identifier.
+ #ifdef identifier is essentially equivalent to #if defined identifier.
 
-#elifdef identifier is essentially equivalent to #elif defined identifier.
+ #ifndef identifier is essentially equivalent to #if !defined identifier.
 
-#elifndef identifier is essentially equivalent to #elif !defined identifier.
- (since C++23)
- https://en.cppreference.com/w/cpp/preprocessor/conditional
+ #elifdef identifier is essentially equivalent to #elif defined identifier.
+
+ #elifndef identifier is essentially equivalent to #elif !defined identifier. (since C++23)
+
+ Link: https://en.cppreference.com/w/cpp/preprocessor/conditional

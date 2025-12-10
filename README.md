@@ -9,11 +9,12 @@
 > - [Learning Goals](/CSD2b/synthSong/learningGoals.pdf)
 > - [Class Diagram](/CSD2b/synthSong/class_diagram.pdf)
 >
-> <h5>C++ Exercises</h5>
+> <h5>Assignments and Self_study</h5>
 >
-> - [Session Assignments](/CSD2b/exercises)
+> - [Assignments](/CSD2b/exercises)
 > - [Self-study](/CSD2b/exercises/self_study)
 > - [Study in FM with ratios](/CSD2b/exercises/self_study/fm_synthesis_with_ratios.pdf)
+> - [Sources](/CSD2b/exercises/self_study/sources.txt)
 > <br><br><br>
 
 > ## &nbsp;&nbsp;&nbsp;*Python*

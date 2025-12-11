@@ -1,1 +1,2 @@
 add_subdirectory(5_soundingSine)
+add_subdirectory(JuceTest)

@@ -5,7 +5,7 @@ curve(expr=sin, from=0, to=2*pi, xname = "x")
 abline(h = 0, lty = 1, col = "gray")
 
 
-// pheta = 60 degrees 
+// pheta = 60 degrees
 
 
 
@@ -31,6 +31,8 @@ abline(h = 0, lty = 1, col = "gray")
 # In the previous example, 1 t represents with 1 second in the
 # continuous time domain.
 # In this example 1 t represents 1 sample in discrete time domain.
+
+// discrete time means that the amount of time 1 sample takes to play differs according to the samplerate
 
 # samplerate = the number of samples per seconds
 # Thus the wavelength of a sinewave with frequency = 1 equals the samplerate.

@@ -1,4 +1,7 @@
 (ctrl + shift + o to open link) (pulsar on mac)
+cmd + alt + shift + [ -> to fold all sources
+
+// NOTE in CSD2c make sources document as markdown file
 
 Sources:
 
@@ -112,3 +115,6 @@ Sources:
  #elifndef identifier is essentially equivalent to #elif !defined identifier. (since C++23)
 
  Link: https://en.cppreference.com/w/cpp/preprocessor/conditional
+
+> polymorphism
+ https://www.geeksforgeeks.org/cpp/cpp-polymorphism/

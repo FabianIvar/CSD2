@@ -1,3 +1,7 @@
+// conditional processing blocks -> makes sure that not a new header is created for everytime it's needed (i think ._.)
+// #ifndef CALLBACK_H & #define CALLBACK_H and put #endif at the end of the file
+#pragma once
+
 #include <iostream>
 #include "audiocomponent.h"
 // oscillator.h should eventually be Synth.h

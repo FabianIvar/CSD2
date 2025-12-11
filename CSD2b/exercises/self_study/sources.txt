@@ -118,3 +118,6 @@ Sources:
 
 > polymorphism
  https://www.geeksforgeeks.org/cpp/cpp-polymorphism/
+
+> Type-inference (auto)
+ Link: https://www.geeksforgeeks.org/cpp/type-inference-in-c-auto-and-decltype/

@@ -30,6 +30,9 @@ Sources:
 > 'This->' pointer
  https://www.geeksforgeeks.org/cpp/this-pointer-in-c/
 
+> Initialization list
+ https://www.tutorialspoint.com/cplusplus/cpp_constructor_initialization_list.html
+
 > Constructor delegation
  Constructor delegation kan gebruikt worden voor constructor overloading wanneer de tweede constructor dezelfde code heeft als de eerste maar nu met meer dingen erbij.
  Het kan ook wanneer je een derived class hebt en daar code aan wilt toevoegen uit de superclass. dit heet constructor delegation in inheritance.
@@ -73,7 +76,8 @@ Sources:
  https://www.geeksforgeeks.org/cpp/object-delegation-in-cpp/
 
 > What is const
- https://www.geeksforgeeks.org/cpp/const-keyword-in-cpp/
+ Makes things read-only kinda
+ Link: https://www.geeksforgeeks.org/cpp/const-keyword-in-cpp/
 
 > Destructor
  A destructor is a special member function of a class that is executed automatically whenever an object of its class goes out of scope or whenever the delete expression is applied to a pointer to the object of that class.
@@ -88,7 +92,7 @@ Sources:
   - Destructor has the same name as the class and is denoted using tilde(~) sign.
   - It is automatically created when a class is created.
   - Destructors do not have any return type and do not accept any parameters/arguments.
-  - You can not define more than one destructor.
+  - You can't define more than one destructor.
   - Destructors cannot be inherited.
   - Destructors cannot be overloaded.
 
@@ -104,7 +108,7 @@ Sources:
 
  https://www.tutorialspoint.com/cplusplus/cpp_scope_resolution_operator.htm
 
-> Conditional processing blocks
+> Conditional processing blocks aka Macros
 
  #ifdef identifier is essentially equivalent to #if defined identifier.
 
@@ -121,3 +125,11 @@ Sources:
 
 > Type-inference (auto)
  Link: https://www.geeksforgeeks.org/cpp/type-inference-in-c-auto-and-decltype/
+ auto is a non-specific type, if it is a float array, auto will turn into a float, if it's an int auto will turn into an int etc.
+
+> Difference between signed int and unsigned int 
+ Link: https://www.geeksforgeeks.org/c/difference-between-unsigned-int-and-signed-int-in-c/
+
+> Struct 
+ Link: https://www.w3schools.com/cpp/cpp_structs.asp
+ struct is just a class without public and private

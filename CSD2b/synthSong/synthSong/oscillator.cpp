@@ -1,32 +1,29 @@
 #include <iostream>
 #include "oscillator.h"
+using namespace std;
 
-void Sine::setSamplerate(float samplerate) {
+Oscillator::Oscillator(float frequency, float samplerate) {
+  cout << "Oscillator Constructor\n" << "frequency: ";
+  cout << frequency << "\nsamplerate: " << samplerate << endl;
+}
+
+void Oscillator::setSamplerate(float samplerate) {
   this->samplerate = samplerate;
   cout << "samplerate = " << samplerate << endl;
 }
 
-float Sine::getSample() {
+float Oscillator::getSample() {
   return sample;
 }
 
-void Sine::tick() {
-  // NOTE 1. - frequency / SAMPLERATE can be implemented in a more efficient way
-  phase += frequency / samplerate;
-  if(phase > 1.0f) {
-    phase -= 1.0f;
-  }
-  sample = sin(M_PI * 2 * phase) * amplitude;
-}
-
 //getters and setters
-void Sine::setFrequency(float frequency)
+void Oscillator::setFrequency(float frequency)
 {
-  // TODO add check to see if parameter is valid
+  // TODO input validation
   this->frequency = frequency;
 }
 
-float Sine::getFrequency()
+float Oscillator::getFrequency()
 {
   return frequency;
 }

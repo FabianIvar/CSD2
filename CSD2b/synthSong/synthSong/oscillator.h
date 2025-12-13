@@ -17,7 +17,7 @@ public:
   void setFrequency (float frequency);
   float getFrequency();
 
-private:
+protected:
   float frequency;
   float amplitude;
   float phase;

@@ -1,0 +1,49 @@
+// conditional processing blocks -> makes sure that not a new header is created for everytime it's needed (i think ._.)
+// #ifndef CALLBACK_H & #define CALLBACK_H and put #endif at the end of the file
+#pragma once
+
+#include <iostream>
+#include "audiocomponent.h"
+#include "oscillator.h" // oscillator.h should eventually be Synth.h
+
+class CustomCallback : public AudioCallback {
+public:
+  CustomCallback(double samplerate); // Constructor
+  void prepare(int rate) override;
+  void process(audiobuffer buffer) override;
+
+private:
+  Sine oscillator;
+  // initializer list?
+  // explicit has something to do with typeCasting
+  // parameterized explicit constructor with initilization list
+
+public:
+    CustomCallback (double Fs) : AudioCallback(Fs) {
+
+    }
+
+    ~CustomCallback() override {
+
+    }
+
+    void prepare (int sampleRate) override {
+      oscillator.setSamplerate (samplerate);
+      cout << "\nsamplerate: " << samplerate << "\n";
+    }
+
+/*
+    void process (AudioBuffer buffer) override {
+        auto [inputChannels, outputChannels, numInputChannels, numOutputChannels, numFrames] = buffer;
+
+
+        for (int channel = 0u; channel < numOutputChannels; ++channel) {
+            for (int sample = 0u; frame < numFrames; ++frame) {
+                // write frame to buffer at channel 0, amp = 0.25
+                outputChannels[channel][frame] = oscillator.getSample();
+                oscillator.tick();
+            }
+        }
+    }
+
+};

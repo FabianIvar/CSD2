@@ -1,17 +1,23 @@
 #pragma once
+
 #include "audiocomponent.h"
-#include "oscillator.h"
-#include "sine.h"
-// #include "square.h"
+// TODO: include all this stuff
+// #include "synth"
+// #include "additive.h"
+// #include "fm.h"
+// #include "oscillator.h"
 // #include "saw.h"
+// #include "sine.h"
+// #include "square.h"
 
 class CustomCallback : public AudioCallback {
 public:
-  CustomCallback (float samplerate);
+  CustomCallback (double samplerate);
   void prepare (int rate) override;
   void process (AudioBuffer buffer) override;
 
 private:
-  // TODO: polymorphism -> let user pick oscillator type
-  Sine oscillator;
+  Square oscillator;
 };
+
+#endif  //CALLBACK_H

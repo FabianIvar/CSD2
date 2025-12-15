@@ -30,6 +30,9 @@ Sources:
 > 'This->' pointer
  https://www.geeksforgeeks.org/cpp/this-pointer-in-c/
 
+> Nullptr (nullptr, NULL or 0)
+ Link: https://cppscripts.com/cpp-null-vs-nullptr
+
 > Initialization list
  https://www.tutorialspoint.com/cplusplus/cpp_constructor_initialization_list.html
 
@@ -127,9 +130,9 @@ Sources:
  Link: https://www.geeksforgeeks.org/cpp/type-inference-in-c-auto-and-decltype/
  auto is a non-specific type, if it is a float array, auto will turn into a float, if it's an int auto will turn into an int etc.
 
-> Difference between signed int and unsigned int 
+> Difference between signed int and unsigned int
  Link: https://www.geeksforgeeks.org/c/difference-between-unsigned-int-and-signed-int-in-c/
 
-> Struct 
+> Struct
  Link: https://www.w3schools.com/cpp/cpp_structs.asp
  struct is just a class without public and private

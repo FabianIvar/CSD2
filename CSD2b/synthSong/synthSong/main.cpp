@@ -1,50 +1,46 @@
-#include <iostream>
 #include "callback.h"
+#include <iostream>
 using namespace std;
+// QUESTION: what does thread do? is it included in the std namespace?
+// #include <thread>
 
-// 1 to enable debug comments 0 to disable debug
-#define DEBUG 0
+#define DEBUG 1
 
-int main() {
 
-  // wtf doet dit?
+//==========================================================================//
+
+
+int main () {
+
   ScopedMessageThreadEnabler scopedMessageThreadEnabler;
-
-// sets sampleRate
   CustomCallback audioSource (48000);
-
-
-  void setSamplerate(float samplerate);
   JUCEModule juceModule (audioSource);
-  juceModule.init(1,1);
+
+  // QUESTION: What does this init do? does it make it stereo?
+  juceModule.init (1, 1);
 
 
+//==========================================================================//
 
 
-  cout << "test" << endl;
+#if DEBUG
+  cout << "debug message test" << endl;
+#endif
 
-  #if DEBUG
-  cout << "whats up gamers" << endl;
-  #endif
-
-  std::cout << "Press q + Enter to quit..." << std::endl;
+  cout << "Press q + Enter to quit..." << endl;
   bool running = true;
   while (running) {
-      switch (std::cin.get()) {
-          case 'q':
-              running = false;
-              break;
-      }
-  // here comes code that's performed 48000 times per second
-
-
+    switch (cin.get()) {
+      case 'q':
+        running = false;
+    }
   }
 
 
+//==========================================================================//
 
 
-
-
+  cout << "Closing program...\n" << endl;
 
   return 0;
 }

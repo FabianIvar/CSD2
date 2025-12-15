@@ -1,21 +1,27 @@
-// Test with runtime polymorphism using pure virtual functions
-// NOTE: With dynamic allocation you don't have to create objects you won't use.
+// Test with dynamic allocation
 
 #include <iostream>
 using namespace std;
 
 class Foo {
 public:
+
+  virtual ~Foo();
   virtual void morph_this() = 0;
 
 };
+
+Foo::~Foo() {
+  // delete abstractBasePtr;
+  cout << "Foo Destructor" << endl;
+}
 
 //============================================================================//
 
 class Bar : public Foo {
 public:
   Bar();
-  ~Bar();
+  ~Bar() override;
 
   void morph_this() override;
 };
@@ -37,7 +43,7 @@ void Bar::morph_this() {
 class Foar : public Foo {
 public:
   Foar();
-  ~Foar();
+  ~Foar() override;
 
   void morph_this() override;
 };
@@ -59,11 +65,11 @@ void Foar::morph_this() {
 
 int main() {
 
-  cout << "-={Polymorphism Test}=-\n" << endl;
+  cout << "-={Polymorphism Test}=-" << endl;
 
   /*
-  Create a pointer of type Foo.
-  Which is the base class and in this case an abstract class.
+  Create a pointer of the type Foo which is the base class,
+  Foo is, in this case, an abstract class.
   */
 
   Foo* abstractBasePtr;
@@ -71,13 +77,14 @@ int main() {
   /*
   Create an object of the derived class,
   (the object that has a function that should
-  replace the pure virual function of the base class)
+  replace pure virual function of the bass class)
   */
 
-  Bar derivedBar;
-  Foar derivedFoar;
+  // Bar derivedBar;
+  // Foar derivedFoar;
 
   cout << "\n==================\n" << endl;
+
   //==========================================================================//
 
   // Let user pick what object overrides the 'morph_this();' function
@@ -87,15 +94,25 @@ int main() {
 
   // compare strings. 0 if strings are the same, 1 if strings are different.
   if (!(pickedObj.compare("bar"))) {
-    abstractBasePtr = &derivedBar;
+    abstractBasePtr = new Bar();
   }
   else if (!(pickedObj.compare("foar"))) {
-    abstractBasePtr = &derivedFoar;
+    abstractBasePtr = new Foar;
+  }
+  else {
+    cout << "Wrong input, closing program" << endl;
+    exit(0);
   }
 
   abstractBasePtr->morph_this();
 
   cout << "\n==================\n" << endl;
+
+  delete abstractBasePtr;
+  abstractBasePtr = nullptr;
+
+  cout << "\n==================\n" << endl;
+  cout << "closing program...\n" << endl;
 
   return 0;
 

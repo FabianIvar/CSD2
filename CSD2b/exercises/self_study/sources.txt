@@ -136,3 +136,29 @@ Sources:
 > Struct
  Link: https://www.w3schools.com/cpp/cpp_structs.asp
  struct is just a class without public and private
+
+> Templates
+ Templates let you write a function or class that works with different
+ data types, kinda cool. Might be useful with input validation?
+ it is convention to use T as a placeholder for a data type.
+
+ Link: https://www.w3schools.com/cpp/cpp_templates.asp
+
+> constexpr
+ constexpr is a feature added in C++ 11.
+ The main idea is a performance improvement of programs by doing
+ computations at compile time rather than run time.
+
+ Link: https://www.geeksforgeeks.org/cpp/understanding-constexper-specifier-in-cpp/
+
+> template metaprogramming
+ Vgm is de basis een beetje dat je de compiler allemaal dingen laat uitrekenen
+ zodat het geen recourses meer kost tijdens run-time! cool
+
+ Link: https://www.geeksforgeeks.org/cpp/template-metaprogramming-in-c/
+
+> Lexical cast (typecasting)
+ Link: https://www.geeksforgeeks.org/cpp/boost-lexical_cast-in-cpp/
+
+> Explicit Keyword
+ Link: https://www.geeksforgeeks.org/cpp/use-of-explicit-keyword-in-cpp/

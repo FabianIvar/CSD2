@@ -12,12 +12,20 @@
 
 class CustomCallback : public AudioCallback {
 public:
-  CustomCallback (double samplerate);
+
+  explicit CustomCallback (double samplerate);
   void prepare (int rate) override;
   void process (AudioBuffer buffer) override;
 
-private:
-  Square oscillator;
-};
+  // updatePitch();
+  // updateAmplitude();
 
-#endif  //CALLBACK_H
+private:
+  // int frameCount = 0;
+  // double sampleRate;
+  // double noteDelayFactor = 0.1;
+  Sine sine;
+
+  // Oscillator* oscillator = nullptr;
+
+};

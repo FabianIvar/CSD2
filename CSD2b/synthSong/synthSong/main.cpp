@@ -16,7 +16,7 @@ int main () {
   CustomCallback audioSource (48000);
   JUCEModule juceModule (audioSource);
 
-  // QUESTION: What does this init do? does it make it stereo?
+  // QUESTION: What does this do? does it make it stereo?
   juceModule.init (1, 1);
 
 

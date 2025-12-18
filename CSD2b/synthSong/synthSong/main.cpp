@@ -1,8 +1,10 @@
 #include "callback.h"
 #include <iostream>
 using namespace std;
+
 // QUESTION: what does thread do? is it included in the std namespace?
-// #include <thread>
+
+
 
 #define DEBUG 1
 
@@ -13,11 +15,17 @@ using namespace std;
 int main () {
 
   ScopedMessageThreadEnabler scopedMessageThreadEnabler;
-  CustomCallback audioSource (48000);
-  JUCEModule juceModule (audioSource);
+  CustomCallback audioSource(44100);
+  JUCEModule juceModule(audioSource);
 
-  // QUESTION: What does this do? does it make it stereo?
-  juceModule.init (1, 1);
+  double actualSampleRate = audioSource.getSampleRate;
+
+  #if DEBUG
+  cout << "\nActual samplerate: " << actualSampleRate << endl;
+  #endif
+
+  // arg 1 = input channels, arg 2 = output channels
+  juceModule.init(2, 2);
 
 
 //==========================================================================//

@@ -1,9 +1,12 @@
 #include <iostream>
 using namespace std;
 
-// Source - https://stackoverflow.com/a
-// Posted by Mehdi Mohammadpour, modified by community. See post 'Timeline' for change history
-// Retrieved 2025-12-18, License - CC BY-SA 4.0
+/*
+Source - https://stackoverflow.com/a
+Posted by Mehdi Mohammadpour,
+modified by community. See post 'Timeline' for change history
+Retrieved 2025-12-18, License - CC BY-SA 4.0
+*/
 
 int main(){
 
@@ -39,7 +42,7 @@ int main(){
     " of type: " << typeid(test13).name() << endl;
 
 // Color test
-//==============================================================================
+//=================================================
 
   cout << "\n\x1B[31m";
   cout << "TEST";

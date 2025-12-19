@@ -7,12 +7,15 @@ namespace utils {
     string text, string color);
   auto arrSlice(
     auto inputArray[], int startPos, int stopPos);
-  float arrSum(float inputArray[]);
+  float arrSum(
+    float inputArray[]);
+  auto constrain(
+    auto inputValue, auto minimum, auto maximum);
 
-
-  double mtof(int midiPitch);
-  double velToAmp(int velocity);
-  double noteTimeDur(float noteLength);
-
-
+  double noteSampleDur(
+    int bpm, float LenQNotes, double sampleRate);
+  double mtof(
+    int midiPitch);
+  double velToAmp(
+    int midiVel);
 }

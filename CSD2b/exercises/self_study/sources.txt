@@ -168,3 +168,6 @@ Sources:
 
 > Colors in terminal
  Link: https://stackoverflow.com/questions/4053837/colorizing-text-in-the-console-with-c#4053879
+
+> String concatenation
+ Link: https://www.geeksforgeeks.org/computer-science-fundamentals/concatenation-of-two-strings/

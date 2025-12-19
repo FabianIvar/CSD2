@@ -165,3 +165,6 @@ Sources:
 
 > Inheritance, Composition, Aggregation
  Link: https://dev.to/adhirajk/inheritance-vs-composition-vs-aggregation-432i
+
+> Colors in terminal
+ Link: https://stackoverflow.com/questions/4053837/colorizing-text-in-the-console-with-c#4053879

@@ -5,10 +5,17 @@ using namespace std;
 // Posted by Mehdi Mohammadpour, modified by community. See post 'Timeline' for change history
 // Retrieved 2025-12-18, License - CC BY-SA 4.0
 
-#include <iostream>
-#include <string>
-
 int main(){
+  string test1 = "testtest";
+  string test2 = "woahhh " + test1 + " does this work?";
+
+  cout << "\n\n" << test2 <<
+    "test" << "\n\n" << endl;
+
+  int test3 = 5;
+  string test4 = to_string(test3);
+
+  cout << test4 << endl;
 
   cout << "\x1B[31m";
   cout << "TEST";

@@ -8,14 +8,22 @@ using namespace std;
 int main(){
   string test1 = "testtest";
   string test2 = "woahhh " + test1 + " does this work?";
-
-  cout << "\n\n" << test2 <<
-    "test" << "\n\n" << endl;
+  cout << "test 1 & 2: " << test2 <<
+    " §test" << endl;
 
   int test3 = 5;
   string test4 = to_string(test3);
+  cout << "\ntest 3 & 4: " << test4 << endl;
 
-  cout << test4 << endl;
+  float test5 = 1.5;
+  double test6 = double(test5);
+  cout << "\ntest 5 & 6: " << test6 <<
+    " of type: " << typeid(test6).name() << endl;
+
+  int test7 = 3;
+  double test8 = 7.777;
+  double test9 = test7 + test8;
+  cout << "\ntest 7, 8 & 9: " << test9 << endl;
 
   cout << "\x1B[31m";
   cout << "TEST";

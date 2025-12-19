@@ -5,14 +5,14 @@ namespace utils {
   std::string color(
     std::string text, std::string color);
   float arrSum(
-    float inputArray[]);
+    float inputArray[], int start = 0, int stop = 16);
   float constrain(
     float inputValue, float minimum, float maximum);
 
-  double noteSampleDur(
-    int bpm, float lenQNotes, double sampleRate);
-  double mtof(
+  float noteSampleDur(
+    float lenQNotes, int sampleRate);
+  float mtof(
     int midiPitch);
-  double velToAmp(
+  float velToAmp(
     int midiVel);
 }

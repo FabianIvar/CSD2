@@ -1,6 +1,10 @@
 #include <iostream>
+#include <numeric>
 #include "utils.h"
+#include <cmath>
 using namespace std;
+
+#define DEBUG 1
 
 string utils::color(string textInput, string color) {
   #if DEBUG
@@ -22,7 +26,7 @@ string utils::color(string textInput, string color) {
     "brightBlue",
     "brightMagenta",
     "brightCyan",
-  }
+  };
 
   string ansiCode;
 
@@ -34,84 +38,49 @@ string utils::color(string textInput, string color) {
       }
       else {
         // Starting from 90 are the bright variants of the colors
-        ansiCode = to_string(90 + i);
+        ansiCode = to_string(83 + i);
       }
     }
   }
 
+  string suffix = "\033[0m";
   string prefix = "\x1B[" + ansiCode + "m";
-  string suffix = "\033[0m"
   string output = prefix + textInput + suffix;
 
   #if DEBUG
-  cout << "outut: " << output << endl
+  cout << "outut: " << output << endl;
   #endif
 
   return output;
 }
 
-// QUESTION: do you always need brackets when making an array?
-auto utils::arrSlice(auto inputArray[], int startPos, int stopPos) {
-
+float utils::arrSum(float inputArray[], int start, int stop) {
   #if DEBUG
-  cout << "utils::arrSlice" << endl;
+  cout << "inputArray[0]: " << inputArray[2] << endl;
   #endif
 
-  int inputArrayLength = sizeof(inputArray) / sizeof(inputArray[0]);
-  int slicedArrayLength = stopPos - startPos;
-  auto slicedArray[slicedArrayLength] = 0;
-
-  for (int i = 0; i <= slicedArrayLength; i++) {
-      slicedArray[i] = inputArray[(i + startPos)]
+  float summedArray = 0.0f;
+  for (int i = start; i <= stop; i++) {
+    summedArray += inputArray[i];
   }
 
   #if DEBUG
   cout <<
-    "inputArray: " << to_string(inputArray) <<
-    "\narrayLength: " << arrayLength <<
-    "\nstartPos: " << startPos <<
-    "\nstopPos: " << stopPos <<
-    "\nslicedArrayLength: " << slicedArrayLength <<
-    "slicedArray: " << to_string(slicedArray) << endl;
-  #endif
-
-  return slicedArray;
-}
-
-float utils::arrSum(float inputArray[]) {
-  #if DEBUG
-  cout << "utils::arrSum" << endl;
-  #endif
-
-  int inputArrayLength = sizeof(inputArray) / sizeof(inputArray[0]);
-
-
-  /* NOTE: accumulate() might only be able to return ints,
-  if a bug arises this might be the issue.
-  Also inputArrayLength is an int and inputArray is a float.
-  I don't know if this is allowed. */
-
-  float summedArray = accumulate(
-    inputArray, inputArray + inputArrayLength, 0);
-
-  #if DEBUG
-  cout <<
-    "inputArray: " << to_string(inputArray) <<
-    "\nsummedArray: " << to_string(summedArray) << endl;
+    "summedArray: " << summedArray << endl;
   #endif
 
   return summedArray;
 }
 
-auto utils::constrain(auto inputValue, auto minimum, auto maximum) {
+float utils::constrain(float inputValue, float minimum, float maximum) {
   // NOTE: will return the value with the highest resolution.
 
-  auto constrainedValue = min(maximum, max(minimum, inputValue));
+  float constrainedValue = min(maximum, max(minimum, inputValue));
 
   return constrainedValue;
 }
 
-double utils::noteSampleDur(int bpm, float lenQNotes, double sampleRate) {
+float utils::noteSampleDur(float lenQNotes, int sampleRate) {
   #if DEBUG
   cout << "utils::noteSampleDur" << endl;
   #endif
@@ -122,26 +91,26 @@ double utils::noteSampleDur(int bpm, float lenQNotes, double sampleRate) {
   With a sampleRate of 44100 samples per second,
   The amount of samples in 0,5 seconds is 44100 * 0,5 = 22050 samples */
 
-  double noteTimeDurSec = (60 / bpm) * lenQNotes;
-  double durInSamples = sampleRate * noteTimeDurSec;
+  float noteTimeDurSec = (60.0f/120.0f) * lenQNotes;
+  int durInSamples = sampleRate * noteTimeDurSec;
 
   #if DEBUG
-  cout << "durInSamples" << endl;
+  cout << ">>> " << lenQNotes << " " << sampleRate << " " << noteTimeDurSec << " " << endl;
   #endif
 
   return durInSamples;
 }
 
-double utils::mtof(int midiPitch) {
+float utils::mtof(int midiPitch) {
 /* Source - https://git.jaydee.systems/chromaticsol/CSD2/src/commit/c8c69fe00e59fb6191f1c6304b2514295bc0057d/CSD2b/SynthTests/Codebase/utils.cpp
 By Vida, slightly modified to fit this project. */
 
-  double frequency = 440 * pow(2.0, (midiPitch - 69));
+  float frequency = 440.0f * pow(2.0f, (midiPitch - 69.0f) / 12.0f);
   return frequency;
 }
 
-double utils::velToAmp(int midiVel) {
-  double amplitude = midiVel / 127;
+float utils::velToAmp(int midiVel) {
+  float amplitude = midiVel / 127.0f;
   return amplitude;
 }
 
@@ -155,7 +124,6 @@ double utils::velToAmp(int midiVel) {
 - velToAmp
 - mtof
 - color
-- arrSlice
 - arrSum
 - noteSampleDur (time in ms) -> different from qNoteLength
 

@@ -54,31 +54,20 @@ string utils::color(string textInput, string color) {
   return output;
 }
 
-float utils::arrSum(float inputArray[], int start, int stop) {
-  #if DEBUG
-  cout << "inputArray[0]: " << inputArray[2] << endl;
-  #endif
+// template <typename T>
+// T arrSum(T arr[], int start, int stop) {
+//   T output = 0;
+//
+//   for (int i = start; i <= stop; i++) {
+//     output += arr[i];
+//   }
+//   return output;
+// }
 
-  float summedArray = 0.0f;
-  for (int i = start; i <= stop; i++) {
-    summedArray += inputArray[i];
-  }
-
-  #if DEBUG
-  cout <<
-    "summedArray: " << summedArray << endl;
-  #endif
-
-  return summedArray;
-}
-
-float utils::constrain(float inputValue, float minimum, float maximum) {
-  // NOTE: will return the value with the highest resolution.
-
-  float constrainedValue = min(maximum, max(minimum, inputValue));
-
-  return constrainedValue;
-}
+// template <typename T>
+// T utils::constrain(T inputValue, T minimum, T maximum) {
+//   return min(maximum, max(minimum, inputValue));
+// }
 
 float utils::noteSampleDur(float lenQNotes, int sampleRate) {
   #if DEBUG
@@ -113,18 +102,3 @@ float utils::velToAmp(int midiVel) {
   float amplitude = midiVel / 127.0f;
   return amplitude;
 }
-
-
-
-/* TODO:
-*/
-
-/* DONE:
-- constrain !! might not work lol
-- velToAmp
-- mtof
-- color
-- arrSum
-- noteSampleDur (time in ms) -> different from qNoteLength
-
-*/

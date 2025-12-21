@@ -1,7 +1,23 @@
 #include <iostream>
-#include "utils.h" // denk ik?
+#include "utils.h"
 using namespace std;
 using namespace utils;
+
+template <typename T>
+T constrain(T inputValue, T minimum, T maximum) {
+  return min(maximum, max(minimum, inputValue));
+}
+
+template <typename T>
+T arrSum(T arr[], int start, int stop) {
+  T output = 0;
+
+  for (int i = start; i <= stop; i++) {
+    output += arr[i];
+  }
+  return output;
+}
+
 
 int main() {
   #if DEBUG
@@ -12,7 +28,7 @@ int main() {
   arg1 = text,
   arg2 = color
   */
-  string colorTest = color("color test", "red");
+  string colorTest = color("Yooo", "brightCyan");
   cout << colorTest << endl;
 
   /*

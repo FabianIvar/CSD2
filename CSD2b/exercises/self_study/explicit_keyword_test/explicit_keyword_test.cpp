@@ -6,6 +6,7 @@ void typeOf(T val) {
   cout << val << " of type: " << typeid(val).name() << endl;
 }
 
+
 /*
 When the 'explicit' keyword is not present a constructor with a single argument
 becomes a conversion constructor. This constructor allows conversion of the type
@@ -19,7 +20,7 @@ private:
   float stored_value;
 
   NormalClass(float b) : stored_value(b) {
-      
+
     }
 
 };
@@ -63,9 +64,11 @@ public:
   }
 
   void displayNewType() {
-    // const type_info& type = typeid(y);
-    string type = typeid(y).name();
-    cout << "The type of the variable is: " << type << "\n" << endl;
+
+    const type_info& type = typeid(y);
+
+    // string type = typeid(y).name();
+    cout << "The type of the variable is: " << type.name() << "\n" << endl;
 
   }
 
@@ -83,7 +86,7 @@ private:
   float onlyFloat;
 
 public:
-  explicit ExplicitTest(float value = 0.0) : onlyFloat(value) {
+  ExplicitTest(float value = 0.0) : onlyFloat(value) {
     cout << "ExplicitTest Constructor" << endl;
     cout << value << "\n" << endl;
     // cout << "Value is " << value << " of type " << typeid(value).name() << endl;

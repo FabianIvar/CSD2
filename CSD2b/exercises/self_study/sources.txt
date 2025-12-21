@@ -171,3 +171,46 @@ Sources:
 
 > String concatenation
  Link: https://www.geeksforgeeks.org/computer-science-fundamentals/concatenation-of-two-strings/
+
+> Pointer Arithmatic
+ Link: https://www.geeksforgeeks.org/cpp/cpp-pointer-arithmetic/
+
+> Pointer Address to string
+ Link: https://stackoverflow.com/questions/7850125/convert-this-pointer-to-string#7850160
+
+> Removing certain characters from a string
+ Link: https://stackoverflow.com/questions/5891610/how-to-remove-certain-characters-from-a-string-in-c#5891643
+
+> Reinterpret_cast
+ again typecasting but cool because it converts pointer
+ while not giving a damn about Type
+ https://www.geeksforgeeks.org/cpp/reinterpret_cast-in-c-type-casting-operators/
+
+> Convert string to char array
+ A constant char array is good enough for you so you go with,
+  const char *array = tmp.c_str();
+ Or you need to modify the char array so constant is not ok,
+ then just go with this
+  char *array = &tmp[0];
+
+ Both of them are just assignment operations and most of the time that is just what you need, if you really need a new copy then follow other fellows answers.
+
+ Link: https://stackoverflow.com/questions/13294067/how-to-convert-string-to-char-array-in-c#13294114
+
+> Convert string (actually char array) to long int
+
+> String length .length()
+ Link: https://www.w3schools.com/cpp/cpp_strings_length.asp
+
+> Vector erase()
+ Delete elements from a vector with iterators
+ Link: https://www.geeksforgeeks.org/cpp/vector-erase-in-cpp-stl/
+
+> Vector find()
+ Link: https://www.geeksforgeeks.org/cpp/std-find-in-cpp/
+
+> Vector begin() 'end is kinda the same'
+ Link: https://www.geeksforgeeks.org/cpp/vector-begin-in-cpp-stl/
+
+> Vector remove()
+ Link: https://www.geeksforgeeks.org/cpp/std-remove-algorithm-in-cpp/

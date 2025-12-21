@@ -1,11 +1,7 @@
-//
-// Created by Ciska Vriezenga on 06/12/2022.
-//
-
 #include "sine.h"
 #include "math.h"
 
-Sine::Sine (float frequency, float samplerate)
+Sine::Sine (double frequency, double samplerate)
   : Oscillator (frequency, samplerate) {
 
   #if DEBUG

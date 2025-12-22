@@ -25,5 +25,3 @@ protected:
   float sample;
   float samplerate;
 };
-
-#endif

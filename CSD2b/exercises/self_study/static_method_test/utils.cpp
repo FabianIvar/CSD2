@@ -4,7 +4,12 @@
 #include <cmath>
 using namespace std;
 
-string Utils::color(string textInput, string color) {
+#define DEBUG 1
+
+string utils::color(string textInput, string color) {
+  #if DEBUG
+  cout << "utils::color" << endl;
+  #endif
 
   string ansiColors[14] = {
     "red",
@@ -50,12 +55,7 @@ string Utils::color(string textInput, string color) {
 }
 
 template <typename T>
-T Utils::constrain(T inputValue, T minimum, T maximum) {
-  return min(maximum, max(minimum, inputValue));
-}
-
-template <typename T>
-T Utils::arrSum(T arr[], int start, int stop) {
+T arrSum(T arr[], int start, int stop) {
   T output = 0;
 
   for (int i = start; i <= stop; i++) {
@@ -64,7 +64,15 @@ T Utils::arrSum(T arr[], int start, int stop) {
   return output;
 }
 
-float Utils::noteSampleDur(float lenQNotes, int sampleRate) {
+template <typename T>
+T utils::constrain(T inputValue, T minimum, T maximum) {
+  return min(maximum, max(minimum, inputValue));
+}
+
+float utils::noteSampleDur(float lenQNotes, int sampleRate) {
+  #if DEBUG
+  cout << "utils::noteSampleDur" << endl;
+  #endif
 
   /* lenQNotes means the note length expressed as amount of quarter notes.
   lenQNotes = 2.0 means 2 quarter notes, so a half note.
@@ -82,15 +90,15 @@ float Utils::noteSampleDur(float lenQNotes, int sampleRate) {
   return durInSamples;
 }
 
-float Utils::mtof(int midiPitch) {
-/* Source - https://git.jaydee.systems/chromaticsol/CSD2/src/commit/c8c69fe00e59fb6191f1c6304b2514295bc0057d/CSD2b/SynthTests/Codebase/Utils.cpp
+float utils::mtof(int midiPitch) {
+/* Source - https://git.jaydee.systems/chromaticsol/CSD2/src/commit/c8c69fe00e59fb6191f1c6304b2514295bc0057d/CSD2b/SynthTests/Codebase/utils.cpp
 By Vida, slightly modified to fit this project. */
 
   float frequency = 440.0f * pow(2.0f, (midiPitch - 69.0f) / 12.0f);
   return frequency;
 }
 
-float Utils::velToAmp(int midiVel) {
+float utils::velToAmp(int midiVel) {
   float amplitude = midiVel / 127.0f;
   return amplitude;
 }

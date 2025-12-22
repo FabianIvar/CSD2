@@ -1,22 +1,28 @@
 #pragma once
 #include <iostream>
+using namespace std;
 
-namespace utils {
-  std::string color(
-    std::string text, std::string color);
+template <typename T>
+struct Utils {
+private:
+  T inputValue;
+  T minimum;
+  T maximum;
+  T arr[];
+public:
+  Utils(T val1, T val2, T val3, T val4[])
+  : inputValue(val1), minimum(val2), maximum(val3), arr(val4){
+  }
 
-  // template <typename T>
-  // T arrSum(
-  //   T inputArray[], int start = 0, int stop = 16);
-  //
-  // template <typename T>
-  // T constrain(
-  //   T inputValue, T minimum, T maximum);
+  static string color(string text, string color);
+  static auto constrain(auto inputvalue, auto minimum, auto maximum);
+  static auto arrSum(auto arr[], int start, int stop);
 
-  float noteSampleDur(
+
+  static float noteSampleDur(
     float lenQNotes, int sampleRate);
-  float mtof(
+  static float mtof(
     int midiPitch);
-  float velToAmp(
+  static float velToAmp(
     int midiVel);
-}
+};

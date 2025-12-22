@@ -157,6 +157,12 @@ Sources:
 
  Link: https://www.geeksforgeeks.org/cpp/template-metaprogramming-in-c/
 
+> constexpr
+ constexpr specifies that the value of an object or function
+ can be evaluated at compile-time and the expression can be used
+ in other constant expressions.
+ Link: https://www.geeksforgeeks.org/cpp/understanding-constexper-specifier-in-cpp/
+
 > Lexical cast (typecasting)
  Link: https://www.geeksforgeeks.org/cpp/boost-lexical_cast-in-cpp/
 
@@ -214,3 +220,9 @@ Sources:
 
 > Vector remove()
  Link: https://www.geeksforgeeks.org/cpp/std-remove-algorithm-in-cpp/
+
+> Template non-type arguments
+ Link: https://www.geeksforgeeks.org/cpp/template-non-type-arguments-in-c/
+
+> Stringstream <sstream>
+ Link: https://www.geeksforgeeks.org/cpp/stringstream-c-applications/

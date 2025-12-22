@@ -1,18 +1,13 @@
 #include <iostream>
-#include "utils.h"
+// #include "utils.h"
 #include <sstream>
 using namespace std;
-using namespace utils;
+// using namespace utils;
 
-// template <typename T>
-// T arrSum(T arr[], int start, int stop) {
-//   T output = 0;
-//
-//   for (int i = start; i < stop; i++) {
-//     output += arr[i];
-//   }
-//   return output;
-// }
+// template <
+//   typename Type1 = int,
+//   typename Type2 = float,
+//   typename Type3 = double>
 
 template <typename T>
 void* toVoidPtr(T pointer) {
@@ -27,28 +22,15 @@ string toString(void* inputVoidPtr) {
   return outputString;
 }
 
-template <typename T> T subject = T(44.5);
+// template <typename T> T subject = T(44.5);
 
 int main() {
   cout << endl;
-  // struct T {// Baseclass type to put into array
-  //   virtual void dispType() = 0;};
-  // struct C1 : public T {// Comparator1
-  //   void dispType() override;};
-  // struct C2 : public T {// Comparator2
-  //   virtual void dispType() = 0;};
-  // struct C3 : public T {// Comparator3
-  //   virtual void dispType() = 0;};
 
   void* subjectPtr = &subject<int>;
   float* floatPtr = &subject<float>;
   double* doublePtr = &subject<double>;
   int* intPtr = &subject<int>;
-
-  // void* subjectPtr = static_cast<void*>(subjectPtr0);
-  // float* floatPtr = static_cast<void*>(floatPtr0);
-  // double* doublePtr = static_cast<void*>(doublePtr0);
-  // int* intPtr = static_cast<void*>(intPtr0);
 
   float testFloat = 5.5f;
   cout << "test 1 (toVoidPtr)" <<

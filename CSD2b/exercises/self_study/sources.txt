@@ -69,9 +69,6 @@ Sources:
 > Functions in c++
  https://www.geeksforgeeks.org/cpp/functions-in-cpp/
 
-> Converting variable type (string to char)
- https://www.geeksforgeeks.org/cpp/how-to-convert-std-string-to-char-in-cpp/
-
 > Get the length of a string
  https://www.geeksforgeeks.org/cpp/5-different-methods-to-find-length-of-a-string-in-cpp/
 
@@ -166,6 +163,12 @@ Sources:
 > Lexical cast (typecasting)
  Link: https://www.geeksforgeeks.org/cpp/boost-lexical_cast-in-cpp/
 
+> Converting variable type (string to char)
+ Link: https://www.geeksforgeeks.org/cpp/how-to-convert-std-string-to-char-in-cpp/
+
+> Const to non-const (const_cast)
+ Link: https://www.geeksforgeeks.org/cpp/const_cast-in-c-type-casting-operators/
+
 > Explicit Keyword
  Link: https://www.geeksforgeeks.org/cpp/use-of-explicit-keyword-in-cpp/
 
@@ -192,7 +195,7 @@ Sources:
  while not giving a damn about Type
  https://www.geeksforgeeks.org/cpp/reinterpret_cast-in-c-type-casting-operators/
 
-> Convert string to char array
+> Convert/cast string to char array
  A constant char array is good enough for you so you go with,
   const char *array = tmp.c_str();
  Or you need to modify the char array so constant is not ok,
@@ -203,7 +206,7 @@ Sources:
 
  Link: https://stackoverflow.com/questions/13294067/how-to-convert-string-to-char-array-in-c#13294114
 
-> Convert string (actually char array) to long int
+> Convert/cast string (actually char array) to long int
 
 > String length .length()
  Link: https://www.w3schools.com/cpp/cpp_strings_length.asp
@@ -226,3 +229,6 @@ Sources:
 
 > Stringstream <sstream>
  Link: https://www.geeksforgeeks.org/cpp/stringstream-c-applications/
+
+> Typedef
+ Link: https://www.geeksforgeeks.org/cpp/typedef-in-cpp/

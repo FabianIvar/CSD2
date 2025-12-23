@@ -6,38 +6,6 @@ using namespace std;
 
 #define DEBUG 1
 
-class returnType {
-  // template <typename T> T subject = T(44.5);
-  // const auto value = subject;
-public:
-  // static pack(T valueToPack) : subject(valueToPack) {
-  //   cout << "pack" << endl;
-  // };
-
-  static unpack(void* subject) {
-    cout << "unpack" << endl;
-    // void* subjectPtr = &subject<int>;
-    int* intPtr = &subject<int>;
-    float* floatPtr = &subject<float>;
-    double* doublePtr = &subject<double>;
-
-    void* comparators[] = {
-      &subject<int>,
-      &subject<float>,
-      &subject<double>}
-
-    stringstream in(comparators);
-
-    vector<string> comparators;
-    string outputString;
-    stringstream ss(comparators).str();
-    while (ss >> string i;) {
-      cout << i << endl;
-    }
-
-  }
-};
-
 string utils::color(string textInput, string color) {
   #if DEBUG
   cout << "utils::color" << endl;
@@ -86,7 +54,6 @@ string utils::color(string textInput, string color) {
   return output;
 }
 
-
 void* utils::arrSum(vector<void*> arr, int start, int stop) {
   decltype(returnType(arr[])) output = 0;
 
@@ -97,7 +64,6 @@ void* utils::arrSum(vector<void*> arr, int start, int stop) {
 
 
 }
-
 
 T utils::constrain(T inputValue, T minimum, T maximum) {
   return min(maximum, max(minimum, inputValue));

@@ -232,3 +232,6 @@ Sources:
 
 > Typedef
  Link: https://www.geeksforgeeks.org/cpp/typedef-in-cpp/
+
+> Factory Method "virtual constructors (but not really)"
+ Link: https://www.geeksforgeeks.org/cpp/advanced-c-virtual-constructor/#the-factory-method-best

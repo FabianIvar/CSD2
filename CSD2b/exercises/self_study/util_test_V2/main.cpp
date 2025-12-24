@@ -37,7 +37,7 @@ int main() {
   arg1 = relative note length expressed in amount of quarter notes
   arg2 = sampleRate
   */
-  int durationInSamples = noteSampleDur(0.5f, 44100);
+  int durationInSamples = noteSampleDur(120, 0.5f, 44100.0);
   cout << "durationInSamples test: " << durationInSamples << endl;
 
   // arg1 = MIDI pitch
@@ -48,7 +48,17 @@ int main() {
   float amplitude = velToAmp(100);
   cout << "amplitude test: " << amplitude << endl;
 
-  cout << "\nProgram finished... shutting down" << endl;
+  // arg1 = T pointer
+  float testValue = 5.5f;
+  float* pointer = &testValue;
+  string pointerToString = pToString(pointer);
+  cout <<
+    "Address to string,\nPointer Address: " << pointer <<
+    "\nAddress as string: " << pointerToString <<
+    "\nHas type: " << typeid(pointerToString).name() << endl;
+
+
+  cout << "\nProgram finished... shutting down\n" << endl;
 
   return 0;
 }

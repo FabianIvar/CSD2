@@ -235,3 +235,9 @@ Sources:
 
 > Factory Method "virtual constructors (but not really)"
  Link: https://www.geeksforgeeks.org/cpp/advanced-c-virtual-constructor/#the-factory-method-best
+
+> Tuple (tuples)
+ Link: https://www.geeksforgeeks.org/cpp/tuples-in-c/
+
+> Smart-pointers (unique_ptr shared_ptr weak_ptr)
+ Link: https://www.geeksforgeeks.org/cpp/smart-pointers-cpp/

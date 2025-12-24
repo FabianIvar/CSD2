@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "utils.h"
 using namespace std;
 
@@ -21,8 +22,8 @@ string utils::color(string textInput, string color) {
     "brightYellow",
     "brightBlue",
     "brightMagenta",
-    "brightCyan",
-  }
+    "brightCyan"
+  };
 
   string ansiCode;
 
@@ -40,7 +41,7 @@ string utils::color(string textInput, string color) {
   }
 
   string prefix = "\x1B[" + ansiCode + "m";
-  string suffix = "\033[0m"
+  string suffix = "\033[0m";
   string output = prefix + textInput + suffix;
 
   #if DEBUG
@@ -51,64 +52,53 @@ string utils::color(string textInput, string color) {
 }
 
 // QUESTION: do you always need brackets when making an array?
-auto utils::arrSlice(auto inputArray[], int startPos, int stopPos) {
+// auto utils::arrSlice(auto inputArray[], int startPos, int stopPos) {
+//
+//   #if DEBUG
+//   cout << "utils::arrSlice" << endl;
+//   #endif
+//
+//   int inputArrayLength = sizeof(inputArray) / sizeof(inputArray[0]);
+//   int slicedArrayLength = stopPos - startPos;
+//   auto slicedArray[slicedArrayLength] = 0;
+//
+//   for (int i = 0; i <= slicedArrayLength; i++) {
+//       slicedArray[i] = inputArray[i + startPos]
+//   }
+//
+//   #if DEBUG
+//   cout <<
+//     "inputArray: " << to_string(inputArray) <<
+//     "\narrayLength: " << arrayLength <<
+//     "\nstartPos: " << startPos <<
+//     "\nstopPos: " << stopPos <<
+//     "\nslicedArrayLength: " << slicedArrayLength <<
+//     "slicedArray: " << to_string(slicedArray) << endl;
+//   #endif
+//
+//   return slicedArray;
+// }
+//
+// float utils::arrSum(float inputArray[]) {
+//
+//   float output = 0;
+//   for (float i : inputArray) {output += i;}
+//
+//   return output;
+// }
 
-  #if DEBUG
-  cout << "utils::arrSlice" << endl;
-  #endif
+float utils::arrSum(float inputArray[], int start, int stop) {
 
-  int inputArrayLength = sizeof(inputArray) / sizeof(inputArray[0]);
-  int slicedArrayLength = stopPos - startPos;
-  auto slicedArray[slicedArrayLength] = 0;
+    float output = 0;
+    for (int i = start; i <= stop; i++) {
+      output += inputArray[i];}
 
-  for (int i = 0; i <= slicedArrayLength; i++) {
-      slicedArray[i] = inputArray[(i + startPos)]
-  }
-
-  #if DEBUG
-  cout <<
-    "inputArray: " << to_string(inputArray) <<
-    "\narrayLength: " << arrayLength <<
-    "\nstartPos: " << startPos <<
-    "\nstopPos: " << stopPos <<
-    "\nslicedArrayLength: " << slicedArrayLength <<
-    "slicedArray: " << to_string(slicedArray) << endl;
-  #endif
-
-  return slicedArray;
+    return output;
 }
 
-float utils::arrSum(float inputArray[]) {
-  #if DEBUG
-  cout << "utils::arrSum" << endl;
-  #endif
+float utils::constrain(float inputValue, float minimum, float maximum) {
 
-  int inputArrayLength = sizeof(inputArray) / sizeof(inputArray[0]);
-
-
-  /* NOTE: accumulate() might only be able to return ints,
-  if a bug arises this might be the issue.
-  Also inputArrayLength is an int and inputArray is a float.
-  I don't know if this is allowed. */
-
-  float summedArray = accumulate(
-    inputArray, inputArray + inputArrayLength, 0);
-
-  #if DEBUG
-  cout <<
-    "inputArray: " << to_string(inputArray) <<
-    "\nsummedArray: " << to_string(summedArray) << endl;
-  #endif
-
-  return summedArray;
-}
-
-auto utils::constrain(auto inputValue, auto minimum, auto maximum) {
-  // NOTE: will return the value with the highest resolution.
-
-  auto constrainedValue = min(maximum, max(minimum, inputValue));
-
-  return constrainedValue;
+  return min(maximum, max(minimum, inputValue));
 }
 
 double utils::noteSampleDur(int bpm, float lenQNotes, double sampleRate) {
@@ -145,7 +135,23 @@ double utils::velToAmp(int midiVel) {
   return amplitude;
 }
 
+string utils::pToString(int* pointer) {
+  stringstream ss;
+  ss << static_cast<void*>(pointer);
+  return ss.str();
+}
 
+string utils::pToString(float* pointer) {
+  stringstream ss;
+  ss << static_cast<void*>(pointer);
+  return ss.str();
+}
+
+string utils::pToString(double* pointer) {
+  stringstream ss;
+  ss << static_cast<void*>(pointer);
+  return ss.str();
+}
 
 /* TODO:
 */

@@ -84,7 +84,7 @@ public:
 };
 
 class Base {
-void* address 
+void* address
 public:
   Base(void* val1, char val2) : address(val1), targetType(val2){}
 };
@@ -127,6 +127,7 @@ public:
 // Compares strings containing void pointer address and returns the value with the correct
 class T {
   void* inputValue;
+  auto returnType = {int,float,double,string};
 
 protected:
   T(void* x);

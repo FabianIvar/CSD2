@@ -21,7 +21,7 @@ struct Base {
 
 	virtual ~Base() {}
 
-  static auto DisplayAction();
+  virtual tuple<void*,char> DisplayAction() = 0;
   // virtual float* DisplayAction(float* value);
   // virtual double* DisplayAction(double* value);
 };

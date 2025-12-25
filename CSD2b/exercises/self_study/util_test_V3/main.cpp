@@ -1,3 +1,5 @@
+// this doesn't work, trying another approach in 'template_overloading_test'
+
 #include <iostream>
 using namespace std;
 
@@ -17,9 +19,10 @@ There can be more than one definition in a program as long as all following
 conditions are satisfied:
 
 declaration:
-specialization
-definition
-instatiation
+specialization bij een template functie is dat wanneer een bepaald type
+een andere definition heeft
+definition:
+instatiation wanneer het object wordt gemaakt
 
 
 

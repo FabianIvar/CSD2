@@ -3,12 +3,12 @@
 #include "utils.h"
 using namespace std;
 
-string utils::color(string textInput, string color) {
+std::string utils::color(std::string textInput, std::string color) {
   #if DEBUG
   cout << "utils::color" << endl;
   #endif
 
-  string ansiColors[14] = {
+  std::string ansiColors[14] = {
     "red",
     "green",
     "yellow",
@@ -25,7 +25,7 @@ string utils::color(string textInput, string color) {
     "brightCyan"
   };
 
-  string ansiCode;
+  std::string ansiCode;
 
   for (int i = 0; i < 14; i++) {
     if (!(color.compare(ansiColors[i]))) {
@@ -40,9 +40,9 @@ string utils::color(string textInput, string color) {
     }
   }
 
-  string prefix = "\x1B[" + ansiCode + "m";
-  string suffix = "\033[0m";
-  string output = prefix + textInput + suffix;
+  std::string prefix = "\x1B[" + ansiCode + "m";
+  std::string suffix = "\033[0m";
+  std::string output = prefix + textInput + suffix;
 
   #if DEBUG
   cout << "outut: " << output << endl
@@ -50,42 +50,6 @@ string utils::color(string textInput, string color) {
 
   return output;
 }
-
-// QUESTION: do you always need brackets when making an array?
-// auto utils::arrSlice(auto inputArray[], int startPos, int stopPos) {
-//
-//   #if DEBUG
-//   cout << "utils::arrSlice" << endl;
-//   #endif
-//
-//   int inputArrayLength = sizeof(inputArray) / sizeof(inputArray[0]);
-//   int slicedArrayLength = stopPos - startPos;
-//   auto slicedArray[slicedArrayLength] = 0;
-//
-//   for (int i = 0; i <= slicedArrayLength; i++) {
-//       slicedArray[i] = inputArray[i + startPos]
-//   }
-//
-//   #if DEBUG
-//   cout <<
-//     "inputArray: " << to_string(inputArray) <<
-//     "\narrayLength: " << arrayLength <<
-//     "\nstartPos: " << startPos <<
-//     "\nstopPos: " << stopPos <<
-//     "\nslicedArrayLength: " << slicedArrayLength <<
-//     "slicedArray: " << to_string(slicedArray) << endl;
-//   #endif
-//
-//   return slicedArray;
-// }
-//
-// float utils::arrSum(float inputArray[]) {
-//
-//   float output = 0;
-//   for (float i : inputArray) {output += i;}
-//
-//   return output;
-// }
 
 float utils::arrSum(float inputArray[], int start, int stop) {
 
@@ -135,23 +99,26 @@ double utils::velToAmp(int midiVel) {
   return amplitude;
 }
 
-string utils::pToString(int* pointer) {
+//============================================================================//
+
+template<typename T> string utils::pToString(const T& pointer) {
   stringstream ss;
   ss << static_cast<void*>(pointer);
   return ss.str();
 }
 
-string utils::pToString(float* pointer) {
-  stringstream ss;
-  ss << static_cast<void*>(pointer);
-  return ss.str();
-}
-
-string utils::pToString(double* pointer) {
-  stringstream ss;
-  ss << static_cast<void*>(pointer);
-  return ss.str();
-}
+//
+// std::string utils::pToString(float* pointer) {
+//   std::stringstream ss;
+//   ss << static_cast<void*>(pointer);
+//   return ss.str();
+// }
+//
+// std::string utils::pToString(double* pointer) {
+//   std::stringstream ss;
+//   ss << static_cast<void*>(pointer);
+//   return ss.str();
+// }
 
 /* TODO:
 */

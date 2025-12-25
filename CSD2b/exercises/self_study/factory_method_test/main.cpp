@@ -115,6 +115,7 @@ public:
   User(char input, void* voidPtr) : pBase(nullptr) {
     this->input = input;
 
+// TODO look here! possible recursion for nice input validation :)
     while((input != 'i') && (input != 'f') && (input != 'd')) {
 			cout << "Enter ID (1, 2 or 3 only): ";
 			cin >> input;}

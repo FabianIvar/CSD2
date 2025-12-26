@@ -10,12 +10,12 @@ template<typename V> struct mtof {
   V* midiPitch;
   mtof(V& midiPitch);
 
-  template <typename T>
-  operator T();
+  // template <typename T>
+  operator V(); // was operator T();
 };
 
-// out-of-class definition of mtof
-// constructor with initializer list
+/* out-of-class definition of mtof
+   constructor with initializer list */
 template<typename V>
 mtof<V>::mtof(V &midiPitch) {
   this->midiPitch = &midiPitch;
@@ -28,11 +28,10 @@ mtof<V>::mtof(V &midiPitch) {
 
 // out-of-class definition of operator
 template <typename V>
-template <typename T>
-mtof<V>::operator T() {
+mtof<V>::operator V() {
 
-  T output = 440.0 * pow(
-    2.0, (*midiPitch - 69) / 12);
+  V output = 440.0 * pow(
+    2.0, (*midiPitch - 69.0) / 12.0);
   cout <<
     "Output frequency: " << output
   << endl;
@@ -65,8 +64,7 @@ int main() {
   mtof midiPitch1(calculateFreq);
 
   // NOTE: typedef here?
-  decltype(calculateFreq) frequency =
-    static_cast<decltype(frequency)>(midiPitch1);
+  decltype(calculateFreq) frequency = static_cast<decltype(frequency)>(midiPitch1);
 
   // double frequency2 = midiPitch1.operator double*();
   // mtof

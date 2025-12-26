@@ -1,23 +1,27 @@
 #include <iostream>
-// #include <cmath>
 using namespace std;
 
 #define DEBUG 1
 
-// explicit
-template<typename V> struct mtof {
+//=============================================================================//
 
-  V* midiPitch;
-  mtof(V& midiPitch);
 
-  // template <typename T>
-  operator V(); // was operator T();
-};
+namespace Utils {
+  template<typename V> struct mtof {
+
+    V* midiPitch;
+    mtof(V& midiPitch);
+
+    // template <typename T>
+    operator V(); // was operator T();
+  };
+}
+
 
 /* out-of-class definition of mtof
    constructor with initializer list */
 template<typename V>
-mtof<V>::mtof(V &midiPitch) {
+Utils::mtof<V>::mtof(V &midiPitch) {
   this->midiPitch = &midiPitch;
   cout <<
     "mtof constructor\n" <<
@@ -28,7 +32,7 @@ mtof<V>::mtof(V &midiPitch) {
 
 // out-of-class definition of operator
 template <typename V>
-mtof<V>::operator V() {
+Utils::mtof<V>::operator V() {
 
   V output = 440.0 * pow(
     2.0, (*midiPitch - 69.0) / 12.0);
@@ -39,13 +43,9 @@ mtof<V>::operator V() {
   return output;
 }
 
-// template<typename T>
-// midiPitch::operator T*(T* inputValue) {
-//   return 440 * pow(2.0, (midiPitch - 69));}
 
 
-
-//======================================================//
+//=============================================================================//
 
 
 int main() {
@@ -54,6 +54,7 @@ int main() {
   cout << "Starting program...\n" << endl;
   #endif
 
+  using namespace Utils;
 
 //======================================================//
 
@@ -64,7 +65,10 @@ int main() {
   mtof midiPitch1(calculateFreq);
 
   // NOTE: typedef here?
+
+
   decltype(calculateFreq) frequency = static_cast<decltype(frequency)>(midiPitch1);
+
 
   // double frequency2 = midiPitch1.operator double*();
   // mtof

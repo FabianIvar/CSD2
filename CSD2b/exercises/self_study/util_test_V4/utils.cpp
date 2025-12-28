@@ -66,7 +66,7 @@ template <typename C>
 utils::constrain<C>::constrain(
   C &inputValue, C &minimum, C &maximum) {
 
-  C output = &std::min(*maximum, std::max(*minimum, *inputValue));
+  C output = std::min(*maximum, std::max(*minimum, *inputValue));
   this->output = &output;
 
   #if DEBUG
@@ -126,7 +126,6 @@ Utils::mtof<M>::operator M() {
 }
 
 
-
 // vtoa constructor definition
 template<typename V>
 Utils::vtoa<V>::vtoa(V midiVelocity) {
@@ -157,30 +156,30 @@ Utils::vtoa<V>::operator V() {
 
   return amplitude;
 }
-//
-// int utils::noteSampleDur(
-//   double bpm, double qNotes, double sampleRate) {
-//
-//   /* qNotes means the note length expressed as amount of quarter notes.
-//   lenQNotes = 2.0 means 2 quarter notes, so a half note.
-//   With a bpm of 120, a quarter note is: 60/ 120 = 0,5
-//   With a sampleRate of 44100 samples per second,
-//   The amount of samples in 0,5 seconds is 44100 * 0,5 = 22050 samples
-//   Calculation is done with doubles. Output = int */
-//
-//   double calculation = ((60 / bpm) * qNotes) * sampleRate;
-//
-//   #if DEBUG
-//   std::cout <<
-//     "Amount of samples: " << calculation <<
-//     "\nInformation loss after type_cast: " <<
-//     calculation - static_cast<int>(calculation) <<
-//   std::endl;
-//   #endif
-//
-//   return static_cast<int>(calculation);
-// }
-//
+
+int utils::noteSampleDur(
+  double bpm, double qNotes, double sampleRate) {
+
+  /* qNotes means the note length expressed as amount of quarter notes.
+  lenQNotes = 2.0 means 2 quarter notes, so a half note.
+  With a bpm of 120, a quarter note is: 60/ 120 = 0,5
+  With a sampleRate of 44100 samples per second,
+  The amount of samples in 0,5 seconds is 44100 * 0,5 = 22050 samples
+  Calculation is done with doubles. Output = int */
+
+  double calculation = ((60 / bpm) * qNotes) * sampleRate;
+
+  #if DEBUG
+  std::cout <<
+    "Amount of samples: " << calculation <<
+    "\nInformation loss after type_cast: " <<
+    calculation - static_cast<int>(calculation) <<
+  std::endl;
+  #endif
+
+  return static_cast<int>(calculation);
+}
+
 
 
 //============================================================================//

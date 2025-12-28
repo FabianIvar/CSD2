@@ -30,8 +30,8 @@ namespace utils {
     with dynamic polymorphism remains as an option.
     Also maybe make an arrSlice function*/
 
-  template <typename T>
-  std::string pToString(const T& pointer);
+  // template <typename T>
+  // std::string pToString(const T& pointer);
   // std::string pToString(float* inputPointer);
   // std::string pToString(double* inputPointer);
 }

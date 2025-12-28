@@ -101,11 +101,11 @@ double utils::velToAmp(int midiVel) {
 
 //============================================================================//
 
-template<typename T> string utils::pToString(const T& pointer) {
-  stringstream ss;
-  ss << static_cast<void*>(pointer);
-  return ss.str();
-}
+// template<typename T> string utils::pToString(const T& pointer) {
+//   stringstream ss;
+//   ss << static_cast<void*>(pointer);
+//   return ss.str();
+// }
 
 //
 // std::string utils::pToString(float* pointer) {

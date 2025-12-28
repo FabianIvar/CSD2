@@ -1,47 +1,15 @@
 #include <iostream>
+#include "utils.h"
 using namespace std;
 
-#define DEBUG 1
-
-//=============================================================================//
 
 
-namespace Utils {
-  template<typename V> struct mtof {
-
-    V* midiPitch;
-    mtof(V& midiPitch);
-
-    // template <typename T>
-    operator V(); // was operator T();
-  };
-}
 
 
-/* out-of-class definition of mtof
-   constructor with initializer list */
-template<typename V>
-Utils::mtof<V>::mtof(V &midiPitch) {
-  this->midiPitch = &midiPitch;
-  cout <<
-    "mtof constructor\n" <<
-    "midiValue: " << midiPitch <<
-    "\nOf type: " << typeid(midiPitch).name()
-  << endl;
-}
 
-// out-of-class definition of operator
-template <typename V>
-Utils::mtof<V>::operator V() {
 
-  V output = 440.0 * pow(
-    2.0, (*midiPitch - 69.0) / 12.0);
-  cout <<
-    "Output frequency: " << output
-  << endl;
 
-  return output;
-}
+
 
 
 
@@ -50,24 +18,33 @@ Utils::mtof<V>::operator V() {
 
 int main() {
   cout << endl;
-  #if DEBUG
   cout << "Starting program...\n" << endl;
-  #endif
-
   using namespace Utils;
+  //======================================================//
 
-//======================================================//
+
+
+
+
+
+
 
 
   cout << "test1:" << endl;
 
+  float calculateAmp = 100;
   float calculateFreq = 36.0;
-  mtof midiPitch1(calculateFreq);
+
+
+  vtoa midiVel1(calculateAmp);
+  // float amplitude = static_cast<decltype(calculateAmp)>(calculateAmplitude);
+
+  // mtof midiPitch1(calculateFreq);
 
   // NOTE: typedef here?
 
 
-  decltype(calculateFreq) frequency = static_cast<decltype(frequency)>(midiPitch1);
+  // decltype(calculateFreq) frequency = static_cast<decltype(frequency)>(midiPitch1);
 
 
   // double frequency2 = midiPitch1.operator double*();
@@ -82,7 +59,15 @@ int main() {
   << endl;
 
 
-  //====================================================//
+
+
+
+
+
+
+
+
+//=============================================================================//
 
 
   #if DEBUG

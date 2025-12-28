@@ -1,0 +1,39 @@
+std::basic_stringstream
+std::endl;
+std::cout;
+std::string
+
+float arrSum(
+  float inputArray[], int start, int stop);
+
+float constrain(
+  float inputValue, float minimum, float maximum);
+
+double noteSampleDur(
+  int bpm, float LenQNotes, double sampleRate);
+
+double velToAmp(
+  int midiVel);
+
+  /*
+  TODO:
+
+  - typedef test for mtof
+
+  DONE:
+
+  - noteSampleDur as generic function
+  - vtoa as generic function
+  - test if outside-of-class definitions work
+    with namespaces that have template classes
+    and template member functions.
+
+
+
+  */
+
+// interesting!
+// https://stackoverflow.com/questions/4014294/operator-overloading-on-class-templates#4014424
+
+C constrainedValue = min(*maximum, max(*minimum, *inputValue));
+return constrainedValue

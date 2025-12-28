@@ -1,11 +1,11 @@
-#include <iostream>
-#include <sstream>
+// #include <iostream>
+// #include <sstream>
 #include "utils.h"
 using namespace std;
 
 std::string utils::color(std::string textInput, std::string color) {
   #if DEBUG
-  cout << "utils::color" << endl;
+  std::cout << "utils::color" << std::endl;;
   #endif
 
   std::string ansiColors[14] = {
@@ -45,7 +45,7 @@ std::string utils::color(std::string textInput, std::string color) {
   std::string output = prefix + textInput + suffix;
 
   #if DEBUG
-  cout << "outut: " << output << endl
+  std::cout << "outut: " << output << std::endl;
   #endif
 
   return output;
@@ -62,63 +62,142 @@ float utils::arrSum(float inputArray[], int start, int stop) {
 }
 
 // NOTE: Should be generic
-float utils::constrain(float inputValue, float minimum, float maximum) {
+template <typename C>
+utils::constrain<C>::constrain(
+  C &inputValue, C &minimum, C &maximum) {
 
-  return min(maximum, max(minimum, inputValue));
-}
-
-// NOTE: Should be generic
-double utils::noteSampleDur(int bpm, float lenQNotes, double sampleRate) {
-  #if DEBUG
-  cout << "utils::noteSampleDur" << endl;
-  #endif
-
-  /* lenQNotes means the note length expressed as amount of quarter notes.
-  lenQNotes = 2.0 means 2 quarter notes, so a half note.
-  With a bpm of 120, a quarter note is: 60/ 120 = 0,5
-  With a sampleRate of 44100 samples per second,
-  The amount of samples in 0,5 seconds is 44100 * 0,5 = 22050 samples */
-
-  double noteTimeDurSec = (60 / bpm) * lenQNotes;
-  double durInSamples = sampleRate * noteTimeDurSec;
+  C output = &std::min(*maximum, std::max(*minimum, *inputValue));
+  this->output = &output;
 
   #if DEBUG
-  cout << "durInSamples" << endl;
+  std::cout <<
+    "constrain constructor\n" <<
+    "output: " << output <<
+    "\nOf type: " << std::typeid(output).name()
+  << std::endl;
   #endif
-
-  return durInSamples;
 }
 
-// NOTE: generic function should be implemented
-double utils::mtof(int midiPitch) {
-/* Source - https://git.jaydee.systems/chromaticsol/CSD2/src/commit/c8c69fe00e59fb6191f1c6304b2514295bc0057d/CSD2b/SynthTests/Codebase/utils.cpp
-By Vida, slightly modified to fit this project. */
+template <typename C>
+Utils::constrain<C>::operator C() {
 
-  double frequency = 440 * pow(2.0, (midiPitch - 69));
+  #if DEBUG
+  std::cout <<
+    "Constrained value: " << frequency <<
+    "\nOf type: " << std::typeid(*output).name();
+  << std::endl;
+  #endif
+
+  return output;
+}
+
+
+// DONE
+//============================================================================//
+
+// mtof constructor definition
+template<typename M>
+Utils::mtof<M>::mtof(M& midiPitch) {
+  this->midiPitch = &midiPitch;
+
+  #if DEBUG
+  std::cout <<
+    "mtof constructor\n" <<
+    "midiValue: " << midiPitch <<
+    "\nOf type: " << std::typeid(midiPitch).name()
+  << std::endl;
+  #endif
+}
+
+// mtof conversion operator definition
+template <typename M>
+Utils::mtof<M>::operator M() {
+
+  M frequency = 440.0 * std::pow(2.0, (*midiPitch - 69.0) / 12.0);
+
+  #if DEBUG
+  std::cout <<
+    "Output frequency: " <<
+    440.0 * std::pow(2.0, (*midiPitch - 69.0) / 12.0)
+  << std::endl;;
+  #endif
+
   return frequency;
 }
 
-// NOTE: generic function should be implemented
+
+
+// vtoa constructor definition
+template<typename V>
+Utils::vtoa<V>::vtoa(V midiVelocity) {
+  this->midiVelocity = &midiVelocity;
+
+  #if DEBUG
+  std::cout <<
+    "vtoa constructor\n" <<
+    "midiVelocity: " << midiVelocity <<
+    "\nOf type: " <<
+    std::typeid(midiVelocity).name()
+  << std::endl;
+  #endif
+
+}
+
+// vtoa conversion operator definition
+template <typename V>
+Utils::vtoa<V>::operator V() {
+
+  V amplitude = *midiVelocity / 127.0;
+
+  #if DEBUG
+    std::cout <<
+      "Output amplitude: " << amplitude
+    << std::endl;;
+  #endif
+
+  return amplitude;
+}
+//
+// int utils::noteSampleDur(
+//   double bpm, double qNotes, double sampleRate) {
+//
+//   /* qNotes means the note length expressed as amount of quarter notes.
+//   lenQNotes = 2.0 means 2 quarter notes, so a half note.
+//   With a bpm of 120, a quarter note is: 60/ 120 = 0,5
+//   With a sampleRate of 44100 samples per second,
+//   The amount of samples in 0,5 seconds is 44100 * 0,5 = 22050 samples
+//   Calculation is done with doubles. Output = int */
+//
+//   double calculation = ((60 / bpm) * qNotes) * sampleRate;
+//
+//   #if DEBUG
+//   std::cout <<
+//     "Amount of samples: " << calculation <<
+//     "\nInformation loss after type_cast: " <<
+//     calculation - static_cast<int>(calculation) <<
+//   std::endl;
+//   #endif
+//
+//   return static_cast<int>(calculation);
+// }
+//
+
+
+//============================================================================//
+
+
+
+// functions that are no longer used
+#if !EXCLUDE
 double utils::velToAmp(int midiVel) {
   double amplitude = midiVel / 127;
   return amplitude;
 }
 
-//============================================================================//
-
-template<typename T> string utils::pToString(const T& pointer) {
-  stringstream ss;
+template<typename T>
+std::string utils::pToString(const T& pointer) {
+  std::stringstream ss;
   ss << static_cast<void*>(pointer);
   return ss.str();
 }
-
-/* TODO:
-
-- test if outside-of-class definitions work
-  with namespaces that have template classes
-  and template member functions.
-- typedef test for mtof
-
-
-
-*/
+#endif

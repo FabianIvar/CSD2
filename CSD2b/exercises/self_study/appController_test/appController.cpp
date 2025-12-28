@@ -7,6 +7,11 @@ using namespace Utils;
 
 
 void appController::displayTitlescreen() {
+
+/* Font Author: Loic Cressot
+This font is free to use and distribute / MIT License
+FIGFont created with: http://patorjk.com/figfont-editor */
+
   std::cout <<
     color("▄█████ ██  ██ ███  ██ ██████ ██  ██   "
     "▄█████ ▄████▄ ███  ██  ▄████\n", "brightCyan") <<

@@ -1,7 +1,43 @@
 #include <iostream>
+#include <algorithm>
+#include <functional>
+
 // #include <vector>
 using namespace std;
 #define DEBUG 1
+
+
+struct Oscillator {
+  Oscillator(){}
+  virtual ~Oscillator(){
+    cout << "Oscillator Destructor" << endl;
+  }
+  virtual void calculate() = 0;
+};
+
+struct Sine : public Oscillator {
+  Sine(){}
+  ~Sine() override {
+    cout << "Sine Destructor" << endl;
+  }
+  void calculate() override {
+    cout << "AYOO" << endl;
+  }
+};
+
+template <typename E>
+struct entity_deleter {
+/*
+Source - https://stackoverflow.com/a
+Posted by rlbond, modified by community.
+Retrieved 2025-12-29, License - CC BY-SA 2.5
+*/
+
+  void operator()(E*& entity) {
+    delete entity;
+    entity = nullptr;
+  }
+};
 
 
 int main() {
@@ -11,35 +47,25 @@ int main() {
     "Starting program...\n"
   << endl;
   #endif
+
 //============================================================================//
 
-  int* intptr = new int(1234);
-  cout << "Test 1: " << *intptr << endl;
-  delete intptr;
-  intptr = nullptr;
+  int voicesAmt = 3;
+  vector<Oscillator*> voices;
 
-  int exampleInt = 123;
-
-  cout << endl;
-
-
-  int* intptr2[2];
-  vector<int*> ptrVector;
-
-  for (int i = 0; i < 2; i++) {
-    intptr2[i] = new int(123);
-    ptrVector.push_back(intptr2[i]);
+  for (int i = 0; i < voicesAmt; i++) {
+      voices.push_back(new Sine());
   }
 
-  for (auto i : ptrVector) cout << "test: " << i << endl;
+  for (auto i : voices) i->calculate();
 
-  for (auto i : ptrVector) {
-    cout << typeid(i).name() << endl;
-    delete *i;
-    cout << typeid(i).name() << endl;
-  }
 
-  cout << "\n" << ptrVector[0] << " " << typeid(ptrVector[0]).name() << endl;
+  // applies entity_deleter on every object stored in the vector
+  for_each(voices.begin(), voices.end(), entity_deleter<Oscillator>());
+  vector<Oscillator*>::iterator new_end =
+    remove(voices.begin(), voices.end(), static_cast<Oscillator*>(nullptr));
+  voices.erase(new_end, voices.end());
+
 
 
 
@@ -54,3 +80,7 @@ int main() {
   cout << endl;
   return 0;
 }
+
+// Source - https://stackoverflow.com/a
+// Posted by rlbond, modified by community.
+// Retrieved 2025-12-29, License - CC BY-SA 2.5

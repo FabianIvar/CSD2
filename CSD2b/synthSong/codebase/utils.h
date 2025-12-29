@@ -53,6 +53,18 @@ namespace Utils {
     }
   };
 
+  // Deletes objects stored in a vector and assigns nullptr
+  template <typename E> struct entity_deleter {
+  /* Source - https://stackoverflow.com/a
+  Posted by rlbond, modified by community.
+  Retrieved 2025-12-29, License - CC BY-SA 2.5 */
+
+    void operator()(E*& entity) {
+      delete entity;
+      entity = nullptr;
+    }
+  };
+
   // outputs string in selected color when printed by cout
   static std::string color(
     std::string textInput,

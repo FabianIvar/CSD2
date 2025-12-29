@@ -1,16 +1,14 @@
 #include "callback.h"
 #include <ostream>
-using namespace std;
+// #include <thread>
+// using namespace std;
 
 #define DEBUG 1
 #define STARTUP_MESSAGE 1
 
-
 //==========================================================================//
 
 int main () {
-  cout << endl;
-  cout << "Starting program...\n" << endl;
 
   ScopedMessageThreadEnabler scopedMessageThreadEnabler;
   CustomCallback audioSource(44100);
@@ -19,25 +17,20 @@ int main () {
   // arg 1 = input channels, arg 2 = output channels
   juceModule.init(2, 2);
 
-
 //==========================================================================//
 
-
-
-  cout << "Press q + Enter to quit..." << endl;
+  // This piece of code makes it so that the program keeps running.
+  std::cout << "Press q + Enter to quit..." << std::endl;
   bool running = true;
   while (running) {
-    switch (cin.get()) {
+    switch (std::cin.get()) {
       case 'q':
         running = false;
     }
   }
 
-
 //==========================================================================//
 
-
-  cout << "Closing program...\n" << endl;
 
   return 0;
 }

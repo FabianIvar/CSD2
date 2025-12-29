@@ -1,0 +1,42 @@
+//
+// Created by Ciska Vriezenga on 06/12/2022.
+//
+
+// Sine header
+
+{
+
+#include "sine.h"
+#include "math.h"
+
+Sine::Sine (float frequency, float samplerate)
+  : Oscillator (frequency, samplerate) {
+  }
+
+void Sine::calculate() { sample = sin (M_PI * 2 * phase) * amplitude; }
+}
+
+
+//============================================================================//
+
+
+// Saw idea
+{
+  sample = phase * 2.0 - 1.0;
+}
+
+
+//============================================================================//
+
+
+{
+
+  // NOTE: kan goed gedaan worden met ternery operator
+
+  phase <0.5 ? sample = 1 : sample = -1.0;
+  if(phase < 0.5) {
+  sample = 1.0;
+} else {
+  sample = -1.0;
+}
+}

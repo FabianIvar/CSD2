@@ -1,4 +1,5 @@
 #pragma once
+#define EXCLUDE 1
 
 /* NOTE:
 Duplicate code can probably be
@@ -95,6 +96,7 @@ namespace Utils {
     return output;
   }
 
+  #if !EXCLUDE
   // Note length to amount of samples
   static int lenToSamples(
     double qNotes,
@@ -103,4 +105,5 @@ namespace Utils {
 
     return static_cast<int>(calculation);
   }
+  #endif
 }

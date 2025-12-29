@@ -1,7 +1,7 @@
 #include "sine.h"
 #include "math.h"
 
-Sine::Sine (double frequency, double samplerate)
+Sine::Sine (float frequency, float samplerate)
   : Oscillator (frequency, samplerate) {
 
   #if DEBUG

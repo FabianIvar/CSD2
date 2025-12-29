@@ -2,7 +2,12 @@ cmake_minimum_required(VERSION 3.22)
 project(synthSong VERSION 0.0.1)
 
 juce_add_console_app(synthSong PRODUCT_NAME "synthSong")
-target_sources(synthSong PRIVATE main.cpp appController.cpp)
+target_sources(synthSong PRIVATE
+  main.cpp
+  appController.cpp
+  callback.cpp
+  sine.cpp
+  oscillator.cpp)
 target_compile_definitions(synthSong PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
 
 target_link_libraries(synthSong

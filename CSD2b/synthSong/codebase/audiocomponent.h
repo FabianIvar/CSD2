@@ -2,10 +2,9 @@
 // Created by Dean on 02/12/2023.
 //
 
-#include <juce_audio_basics/juce_audio_basics.h>
-#include <juce_audio_devices/juce_audio_devices.h>
-#include <iostream>
-using namespace std;
+#include "juce_audio_basics/juce_audio_basics.h"
+#include "juce_audio_devices/juce_audio_devices.h"
+
 
 struct AudioBuffer {
   const float** inputChannels;
@@ -22,7 +21,7 @@ public:
   void prepareToPlay (int samplesPerBlockExpected, double sampleRate) override {
     juce::ignoreUnused (samplesPerBlockExpected);
     Fs = sampleRate;
-    prepare (static_cast<double> (Fs));
+    prepare (static_cast<int> (Fs));
   }
   void releaseResources() override {}
   void getNextAudioBlock (
@@ -31,7 +30,7 @@ public:
   }
 
   virtual void process (AudioBuffer buffer) = 0;
-  virtual void prepare (double sampleRate) = 0;
+  virtual void prepare (int sampleRate) = 0;
 
 private:
   double Fs;

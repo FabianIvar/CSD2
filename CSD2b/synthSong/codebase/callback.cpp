@@ -1,62 +1,38 @@
 #include "callback.h"
+#include "appController.h"
 #include "utils.h"
-#include <iostream>
-using namespace std;
-// TODO: make samplerate template <typename T>
-/*
+using namespace appController;
 
-template <typename T> constexpr T sampleRate = T()
+CustomCallback::CustomCallback (float samplerate)
+  : AudioCallback (samplerate) {}
 
-*/
-
-
-CustomCallback::CustomCallback(double sampleRate)
-  : AudioCallback(double Fs) {
-
-    #if DEBUG
-    cout << "CustomCallback Constructor" << endl;
-    cout << "Samplerate in constructor: " << sampleRate << endl;
-    coud << "Samplerate is of type: ";
-    cout << typeid(sampleRate).name() << endl;
-    #endif
-
+CustomCallback::~CustomCallback(){
+  delete sine[0];
+  delete sine[1];
 }
 
-CustomCallback::~Customcallback() {
-  #if DEBUG
-  cout << "CustomCallback Destructor " << endl;
-  #endif
+void CustomCallback::prepare (int samplerate) {
+  std::cout << "samplerate: " << samplerate << std::endl;
+  displayTitlescreen();
+  std::cout << Utils::color("\nPress Enter to start","brightCyan") << std::endl;
 
-  delete myOsc;
-}
+  std::string input;
+  bool hasStarted = false;
 
-void CustomCallback::prepare(int sampleRate) {
-  _sampleRate = sampleRate;
-
-  // should be replaced by synth
-  myOsc = new Sine(double frequency, double sampleRate);
-
-  int numChannels = sizeof(synth) / sizeof(synth[0]);
-  for (int i = 0; i < numChannels; i++) {
-    synth[i].prepare(sampleRate)
+  while(!hasStarted) {
+    switch (std::cin.get()) {
+      default:
+        hasStarted = true;
+    }
   }
-  // oscillator.setSamplerate (sampleRate);
-  #if DEBUG
-  cout << "Samplerate in prepare function: ";
-  cout << sampleRate << endl;
-  cout << "Samplerate is of type: ";
-  cout << typeid(sampleRate).name() << endl;
-  #endif
 
-
-}
-
-double CustomCallback::getSampleRate() {
-  return _sampleRate
+  for (int i = 0; i < 2; i++) {
+    sine[i] = new Sine(220, samplerate);
+  }
+  // oscillator.setSamplerate (samplerate);
 }
 
 void CustomCallback::process (AudioBuffer buffer) {
-  // NOTE: Destructurizing
   auto [inputChannels,
         outputChannels,
         numInputChannels,
@@ -65,10 +41,16 @@ void CustomCallback::process (AudioBuffer buffer) {
 
   for (int channel = 0u; channel < numOutputChannels; ++channel) {
     for (int frame = 0u; frame < numFrames; ++frame) {
-      myFirstOsc.calculate();
-      outputChannels[channel][frame] = 0.0f;
-      // outputChannels[channel][frame] = oscillator.getSample();
-      // oscillator.tick();
+      outputChannels[channel][frame] = 0.0;
+      float sample = sine[channel]->getSample();
+
+      // amplitude limited to 0.3
+      outputChannels[channel][frame] = sample;
+      sine[channel]->tick();
+
+
+      // oscillatorFifth.tick();
+      // oscillatorFifthDetuned.tick();
     }
   }
 }

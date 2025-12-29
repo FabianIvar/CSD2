@@ -11,7 +11,7 @@ namespace Utils {
   // MIDI Pitch to Frequency
   template<typename M> struct mtof {
 
-    M output;
+    static M output;
     mtof(M midiPitch) {
       this->output = 440.0 * pow(
         2.0, (midiPitch - 69.0) / 12.0);;
@@ -53,7 +53,7 @@ namespace Utils {
   };
 
   // outputs string in selected color when printed by cout
-  std::string color(
+  static std::string color(
     std::string textInput,
     std::string color) {
 
@@ -96,7 +96,7 @@ namespace Utils {
   }
 
   // Note length to amount of samples
-  int lenToSamples(
+  static int lenToSamples(
     double qNotes,
     double sampleRate) {
     double calculation = ((60.0 / 120.0) * qNotes) * sampleRate;

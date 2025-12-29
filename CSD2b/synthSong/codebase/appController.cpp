@@ -3,16 +3,15 @@
 #include <iostream>
 #include "appController.h"
 #include "utils.h"
-using namespace Utils;
 
 
 void appController::displayTitlescreen() {
   std::cout <<
-    color("▄█████ ██  ██ ███  ██ ██████ ██  ██   "
+    Utils::color("▄█████ ██  ██ ███  ██ ██████ ██  ██   "
     "▄█████ ▄████▄ ███  ██  ▄████\n", "brightCyan") <<
-    color("▀▀▀▄▄▄  ▀██▀  ██ ▀▄██   ██   ██████   "
+    Utils::color("▀▀▀▄▄▄  ▀██▀  ██ ▀▄██   ██   ██████   "
     "▀▀▀▄▄▄ ██  ██ ██ ▀▄██ ██  ▄▄▄\n","cyan") <<
-    color("█████▀   ██   ██   ██   ██   ██  ██   "
+    Utils::color("█████▀   ██   ██   ██   ██   ██  ██   "
     "█████▀ ▀████▀ ██   ██  ▀███▀\n\n","brightBlue") <<
     "=================================================="
     "================="

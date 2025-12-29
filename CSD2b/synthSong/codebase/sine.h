@@ -2,9 +2,11 @@
 #include "oscillator.h"
 
 class Sine : public Oscillator {
-public:
-  Sine (float frequency = 0, float samplerate = 44100.0f);
+  // void calculate() override;
+  void calculate() override;
 
-protected:
-  void calculate() overrides;
+public:
+  Sine (float frequency, float samplerate);
+  virtual ~Sine() override {}
+
 };

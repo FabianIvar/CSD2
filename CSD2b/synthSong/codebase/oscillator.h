@@ -2,30 +2,32 @@
 #include <iostream>
 #include "synth.h"
 
-class Oscillator : public Synth {
+// : public Synth
+
+class Oscillator {
 public:
-  Oscillator(float frequency, float sampleRate);
-  ~Oscillator();
+  Oscillator(float frequency, float samplerate);
+  virtual ~Oscillator();
 
   void setFrequency(float frequency);
   float getFrequency();
-  void setPhase(float phase);
-  float getPhase();
-  void setSampleRate(float sampleRate);
+  float getSample();
   void tick();
+  // void setPhase(float phase);
+  // float getPhase();
+  // void setSampleRate(float sampleRate);
 
 protected:
-
-  // pure virtual function, making the Oscillator class abstract.
   virtual void calculate() = 0;
-  float frequency;
-  float amplitude;
   float phase;
-  // float phaseStep;
+  float amplitude;
+  float phaseStep;
   float sample;
-  float sampleRate;
+private:
+  float frequency;
+  float samplerate;
 
 
 
 
-}
+};

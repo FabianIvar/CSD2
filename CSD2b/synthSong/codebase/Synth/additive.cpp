@@ -3,39 +3,74 @@
 // NOTE: would be cool to be able to
 // change the wavetype after initialization
 // maybe with a 'setwavetype' function.
+
+/* TODO:
+
+- At least one voice
+- Implement amplitude argument into wavetypes
+- Amplitude and Frequency array's?
+- Fix duplicate code
+
+*/
+
+// implement amplitude
 Additive::Additive(
-  float frequency,
-  float samplerate,
-  int waveType,
-  float voicesAmt)
-  : Synth(frequency, samplerate),
-  waveType(waveType),
-  voicesAmt(voicesAmt), {
-    devisor = 1.0f / voicesAmt;
+  float _frequency, float _samplerate,
+  int _waveType, int _voicesAmt)
+    : Synth(_frequency, _samplerate),
+      voicesAmt(_voicesAmt), waveType(_waveType) {
+    #if DEBUG
+    std::cout <<
+      "Additive constructor" <<
+      "\nfrequency: " << frequency <<
+      "\nwave type: " << waveType <<
+      "\nvoices amount: " << voicesAmt << "\n"
+    << std::endl;
+    #endif
+
+    if (waveType == 0) { // Sine
+      for (int i = 1; i < voicesAmt + 1; i++) {
+        voices.push_back(new Sine(
+          frequency * i, samplerate));
+      }
+    }
+    else if (waveType == 1) { // Square
+      for (int i = 1; i < voicesAmt + 1; i++) {
+        voices.push_back(new Square(
+          frequency * i, samplerate));
+      }
+    }
+    else if (waveType == 2) { // Saw
+      for (int i = 1; i < voicesAmt + 1; i++) {
+          voices.push_back(new Saw(
+            frequency * i, samplerate));
+    }
   }
-
-Additive::~Additive() {
-  std::cout << "Additive Type Destroyed" << std::endl;
-
 }
 
-// NOTE: there should be at least one voice.
+
+Additive::~Additive() {
+  for_each(voices.begin(), voices.end(), Utils::entity_deleter<Oscillator>());
+
+  std::vector<Oscillator*>::iterator new_end =
+    remove(voices.begin(), voices.end(), static_cast<Oscillator*>(nullptr));
+
+  voices.erase(new_end, voices.end());
+
+  #if DEBUG
+    std::cout <<
+    "SynthType Additive Destroyed"
+    << std::endl;
+  #endif
+}
+
+
 void Additive::calculate() {
 
-  if (waveType == 0){ // Sine
-    for (int i = 0; i < voicesAmt; i++) {
-        voices.push_back(new Sine(220.0f, samplerate));
-    }
+  float sampleCalc = 0.0f;
+  for (auto i : voices) {
+    sampleCalc += i->getSample();
+    i->tick();
   }
-  else if (waveType == 1) { // Square
-    for (int i = 0; i < voicesAmt; i++) {
-
-    }
-  }
-  else if (waveType == 2) { // Saw
-    for (int i = 0; i < voicesAmt; i++) {
-
-    }
-  }
-
+  this->_sample = sampleCalc / voicesAmt;
 }

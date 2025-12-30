@@ -2,6 +2,7 @@
 
 #include "audiocomponent.h"
 #include "Synth/synth.h"
+#include "Synth/additive.h"
 // #include "Synth/WaveTypes/sine.h"
 // #include "Synth/WaveTypes/square.h"
 // #include "Synth/WaveTypes/saw.h"
@@ -10,9 +11,9 @@
 struct CustomCallback : public AudioCallback {
   CustomCallback (float samplerate);
   ~CustomCallback() override;
-  void prepare (int sampleRate) override;
+  void prepare (int samplerate) override;
   void process (AudioBuffer buffer) override;
 private:
   // Oscillator* waveType;
-  Synth* synthType[2];
+  Synth* synth[2];
 };

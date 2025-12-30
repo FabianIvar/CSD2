@@ -55,58 +55,16 @@ namespace Utils {
 
   // Deletes objects stored in a vector and assigns nullptr
   template <typename E> struct entity_deleter {
-  /* Source - https://stackoverflow.com/a
-  Posted by rlbond, modified by community.
-  Retrieved 2025-12-29, License - CC BY-SA 2.5 */
+
+    /* Source - https://stackoverflow.com/a
+    Posted by rlbond, modified by community.
+    Retrieved 2025-12-29, License - CC BY-SA 2.5 */
 
     void operator()(E*& entity) {
       delete entity;
       entity = nullptr;
     }
   };
-
-  // outputs string in selected color when printed by cout
-  static std::string color(
-    std::string textInput,
-    std::string color) {
-
-    std::string ansiColors[] = {
-      "red",
-      "green",
-      "yellow",
-      "blue",
-      "magenta",
-      "cyan",
-      "white",
-      "brightBlack",
-      "brightRed",
-      "brightGreen",
-      "brightYellow",
-      "brightBlue",
-      "brightMagenta",
-      "brightCyan"
-    };
-
-    std::string ansiCode;
-
-    for (int i = 0; i < 14; i++) {
-      if (!(color.compare(ansiColors[i]))) {
-        if (i <= 6) {
-          // ANSI code 30 is black and not visable in the terminal
-          ansiCode = std::to_string(31 + i);
-        }
-        else {
-          // Starting from 90 are the bright variants of the colors
-          ansiCode = std::to_string(83 + i);
-        }
-      }
-    }
-
-    std::string prefix = "\x1B[" + ansiCode + "m";
-    std::string suffix = "\033[0m";
-    std::string output = prefix + textInput + suffix;
-    return output;
-  }
 
   #if !EXCLUDE
   // Note length to amount of samples

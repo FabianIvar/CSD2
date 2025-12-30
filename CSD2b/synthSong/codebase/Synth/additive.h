@@ -1,6 +1,10 @@
 #pragma once
 #include <vector>
-#include <memory>
+#include <algorithm>
+#include <functional>
+#include <iostream>
+
+#include "../utils.h"
 #include "synth.h"
 #include "oscillator.h"
 #include "WaveTypes/sine.h"
@@ -8,16 +12,17 @@
 #include "WaveTypes/saw.h"
 
 struct Additive : public Synth {
-  Additive(float frequency, float samplerate);
+  Additive(
+    float _frequency, float _samplerate,
+    int _waveType, int _voicesAmt);
   void calculate() override;
 
   ~Additive() override;
 
 private:
-  typedef std::vector<shared_ptr<Oscillator*>> oscVector;
-  oscVector voices;
-  float devisor;
+  std::vector<Oscillator*> voices;
 
-
+  int voicesAmt;
+  int waveType;
 
 };

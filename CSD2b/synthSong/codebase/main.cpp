@@ -1,10 +1,5 @@
 #include "callback.h"
 #include <ostream>
-// #include <thread>
-// using namespace std;
-
-#define DEBUG 1
-#define STARTUP_MESSAGE 1
 
 //==========================================================================//
 
@@ -20,7 +15,8 @@ int main () {
 //==========================================================================//
 
   // This piece of code makes it so that the program keeps running.
-  std::cout << "Press q + Enter to quit..." << std::endl;
+  // TODO: add 'press q+enter to quit...' message to appcontroller
+  std::cout << "\nPress q + Enter to quit...\n" << std::endl;
   bool running = true;
   while (running) {
     switch (std::cin.get()) {

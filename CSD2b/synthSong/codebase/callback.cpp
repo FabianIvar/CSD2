@@ -7,12 +7,12 @@ CustomCallback::CustomCallback (float samplerate)
 
 CustomCallback::~CustomCallback(){
 
-  delete waveType;
-  waveType = nullptr;
+  // delete waveType;
+  // waveType = nullptr;
 
   for (int i = 0; i < 2; i++) {
-    delete synthType[i];
-    synthType[i] = nullptr;
+    delete synth[i];
+    synth[i] = nullptr;
   }
   // delete wave[1];
   // wave[1] = nullptr;
@@ -20,11 +20,11 @@ CustomCallback::~CustomCallback(){
 
 void CustomCallback::prepare (int samplerate) {
 
-  std::cout << "\n\nsamplerate: " << samplerate << std::endl;
   appController::displayTitlescreen();
-  std::cout << Utils::color("\nPress Enter to start","brightCyan") << std::endl;
 
-// Press enter to start TODO: move this to appController
+  // Press enter to start TODO: move this to appController color brightCyan
+  std::cout << "\nPress Enter to start" << std::endl;
+
   std::string input;
   bool hasStarted = false;
   while(!hasStarted) {
@@ -38,7 +38,10 @@ void CustomCallback::prepare (int samplerate) {
 
 // implicit conversion: int samplerate to float samplerate
   for (int i = 0; i < 2; i++) {
-    synthType[i] = new Additive(220.0f, samplerate);
+    // TODO: add amplitude, or a 'setAmplitude'
+    // function that can set the amplitude of a specific partial
+    // args: frequency, samplerate, waveType, voicesAmt
+    synth[i] = new Additive(220.0f, samplerate, 0, 4);
   }
 
 }
@@ -46,6 +49,7 @@ void CustomCallback::prepare (int samplerate) {
 //============================================================================//
 
 void CustomCallback::process (AudioBuffer buffer) {
+  // destructurization
   auto [inputChannels,
         outputChannels,
         numInputChannels,
@@ -55,11 +59,10 @@ void CustomCallback::process (AudioBuffer buffer) {
   for (int channel = 0u; channel < numOutputChannels; ++channel) {
     for (int frame = 0u; frame < numFrames; ++frame) {
       outputChannels[channel][frame] = 0.0;
-      float sample = wave[channel]->getSample();
+      float sample = synth[channel]->getSynthSample();
 
-      // amplitude limited to 0.3
       outputChannels[channel][frame] = sample;
-      wave[channel]->tick();
+      synth[channel]->tick();
 
 
       // oscillatorFifth.tick();

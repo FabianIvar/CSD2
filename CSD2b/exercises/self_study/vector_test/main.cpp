@@ -33,7 +33,7 @@ Posted by rlbond, modified by community.
 Retrieved 2025-12-29, License - CC BY-SA 2.5
 */
 
-  void operator()(E*& entity) {
+    void operator()(E*& entity) {
     delete entity;
     entity = nullptr;
   }

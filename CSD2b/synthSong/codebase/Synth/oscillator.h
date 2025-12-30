@@ -1,7 +1,6 @@
 #pragma once
-#include "synth.h"
-
-// : public Synth
+#include <iostream>
+#define DEBUG 0
 
 struct Oscillator {
 
@@ -14,13 +13,8 @@ the destructor of the WaveType object is called
 instead of the destructor of the oscillator */
   virtual ~Oscillator() {}
 
-  // void setFrequency(float frequency);
-  // float getFrequency();
-  // void setSamplerate();
   float getSample();
   void tick();
-  // void calcPhaseStep(float frequency);
-  // float getPhase();
 
 protected:
   virtual void calculate() = 0;
@@ -28,8 +22,5 @@ protected:
   float amplitude;
   float phaseStep;
   float sample;
-// private:
-  // float frequency;
-  // float samplerate;
 
 };

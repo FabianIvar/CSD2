@@ -3,7 +3,8 @@
 
 Oscillator::Oscillator(float _frequency, float _samplerate)
   : frequency(_frequency), amplitude(0.10f),
-    samplerate(_samplerate), phase(0.0f) {
+    samplerate(_samplerate), phase(0.0f),
+    sample(0.0f) {
   }
 
 Oscillator::~Oscillator() {
@@ -15,24 +16,15 @@ Oscillator::~Oscillator() {
 }
 
 void Oscillator::tick() {
-  phase += frequency / samplerate;;
+  phase += frequency * (1 / samplerate);
 
   if (phase > 1.0f) {
     phase -= 1.0f;
   }
-  else if (phase < 0.0f)
-  {
+  else if (phase < 0.0f) {
     phase += 1.0f;
   }
   calculate();
-}
-
-void Oscillator::setAmplitude(float amp) {
-  amplitude = amp;
-}
-
-void Oscillator::setFrequency(float freq) {
-  frequency = freq;
 }
 
 float Oscillator::getSample() { return sample; }

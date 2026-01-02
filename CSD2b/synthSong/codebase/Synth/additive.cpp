@@ -6,7 +6,8 @@
 
 /* TODO:
 
-- At least one voice (constrain -> input validation)
+- At least one voice
+  (constrain -> input validation)
 - Implement setAmplitude function
 - Implement setFrequency function
 
@@ -20,7 +21,8 @@ Additive::Additive(
   float _frequency, float _samplerate,
   int _waveType, int _voicesAmt)
     : Synth(_frequency, _samplerate),
-      voicesAmt(_voicesAmt), waveType(_waveType) {
+      voicesAmt(_voicesAmt),
+      waveType(_waveType) {
   #if DEBUG
     std::cout <<
       "Additive constructor" <<
@@ -30,6 +32,7 @@ Additive::Additive(
     << std::endl;
   #endif
 
+// TODO: remove this
   if (waveType == 0) { // Sine
     for (int i = 1; i < voicesAmt + 1; i++) {
       voices.push_back(new Sine(
@@ -63,7 +66,7 @@ Additive::~Additive() {
 
   #if DEBUG
     std::cout <<
-    "Additive Destroyed"
+      "Additive Destroyed"
     << std::endl;
   #endif
 }
@@ -71,12 +74,17 @@ Additive::~Additive() {
 void Additive::calculate() {
 
   float sampleCalc = 0.0f;
+  float freqMultiplier = 1.0f;
   for (auto i : voices) {
-    // i->setAmplitude();
-    i->setFrequency();
+    i->setAmplitude(amplitude);
+    i->setFrequency(
+      frequency * freqMultiplier);
+
     sampleCalc += i->getSample();
+    freqMultiplier++;
     i->tick();
   }
+
   /* _sample to prevent confusion,
   the variable name 'sample' is already
   used inside the class 'Oscillator' */

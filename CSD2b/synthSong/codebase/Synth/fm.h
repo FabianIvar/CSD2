@@ -26,14 +26,13 @@ struct Fm : public Synth {
 
   ~Fm() override;
   void calculate() override;
-  void setWaveType(int waveType);
+  // void setWaveType(int waveType);
 
 private:
   Oscillator* carrier;
   Oscillator* modulator;
   int carrierWaveType;
   int modulatorWaveType;
-  float carrierFrequency;
   float ratio;
   float modulationIndex;
 

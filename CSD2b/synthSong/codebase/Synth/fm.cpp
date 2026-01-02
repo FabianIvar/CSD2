@@ -1,35 +1,43 @@
 #include "fm.h"
 
+// Ratio = at least 0.5
+
 Fm::Fm(float _carrierFrequency, float _samplerate,
   int _carrierWaveType, int _modulatorWaveType,
   float _ratio, float _modulationIndex)
     : Synth(_carrierFrequency, _samplerate),
-      carrierFrequency(_carrierFrequency),
+      carrier(nullptr), modulator(nullptr),
       carrierWaveType(_carrierWaveType),
       modulatorWaveType(_modulatorWaveType),
       ratio(_ratio),
-      modulationIndex(_modulationIndex),
-      carrier(nullptr), modulator(nullptr),
-      amplitude(0.10f) {
+      modulationIndex(_modulationIndex) {
 
   #if DEBUG
     std::cout <<
       "Fm constructor" <<
-      "\nFrequency: " << carrierFrequency <<
+      "\nFrequency: " << frequency <<
       "\nRatio: " << ratio <<
       "\nWave type modulator: " << modulatorWaveType <<
       "\nWave type carrier: " << carrierWaveType <<
-      "\nModulation index: " << voicesAmt << "\n"
+      "\nModulation index: " << modulationIndex << "\n"
     << std::endl;
   #endif
 
 //==============================================//
 
-  setWaveType(modulatorWaveType);
-  modulator = *tempOsc;
-  setWaveType(carrierWaveType);
-  carrier = *tempOsc;
-  setWaveType('d');
+  // setWaveType(modulatorWaveType);
+  // modulator = tempOsc;
+  // setWaveType(carrierWaveType);
+  // carrier = tempOsc;
+  // setWaveType('d');
+
+  modulator = new Sine(frequency / ratio, samplerate);
+  carrier = new Sine(frequency, samplerate);
+
+  std::cout <<
+    "Modulator address: " << modulator <<
+    "\nCarrier address: " << carrier
+  << std::endl;
 
   // tuple<Oscillator*, int> modulatorOsc(modulator,
   //   _modulatorWaveType);
@@ -55,19 +63,32 @@ Fm::Fm(float _carrierFrequency, float _samplerate,
 
 void Fm::calculate() {
 
-  std::cout <<
-    "carrier: " << carrier <<
-    "\nmodulator: " << modulator
-  << std::endl;
+  // std::cout <<
+  //   "carrier: " << carrier <<
+  //   "\nmodulator: " << modulator
+  // << std::endl;
 
-  modulator->setAmplitude(modulationIndex);
-  modulator->setFrequency(carrierFrequency / ratio);
-  float modSample = modulator->getSample() * modulationIndex;
+  float carrierSample = 0.0f;
+  float modSample = 0.0f;
+
+  modulator->setAmplitude(0.2f);
+  modulator->setFrequency(220.0f);
+  modSample = modulator->getSample();
   modulator->tick();
 
-  carrier->setFrequency(carrierFrequency + modSample);
-  this->_sample = carrier->getSample() * amplitude;
-  carrier->tick();
+  carrier->setAmplitude(0.2f);
+  carrier->setFrequency(225.0f);
+  carrierSample = carrier->getSample();
+  _sample = (modSample + carrierSample) / 2.0f;
+
+  // carrier->setAmplitude(amplitude);
+  // carrier->setFrequency(
+  //   frequency + modSample);
+  // carrierSample = carrier->getSample();
+  // modulator->tick();
+  // carrier->tick();
+  //
+  // this->_sample = carrierSample;
 }
 
 // void Fm::calculate(osc input) {
@@ -82,10 +103,17 @@ void Fm::calculate() {
 
 
 Fm::~Fm() {
-  delete modulator;
-  modulator = nullptr;
-  delete carrier;
-  carrier = nullptr;
-  delete tempOsc;
-  tempOsc = nullptr;
+
+  #if DEBUG
+    std::cout <<
+      "Fm Destroyed"
+    << std::endl;
+  #endif
+
+  // delete modulator;
+  // modulator = nullptr;
+  // delete carrier;
+  // carrier = nullptr;
+  // delete tempOsc;
+  // tempOsc = nullptr;
 }

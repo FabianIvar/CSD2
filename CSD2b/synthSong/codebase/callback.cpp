@@ -35,8 +35,8 @@ void CustomCallback::prepare (int samplerate) {
 
 //============================================================================//
 
-// TEMP: 1 for additive, 0 for fm, and temporary if statement
-  int synthType = 0;
+// TEMP: 0 for additive, 1 for fm, and temporary if statement
+  int synthType = 1;
 
   if (!synthType) {
     for (int i = 0; i < 2; i++) {

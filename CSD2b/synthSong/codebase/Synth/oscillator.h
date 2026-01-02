@@ -19,11 +19,11 @@ instead of the destructor of the oscillator */
   virtual ~Oscillator();
 
   void tick();
-  void setAmplitude(float amp);
-  void setFrequency(float freq);
   float getSample();
 
 protected:
+  virtual void setAmplitude(float amp);
+  virtual void setFrequency(float freq);
   virtual void calculate() = 0;
   float frequency;
   float amplitude;

@@ -8,6 +8,14 @@ Sine::Sine (float _frequency, float _samplerate)
     #endif
   }
 
+void Sine::setAmplitude(float amp) {
+  this->amplitude = amp;
+}
+
+void Sine::setFrequency(float freq) {
+  this->frequency = freq;
+}
+
 void Sine::calculate() {
   sample = sin(static_cast<float>(M_PI) * 2.0f * phase) * amplitude;
 }

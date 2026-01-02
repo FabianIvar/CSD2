@@ -7,6 +7,14 @@ Saw::Saw (float _frequency, float _samplerate)
     #endif
   }
 
+void Saw::setAmplitude(float amp) {
+  this->amplitude = amp;
+}
+
+void Saw::setFrequency(float freq) {
+  this->frequency = freq;
+}
+
 void Saw::calculate() {
   sample = (phase * 2.0f - 1.0f) * amplitude;
 }

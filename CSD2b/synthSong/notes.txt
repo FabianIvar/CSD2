@@ -2,8 +2,7 @@
 // Created by Ciska Vriezenga on 06/12/2022.
 //
 
-// Sine header
-
+// Sine
 {
 
 #include "sine.h"
@@ -28,15 +27,16 @@ void Sine::calculate() { sample = sin (M_PI * 2 * phase) * amplitude; }
 
 //============================================================================//
 
-
+// Square
 {
 
   // NOTE: kan goed gedaan worden met ternery operator
 
-  phase <0.5 ? sample = 1 : sample = -1.0;
+  (phase < 0.5) ? sample = 1.0 : sample = -1.0;
+
   if(phase < 0.5) {
-  sample = 1.0;
-} else {
-  sample = -1.0;
-}
+    sample = 1.0;
+  } else {
+    sample = -1.0;
+  }
 }

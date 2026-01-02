@@ -5,7 +5,7 @@
 CustomCallback::CustomCallback (float samplerate)
   : AudioCallback (samplerate) {}
 
-CustomCallback::~CustomCallback(){
+CustomCallback::~CustomCallback() {
 
   // delete waveType;
   // waveType = nullptr;
@@ -14,8 +14,7 @@ CustomCallback::~CustomCallback(){
     delete synth[i];
     synth[i] = nullptr;
   }
-  // delete wave[1];
-  // wave[1] = nullptr;
+  std::cout << std::endl;
 }
 
 void CustomCallback::prepare (int samplerate) {
@@ -36,14 +35,27 @@ void CustomCallback::prepare (int samplerate) {
 
 //============================================================================//
 
-// implicit conversion: int samplerate to float samplerate
-  for (int i = 0; i < 2; i++) {
-    // TODO: add amplitude, or a 'setAmplitude'
-    // function that can set the amplitude of a specific partial
-    // args: frequency, samplerate, waveType, voicesAmt
-    synth[i] = new Additive(220.0f, samplerate, 0, 4);
-  }
+// TEMP: 1 for additive, 0 for fm, and temporary if statement
+  int synthType = 0;
 
+  if (!synthType) {
+    for (int i = 0; i < 2; i++) {
+    /* TODO: Add amplitude parameter,
+      or implement a 'setAmplitude' function
+
+args: [1]frequency, [2]samplerate, [3]waveType, [4]voicesAmt */
+      synth[i] = new Additive(220.0f, samplerate, 0, 4);
+    }
+  }
+  else if (synthType) {
+    for (int i = 0; i < 2; i++) {
+      /* TODO: add amplitude parameter,
+
+args: [1]carrierFrequency, [2]samplerate, [3]carrierWaveType,
+      [4]modulatorWaveType, [5]ratio, [6]modulationIndex */
+      synth[i] = new Fm(220.0f, samplerate, 0, 0, 2.0f, 1.0f);
+    }
+  }
 }
 
 //============================================================================//

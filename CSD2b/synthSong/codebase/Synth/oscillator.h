@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
-#define DEBUG 0
+#define DEBUG 1
+
+// TODO: add setFrequency function
 
 struct Oscillator {
 
@@ -8,7 +10,7 @@ struct Oscillator {
 
 /* NOTE:
 A virtual destructor makes it so that when
-delete is called on 'oscillator* square'
+delete is called on (e.g.) 'oscillator* square'
 the destructor of the WaveType object is called
 instead of the destructor of the oscillator */
   virtual ~Oscillator() {}

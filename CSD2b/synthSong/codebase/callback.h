@@ -3,6 +3,7 @@
 #include "audiocomponent.h"
 #include "Synth/synth.h"
 #include "Synth/additive.h"
+#include "Synth/fm.h"
 // #include "Synth/WaveTypes/sine.h"
 // #include "Synth/WaveTypes/square.h"
 // #include "Synth/WaveTypes/saw.h"

@@ -4,4 +4,5 @@ target_sources(${PROJECT_NAME}
     oscillator.cpp
     synth.cpp
     additive.cpp
+    fm.cpp
     )

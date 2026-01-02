@@ -1,6 +1,9 @@
 #pragma once
 #include "../oscillator.h"
-#include <iostream>
+
+#if DEBUG
+  #include <iostream>
+#endif
 
 struct Sine : public Oscillator {
   Sine(float frequency, float samplerate);

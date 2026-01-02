@@ -1,10 +1,9 @@
 #pragma once
-#include <vector>
-#include <tuple>
+#include <memory>
 
-#if DEBUG
+// #if DEBUG
   #include <iostream>
-#endif
+// #endif
 
 #include "synth.h"
 // #include "oscillator.h"
@@ -38,7 +37,7 @@ private:
   float ratio;
   float modulationIndex;
 
-  typedef vector<tuple<Oscillator*, int>> osc;
+  // typedef vector<tuple<Oscillator*, int>> osc;
   // vector<tuple<Oscillator*, int>> oscillators;
 
 };

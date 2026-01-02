@@ -5,9 +5,9 @@
 #include "WaveTypes/square.h"
 #include "WaveTypes/saw.h"
 
-#if DEBUG
+// #if DEBUG
   #include <iostream>
-#endif
+// #endif
 
 /* TODO:
 
@@ -23,8 +23,7 @@ struct Synth {
   virtual ~Synth();
   void tick();
   float getSynthSample();
-  Oscillator* setWaveType(
-    float freq, int wave);
+  void setWaveType(int wave);
 
 protected:
   virtual void calculate() = 0;
@@ -32,4 +31,5 @@ protected:
   // float amplitude;
   float samplerate;
   float _sample;
+  Oscillator* tempOsc;
 };

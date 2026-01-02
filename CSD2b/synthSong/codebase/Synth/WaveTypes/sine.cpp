@@ -1,8 +1,8 @@
 #include "sine.h"
 #include "math.h"
 
-Sine::Sine (float frequency, float samplerate)
-  : Oscillator(frequency, samplerate) {
+Sine::Sine (float _frequency, float _samplerate)
+  : Oscillator(_frequency, _samplerate) {
     #if DEBUG
       std::cout << "Sine Constructor" << std::endl;
     #endif

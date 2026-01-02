@@ -72,6 +72,8 @@ void Additive::calculate() {
 
   float sampleCalc = 0.0f;
   for (auto i : voices) {
+    // i->setAmplitude();
+    i->setFrequency();
     sampleCalc += i->getSample();
     i->tick();
   }

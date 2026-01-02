@@ -2,7 +2,8 @@
 
 // NOTE: Implement amplitude as argument
 Synth::Synth(float freq, float rate)
-  : frequency(freq), samplerate(rate) {}
+  : frequency(freq), samplerate(rate),
+    tempOsc(nullptr) {}
 
 Synth::~Synth() {
   #if DEBUG
@@ -12,20 +13,21 @@ Synth::~Synth() {
   #endif
 }
 
-Oscillator* setWaveType(float freq, int wave) {
-  Oscillator* tempOsc;
-  switch (waveType) {
+// Initialized with a frequency of 0;
+static void setWaveType(int wave) {
+  switch (wave) {
     case 0:
-      tempOsc = new Sine(0.0f, samplerate);
-      return tempOsc;
+      tempOsc = new Sine(0.0f, samplerate));
       break;
     case 1:
-      tempOsc = new Square(0.0f, samplerate);
-      return tempOsc;
+      tempOsc = new Square(0.0f, samplerate));
       break;
     case 2:
-      tempOsc = new Saw(0.0f, samplerate);
-      return tempOsc;
+      tempOsc = new Saw(0.0f, samplerate));
+      break;
+    case 'd':
+      delete tempOsc;
+      tempOsc = nullptr;
       break;
   }
 }
@@ -34,4 +36,4 @@ Oscillator* setWaveType(float freq, int wave) {
 void Synth::tick() {calculate();}
 
 // Returns sample calculated by the synth
-float Synth::getSynthSample() {return _sample;}
+float Synth::getSynthSample() { return _sample; }

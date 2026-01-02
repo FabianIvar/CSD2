@@ -27,4 +27,18 @@ void Oscillator::tick() {
   calculate();
 }
 
+void Oscillator::setAmplitude(float amp) {
+  this->amplitude = amp;
+  // std::cout <<
+  //   "amplitude is now: " << amplitude
+  // << std::endl;
+}
+
+void Oscillator::setFrequency(float freq) {
+  this->frequency = freq;
+  // std::cout <<
+  //   "frequency is now: " << freq
+  // << std::endl;
+}
+
 float Oscillator::getSample() { return sample; }

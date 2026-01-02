@@ -20,10 +20,10 @@ instead of the destructor of the oscillator */
 
   void tick();
   float getSample();
+  void setAmplitude(float amp);
+  void setFrequency(float freq);
 
 protected:
-  virtual void setAmplitude(float amp);
-  virtual void setFrequency(float freq);
   virtual void calculate() = 0;
   float frequency;
   float amplitude;

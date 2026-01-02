@@ -15,7 +15,7 @@ Synth::~Synth() {
 }
 
 // Calculates sample
-void Synth::tick() { calculate(); }
+void Synth::synthTick() { calculate(); }
 
 // Returns sample calculated by the synth
 float Synth::getSynthSample() { return _sample; }

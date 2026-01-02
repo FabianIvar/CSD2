@@ -53,7 +53,7 @@ args: [1]frequency, [2]samplerate, [3]waveType, [4]voicesAmt */
 
 args: [1]carrierFrequency, [2]samplerate, [3]carrierWaveType,
       [4]modulatorWaveType, [5]ratio, [6]modulationIndex */
-      synth[i] = new Fm(220.0f, samplerate, 0, 0, 2.0f, 1.0f);
+      synth[i] = new Fm(220.0f, samplerate, 0, 0, 1.0f, 5.0f);
     }
   }
 }
@@ -74,7 +74,7 @@ void CustomCallback::process (AudioBuffer buffer) {
       float sample = synth[channel]->getSynthSample();
 
       outputChannels[channel][frame] = sample;
-      synth[channel]->tick();
+      synth[channel]->synthTick();
 
 
       // oscillatorFifth.tick();

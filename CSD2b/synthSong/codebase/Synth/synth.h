@@ -22,7 +22,7 @@ struct Synth {
   Synth(
     float _frequency, float _samplerate);
   virtual ~Synth();
-  void tick();
+  void synthTick();
   float getSynthSample();
   void setSynthFrequency(float freq);
   void setSynthAmplitude(float amp);

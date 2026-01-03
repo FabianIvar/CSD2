@@ -33,9 +33,11 @@ void Synth::setSynthAmplitude(float amp) {
 
 // Initialized with a frequency of 0;
 Oscillator** Synth::setWaveType(int wave) {
-  std::cout <<
-    ">>>tempOsc: " << tempOsc
-  << std::endl;
+  #if DEBUG
+    std::cout <<
+      ">>>tempOsc: " << tempOsc
+    << std::endl;
+  #endif
 
   switch (wave) {
     case 0:

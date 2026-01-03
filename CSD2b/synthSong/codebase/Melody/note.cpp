@@ -1,13 +1,7 @@
 #include "note.h"
 
 Note::Note(float _qNoteLength, float _midiPitch, float _midiVel)
- : qNoteLength(_qNoteLength), midiPitch(_midiPitch), midiVel(_midiVel) {
-  #if DEBUG
-    std::cout <<
-      "Note Constructor"
-    << std::endl;
-  #endif
-}
+ : qNoteLength(_qNoteLength), midiPitch(_midiPitch), midiVel(_midiVel) {}
 
 float Note::getQNoteLength() { return qNoteLength; }
 

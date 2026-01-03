@@ -1,6 +1,6 @@
 #include "callback.h"
-#include "appController.h"
-#include "utils.h"
+
+// #include "utils.h"
 
 CustomCallback::CustomCallback(float samplerate)
   : AudioCallback(samplerate), melody(12, samplerate)  {}
@@ -20,6 +20,8 @@ CustomCallback::~CustomCallback() {
 void CustomCallback::prepare (int samplerate) {
 
   appController::displayTitlescreen();
+
+  // appController::ask
 
 // TODO: move this to appController color brightCyan
   std::cout << "\nPress Enter to start" << std::endl;

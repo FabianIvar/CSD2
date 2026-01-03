@@ -11,14 +11,6 @@ Melody::Melody(int length, float _samplerate)
     (i == 1 || i == 4) ? summand += 1.0f : summand += 2.0f;
     melody.push_back( Note( 1.0f, 36.0f + summand, 100.0f));
   }
-
-  // std::vector<float> qNoteLengths;
-  //
-  // for (auto i : melody) {
-  //   qNoteLengths.push_back(i.getQNoteLength());
-  //   vectorSum sum(qNoteLengths, 0, qNoteLengths.size());
-  //   timestamp.push_back( lenToSamples( sum.output));
-  // }
 }
 
 bool Melody::tick() {
@@ -59,6 +51,3 @@ float Melody::getNoteAmplitude() {
   vtoa v(midiVel);
   return v.output;
 }
-
-// 2, 1, 2, 2, 1, 2, 2
-// Note(36.0f, 100.0f, 2.0f)

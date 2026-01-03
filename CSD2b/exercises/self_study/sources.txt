@@ -248,5 +248,8 @@ Sources:
 > .h vs .hpp file extention
  Both work for c++, hpp doesn't work in c coding language.
  People writing code for c++ inside .h files can be ambiguous because it's not
- clear if the code inside the header is meant for c++ or c. 
+ clear if the code inside the header is meant for c++ or c.
  Link: https://blog.fileformat.com/programming/h-vs-hpp/
+
+> clear console
+ Link: https://www.geeksforgeeks.org/cpp/how-to-clear-console-in-cpp/

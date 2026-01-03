@@ -1,6 +1,4 @@
 // appController handles UI and input and validation
-
-#include <iostream>
 #include "appController.h"
 
 std::string appController::color(std::string textInput,
@@ -45,6 +43,7 @@ std::string appController::color(std::string textInput,
 }
 
 void appController::displayTitlescreen() {
+  system("clear");
   std::cout <<
     color("\n▄█████ ██  ██ ███  ██ ██████ ██  ██   "
     "▄█████ ▄████▄ ███  ██  ▄████\n", "brightCyan") <<
@@ -55,10 +54,23 @@ void appController::displayTitlescreen() {
     "=================================================="
     "================="
   << std::endl;
-
 }
 
-// void askSynthType();
+void appController::askSynthType() {
+  std::cout<<
+    color("\nPick Synth Type: \n", "brightYellow")
+  << std::endl;
+}
+
+
+// void appController::dispMultChoice(
+//   strVec options, strVec colors);
+
+
+
+// template <typename T>
+// void appController::validateInput<T>();
+
 // void askWaveType(std::string available);
 // void askNumOsc();
 // // void confirmSettings

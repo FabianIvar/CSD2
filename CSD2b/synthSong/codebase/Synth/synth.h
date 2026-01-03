@@ -5,10 +5,6 @@
 #include "WaveTypes/square.h"
 #include "WaveTypes/saw.h"
 
-// #if DEBUG
-  #include <iostream>
-// #endif
-
 /* TODO:
 
 - Maybe remove duplicate code between additive
@@ -26,7 +22,7 @@ struct Synth {
   float getSynthSample();
   void setSynthFrequency(float freq);
   void setSynthAmplitude(float amp);
-  void setWaveType(int wave);
+  Oscillator** setWaveType(int wave);
 
 protected:
   virtual void calculate() = 0;

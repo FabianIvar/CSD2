@@ -1,6 +1,5 @@
 #pragma once
 #include "../oscillator.h"
-#include <iostream>
 
 struct Saw : public Oscillator {
   Saw(float _frequency, float _samplerate);

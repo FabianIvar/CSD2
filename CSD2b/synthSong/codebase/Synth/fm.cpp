@@ -12,37 +12,23 @@ Fm::Fm(float _frequency, float _samplerate,
       inverseRatio(1 / ratio),
       modIndex(modulationIndex) {
 
+  modulator = *setWaveType(modulatorWaveType);
+  carrier = *setWaveType(carrierWaveType);
+
   #if DEBUG
-    std::cout <<
-      "Fm constructor" <<
-      "\nFrequency: " << frequency <<
-      "\nRatio: " << ratio <<
-      "\nWave type modulator: " << modulatorWaveType <<
-      "\nWave type carrier: " << carrierWaveType <<
-      "\nModulation index: " << modulationIndex << "\n"
-    << std::endl;
+  std::cout <<
+    "\nFm constructor" <<
+    "\nFrequency: " << frequency <<
+    "\nRatio: " << ratio <<
+    "\nWave type modulator: " << modulatorWaveType <<
+    "\nWave type carrier: " << carrierWaveType <<
+    "\nModulation index: " << modulationIndex <<
+    "\nModulator address: " << modulator <<
+    "\nCarrier address: " << carrier << "\n"
+  << std::endl;
   #endif
 
-//==============================================//
-
-  // setWaveType(modulatorWaveType);
-  // modulator = tempOsc;
-  // setWaveType(carrierWaveType);
-  // carrier = tempOsc;
-  // setWaveType('d');
-
-  modulator = new Sine(220.0f, samplerate);
-  carrier = new Sine(230.0f, samplerate);
-
-  std::cout <<
-    "Modulator address: " << modulator <<
-    "\nCarrier address: " << carrier
-  << std::endl;
-
 }
-
-// TODO: add amplitude  Initial frequency = 0;
-
 
 void Fm::calculate() {
 
@@ -69,7 +55,9 @@ Fm::~Fm() {
 
   #if DEBUG
     std::cout <<
-      "Fm Destroyed"
+      "\nFm Destroyed"
+      "\nModulator: " << modulator << " Destroyed"
+      "\nCarrier: " << carrier << " Destroyed\n"
     << std::endl;
   #endif
 
@@ -77,6 +65,4 @@ Fm::~Fm() {
   modulator = nullptr;
   delete carrier;
   carrier = nullptr;
-  // delete tempOsc;
-  // tempOsc = nullptr;
 }

@@ -8,7 +8,7 @@
 
 - At least one voice
   (constrain -> input validation)
-- Implement setAmplitude function
+- Implement setPartialAmplitude function
 - Implement setFrequency function
 
 DONE:
@@ -22,7 +22,8 @@ Additive::Additive(
   int _waveType, int _voicesAmt)
     : Synth(_frequency, _samplerate),
       voicesAmt(_voicesAmt),
-      waveType(_waveType) {
+      waveType(_waveType),
+      partialAmp(voicesAmt, 0.2f) {
   #if DEBUG
     std::cout <<
       "Additive constructor" <<
@@ -31,6 +32,9 @@ Additive::Additive(
       "\nVoices amount: " << voicesAmt << "\n"
     << std::endl;
   #endif
+
+  for (auto i : partialAmp)
+    std::cout << i << std::endl;
 
 // TODO: remove this
   if (waveType == 0) { // Sine

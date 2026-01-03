@@ -1,11 +1,11 @@
 #pragma once
 #define DEBUG 1
 
-// #if DEBUG
-  #include <iostream>
-// #endif
+#if DEBUG
+#include <iostream>
+#endif
 
-// TODO: add setFrequency function
+// #include <vector>
 
 struct Oscillator {
 

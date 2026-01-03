@@ -1,6 +1,5 @@
 #pragma once
 #include "../oscillator.h"
-#include <iostream>
 
 struct Square : public Oscillator {
   Square(float _frequency, float _samplerate);

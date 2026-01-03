@@ -7,9 +7,12 @@ Synth::Synth(float _frequency, float _samplerate)
     tempOsc(nullptr) {}
 
 Synth::~Synth() {
+  if (tempOsc != nullptr) tempOsc = nullptr;
+
   #if DEBUG
     std::cout <<
       "Synth Destroyed"
+      "\ntempOsc: " << tempOsc
     << std::endl;
   #endif
 }
@@ -29,7 +32,11 @@ void Synth::setSynthAmplitude(float amp) {
 }
 
 // Initialized with a frequency of 0;
-void Synth::setWaveType(int wave) {
+Oscillator** Synth::setWaveType(int wave) {
+  std::cout <<
+    ">>>tempOsc: " << tempOsc
+  << std::endl;
+
   switch (wave) {
     case 0:
       tempOsc = new Sine(220.0f, samplerate);
@@ -40,9 +47,20 @@ void Synth::setWaveType(int wave) {
     case 2:
       tempOsc = new Saw(220.0f, samplerate);
       break;
-    case 'd':
-      delete tempOsc;
-      tempOsc = nullptr;
+    default:
+      #if DEBUG
+        std::cout <<
+          "error!"
+        << std::endl;
+      #endif
       break;
   }
+
+  #if DEBUG
+    std::cout <<
+      "Address: " << tempOsc << "\n"
+    << std::endl;
+  #endif
+
+  return &tempOsc;
 }

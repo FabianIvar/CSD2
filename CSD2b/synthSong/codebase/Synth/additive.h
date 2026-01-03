@@ -2,14 +2,13 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
-#include <iostream>
+
+// #if DEBUG
+// #include <iostream>
+// #endif
 
 #include "../utils.h"
 #include "synth.h"
-// #include "oscillator.h"
-// #include "WaveTypes/sine.h"
-// #include "WaveTypes/square.h"
-// #include "WaveTypes/saw.h"
 
 struct Additive : public Synth {
   Additive(float _frequency, float _samplerate,
@@ -23,5 +22,7 @@ private:
 
   int voicesAmt;
   int waveType;
+
+  std::vector<float> partialAmp;
 
 };

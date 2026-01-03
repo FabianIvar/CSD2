@@ -5,19 +5,17 @@
 #include "WaveTypes/square.h"
 #include "WaveTypes/saw.h"
 
-/* TODO:
-
-- Maybe remove duplicate code between additive
-  and fm -> wavetype picker function in synth.
-  ^^ Requires a lot of changes. might be
-  out of scope
-
-*/
-
 struct Synth {
-  Synth(
-    float _frequency, float _samplerate);
+  Synth(float _frequency, float _samplerate);
+
+  /* A virtual destructor makes it so that when
+  delete is called on (e.g.) 'oscillator* square'
+  the destructor of the WaveType object is called */
   virtual ~Synth();
+
+  // Used in additive synth to set amp of partials
+  virtual void setOscAmplitude(
+    int oscNum, float amp) {oscNum = 0; amp = 0;}
   void synthTick();
   float getSynthSample();
   void setSynthFrequency(float freq);

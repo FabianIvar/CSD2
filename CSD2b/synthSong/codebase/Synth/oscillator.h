@@ -10,12 +10,6 @@
 struct Oscillator {
 
   Oscillator(float _frequency, float _samplerate);
-
-/* NOTE:
-A virtual destructor makes it so that when
-delete is called on (e.g.) 'oscillator* square'
-the destructor of the WaveType object is called
-instead of the destructor of the oscillator */
   virtual ~Oscillator();
 
   void tick();

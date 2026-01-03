@@ -1,8 +1,8 @@
 #include "oscillator.h"
-// using namespace std;
 
-Oscillator::Oscillator(float _frequency, float _samplerate)
-  : frequency(_frequency), amplitude(0.10f),
+Oscillator::Oscillator(float _frequency,
+  float _samplerate)
+  : frequency(_frequency), amplitude(0.20f),
     samplerate(_samplerate), phase(0.0f),
     sample(0.0f) {
   }
@@ -29,16 +29,10 @@ void Oscillator::tick() {
 
 void Oscillator::setAmplitude(float amp) {
   this->amplitude = amp;
-  // std::cout <<
-  //   "amplitude is now: " << amplitude
-  // << std::endl;
 }
 
 void Oscillator::setFrequency(float freq) {
   this->frequency = freq;
-  // std::cout <<
-  //   "frequency is now: " << freq
-  // << std::endl;
 }
 
 float Oscillator::getSample() { return sample; }

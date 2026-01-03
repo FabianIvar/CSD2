@@ -1,7 +1,6 @@
 #include "fm.h"
 
-// Ratio = at least 0.5
-
+// TODO: Ratio = at least 0.5
 Fm::Fm(float _frequency, float _samplerate,
   int carrierWaveType, int modulatorWaveType,
   float ratio, float modulationIndex)

@@ -44,7 +44,12 @@ void CustomCallback::prepare (int samplerate) {
       or implement a 'setAmplitude' function
 
 args: [1]frequency, [2]samplerate, [3]waveType, [4]voicesAmt */
-      synth[i] = new Additive(220.0f, samplerate, 0, 4);
+      synth[i] = new Additive(220.0f, samplerate, 0, 10);
+      synth[i]->setOscAmplitude(1, 0.0f);
+      synth[i]->setOscAmplitude(3, 0.0f);
+      synth[i]->setOscAmplitude(5, 0.0f);
+      synth[i]->setOscAmplitude(7, 0.0f);
+      synth[i]->setOscAmplitude(9, 0.0f);
     }
   }
   else if (synthType) {

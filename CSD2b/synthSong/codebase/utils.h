@@ -12,7 +12,7 @@ namespace Utils {
   // MIDI Pitch to Frequency
   template<typename M> struct mtof {
 
-    static M output;
+    M output;
     mtof(M midiPitch) {
       this->output = 440.0 * pow(
         2.0, (midiPitch - 69.0) / 12.0);;

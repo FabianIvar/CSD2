@@ -2,8 +2,8 @@
 #include "appController.h"
 #include "utils.h"
 
-CustomCallback::CustomCallback (float samplerate)
-  : AudioCallback (samplerate) {}
+CustomCallback::CustomCallback(float samplerate)
+  : AudioCallback(samplerate), melody(12, samplerate)  {}
 
 CustomCallback::~CustomCallback() {
 
@@ -21,7 +21,7 @@ void CustomCallback::prepare (int samplerate) {
 
   appController::displayTitlescreen();
 
-  // Press enter to start TODO: move this to appController color brightCyan
+// TODO: move this to appController color brightCyan
   std::cout << "\nPress Enter to start" << std::endl;
 
   std::string input;
@@ -33,37 +33,34 @@ void CustomCallback::prepare (int samplerate) {
     }
   }
 
-//============================================================================//
+//===========================================================//
 
-// TEMP: 0 for additive, 1 for fm, and temporary if statement
+// TEMP: 0 for additive, 1 for fm, (temporary if statement)
   int synthType = 0;
 
   if (!synthType) {
     for (int i = 0; i < 2; i++) {
-    /* TODO: Add amplitude parameter,
-      or implement a 'setAmplitude' function
 
-args: [1]frequency, [2]samplerate, [3]waveType, [4]voicesAmt */
-      synth[i] = new Additive(220.0f, samplerate, 0, 10);
+/* args: [1]frequency, [2]samplerate, [3]waveType, [4]voicesAmt */
+      synth[i] = new Additive(melody.getNoteFrequency(), samplerate, 0, 10);
       synth[i]->setOscAmplitude(1, 0.0f);
       synth[i]->setOscAmplitude(3, 0.0f);
       synth[i]->setOscAmplitude(5, 0.0f);
       synth[i]->setOscAmplitude(7, 0.0f);
       synth[i]->setOscAmplitude(9, 0.0f);
+      synth[i]->setSynthAmplitude(melody.getNoteAmplitude());
     }
   }
   else if (synthType) {
     for (int i = 0; i < 2; i++) {
-      /* TODO: add amplitude parameter,
 
-args: [1]carrierFrequency, [2]samplerate, [3]carrierWaveType,
-      [4]modulatorWaveType, [5]ratio, [6]modulationIndex */
-      synth[i] = new Fm(220.0f, samplerate, 0, 0, 1.0f, 5.0f);
+/* args: [1]carrierFrequency, [2]samplerate, [3]carrierWaveType,
+        [4]modulatorWaveType, [5]ratio, [6]modulationIndex */
+      synth[i] = new Fm(melody.getNoteFrequency(), samplerate, 0, 0, 1.0f, 5.0f);
+      synth[i]->setSynthAmplitude(melody.getNoteAmplitude());
     }
   }
 }
-
-//============================================================================//
 
 void CustomCallback::process (AudioBuffer buffer) {
   // destructurization
@@ -80,6 +77,15 @@ void CustomCallback::process (AudioBuffer buffer) {
 
       outputChannels[channel][frame] = sample;
       synth[channel]->synthTick();
+      melody.tick();
+      if (melody.tick()) {
+        for (int i = 0; i < 2; i++) {
+          synth[i]->setSynthFrequency(melody.getNoteFrequency());
+          synth[i]->setSynthAmplitude(melody.getNoteAmplitude());
+        }
+      }
+
+
 
 
       // oscillatorFifth.tick();

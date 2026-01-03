@@ -4,7 +4,7 @@ project(synthSong VERSION 0.0.1)
 juce_add_console_app(${PROJECT_NAME} PRODUCT_NAME "synthSong")
 
 add_subdirectory(Synth)
-#add_subdirectory(Melody)
+add_subdirectory(Melody)
 
 target_sources(${PROJECT_NAME}
       PRIVATE

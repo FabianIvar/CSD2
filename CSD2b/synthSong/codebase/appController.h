@@ -12,29 +12,40 @@
 namespace appCtrl {
   typedef std::vector<std::string> strVec;
   typedef std::vector<int> intVec;
+  typedef std::vector<float> floatVec;
 
+/* This class stores values of various types
+   to compare user input to. */
   class Compare {
     appCtrl::strVec validIntegers;
+    std::vector<float> validFloats;
   public:
-    void setValidIntegers(intVec validInput);
+    void setValidIntegers(std::vector<int> values);
+    void setValidFloats(floatVec);
     appCtrl::strVec getValidIntegers();
+    std::vector<float> getValidFloats();
   };
 
   std::string color(std::string textInput, std::string color);
   void displayTitlescreen();
+
+  void questionSynthType(); // Done
+  void questionCarWaveType(); // Done
+  void questionModWaveType(); // Done
+
   void displayOptions(
-    strVec options, strVec enumColor, strVec optionColor);
+    strVec options, strVec numboxColor, strVec optionColor);
 
-  void questionSynthType();
-  void questionCarWavType();
-  void questionModWavType();
-  void questionRatio();
-  void questionModIndex();
+  // void questionModIndex();
+  void questionRatio(); // Done
+
+  void displayBounds(
+    strVec bounds, strVec boxColor, std::string promptColor);
+
   int getValidIntInput();
+  float getValidFloatInput();
 
 
-/* This class stores values of various types
-   to compare user input to. */
 
 
 

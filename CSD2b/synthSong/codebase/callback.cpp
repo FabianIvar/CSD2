@@ -39,6 +39,14 @@ void CustomCallback::prepare (int samplerate) {
     }
   }
   else if (synthType) {
+    appCtrl::questionModWaveType();
+    int modWaveType = appCtrl::getValidIntInput();
+
+    appCtrl::questionCarWaveType();
+    int carWaveType = appCtrl::getValidIntInput();
+
+    appCtrl::questionRatio();
+    float ratio = appCtrl::getValidFloatInput();
 /* TODO
 
 - carrierWaveType

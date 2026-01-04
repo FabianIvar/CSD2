@@ -67,28 +67,49 @@ void appCtrl::questionSynthType() {
     color("Pick Synth Type", "brightCyan") <<
     color(")>=-\n\n", "brightBlack");
   strVec options = {"Additive Synth", "FM Synth"};
-  strVec enumColor = {"brightBlack", "brightCyan", "brightBlack"};
-  strVec optionColor = {"default","default"};
-  displayOptions(options, enumColor, optionColor);
+  strVec numboxColor = {"brightBlack", "brightCyan", "brightBlack"};
+  strVec optionColor = {"default", "default"};
+  displayOptions(options, numboxColor, optionColor);
 }
 
+void appCtrl::questionCarWaveType() {
+  std::cout<<
+    color("\n-=<(", "brightBlack") <<
+    color("Pick Carrier Wavetype", "brightCyan") <<
+    color(")>=-\n\n", "brightBlack");
+  strVec options = {"Sine", "Square", "Saw"};
+  strVec numboxColor = {"brightBlack", "brightCyan", "brightBlack"};
+  strVec optionColor = {"default", "default", "default"};
+  displayOptions(options, numboxColor, optionColor);
+}
+
+void appCtrl::questionModWaveType() {
+  std::cout<<
+    color("\n-=<(", "brightBlack") <<
+    color("Pick Modulator Wavetype", "brightCyan") <<
+    color(")>=-\n\n", "brightBlack");
+  strVec options = {"Sine", "Square", "Saw"};
+  strVec numboxColor = {"brightBlack", "brightCyan", "brightBlack"};
+  strVec optionColor = {"default", "default", "default"};
+  displayOptions(options, numboxColor, optionColor);
+}
+
+void appCtrl::displayOptions(
+  strVec options, strVec numboxColor, strVec optionColor) {
 /* displayOptions displays an enumerated
    list of options the user can pick from */
-void appCtrl::displayOptions(
-  strVec options, strVec enumColor, strVec optionColor) {
 
   int optionIndex = 0;
-  std::string optionIndexString;
-  int enumIndex;
+  int numboxIndex;
 
-  strVec box = {"[", "x", "]"};
+  strVec numbox = {"[", "x", "]"};
   for (auto i : optionColor) {
-    box[1] = std::to_string(optionIndex);
+    numbox[1] = std::to_string(optionIndex);
 
-    enumIndex = 0;
-    for (auto j : enumColor) {
-      std::cout << appCtrl::color(box[size_t(enumIndex)], j);
-      enumIndex++;
+    numboxIndex = 0;
+    for (auto j : numboxColor) {
+      std::cout << appCtrl::color(numbox[size_t(numboxIndex)], j);
+      numboxIndex++;
     }
 
     std::cout << " " <<
@@ -105,22 +126,63 @@ void appCtrl::displayOptions(
   comparator.setValidIntegers(validInput);
 }
 
+void appCtrl::questionRatio() {
+  std::cout<<
+    color("\n-=<(", "brightBlack") <<
+    color("Set Ratio", "brightCyan") <<
+    color(")>=-\n\n", "brightBlack");
+  strVec boundsAsString = {"0.5", "25.0"};
+  strVec boxColor = {"brightBlack","brightCyan","brightBlack",
+    "brightCyan","brightBlack"};
+  std::string promptColor = "default";
+  displayBounds(boundsAsString, boxColor, promptColor);
+}
+
+void appCtrl::displayBounds(
+  strVec boundsAsString, strVec boxColor, std::string promptColor) {
+
+  strVec box = {"[","x","-","x","]"};
+
+  box[1] = boundsAsString[0];
+  box[3] = boundsAsString[1];
+
+
+  int boxIndex = 0;
+  for (auto i : boxColor) {
+    std::cout << appCtrl::color(box[size_t(boxIndex)], i);
+    boxIndex++;
+  }
+  std::cout <<
+    appCtrl::color(" Enter Value within bounds\n", promptColor)
+  << std::endl;
+  floatVec bounds = {std::stof(boundsAsString[0]),
+     std::stof(boundsAsString[1])};
+  comparator.setValidFloats(bounds); //TODO change to bounds
+}
+
+void appCtrl::Compare::setValidIntegers(std::vector<int> values) {
 /* takes a vector<int> as input, casts the values inside
    the vector to type string, stores the strings inside a
    new vector and assignes this vector to the
    member-variable 'validIntInput' inside the 'Compare'
    class */
-void appCtrl::Compare::setValidIntegers(
-  std::vector<int> values) {
   strVec valuesAsString;
   for (auto i : values) valuesAsString.push_back(std::to_string(i));
   this->validIntegers = valuesAsString;
 }
 
+void appCtrl::Compare::setValidFloats(std::vector<float> values) {
+  this->validFloats = values;
+}
+
+appCtrl::strVec appCtrl::Compare::getValidIntegers() {
 /* returns the vector<string> which is a vector that
    contains every valid integer as a string */
-appCtrl::strVec appCtrl::Compare::getValidIntegers() {
   return validIntegers;
+}
+
+std::vector<float> appCtrl::Compare::getValidFloats() {
+  return validFloats;
 }
 
 int appCtrl::getValidIntInput() {
@@ -144,4 +206,39 @@ int appCtrl::getValidIntInput() {
       << std::endl;
   }
   return std::stoi(input);
+}
+
+float appCtrl::getValidFloatInput() {
+  floatVec validFloat = comparator.getValidFloats();
+  bool notValid = true;
+  std::string input;
+
+  while(notValid) {
+    std::cout << color(">> ", "brightCyan");
+    std::cin >> input;
+
+    try {
+      std::stof(input);
+    }
+    catch (std::invalid_argument) {
+      std::cout << "\n'" << input << "' " <<
+        appCtrl::color("not a float, try again\n", "red")
+      << std::endl;
+      continue;
+    }
+
+    float floatInput = std::stof(input);
+
+    if (floatInput >= validFloat[0] &&
+      floatInput <= validFloat[1]) {
+      notValid = false;
+    }
+    else {
+      std::cout <<
+        appCtrl::color("\nInput out of bounds"
+        " try again\n", "red")
+      << std::endl;
+    }
+  }
+  return std::stof(input);
 }

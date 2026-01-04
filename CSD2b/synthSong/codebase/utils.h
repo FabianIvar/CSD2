@@ -14,8 +14,12 @@ namespace Utils {
 
     M output;
     mtof(M midiPitch) {
-      this->output = 440.0 * pow(
-        2.0, (midiPitch - 69.0) / 12.0);;
+      M referencePitch = 440.0;
+      M exponent = 2.0;
+      M subtrahend = 69.0;
+      M devisor = 12.0;
+      this->output = referencePitch * pow(
+        exponent, (midiPitch - subtrahend) / devisor);
     }
   };
 
@@ -24,7 +28,8 @@ namespace Utils {
 
     V output;
     vtoa(V midiVelocity) {
-      this->output = midiVelocity / 127.0;
+      V devisor = 127.0;
+      this->output = midiVelocity / devisor;
     }
   };
 

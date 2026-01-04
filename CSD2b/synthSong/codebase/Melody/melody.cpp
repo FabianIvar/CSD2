@@ -1,7 +1,8 @@
 #include "melody.h"
 
 Melody::Melody(int length, float _samplerate)
-  : noteIndex(0), frameCount(0), samplerate(_samplerate),
+  : samplerate(_samplerate), noteIndex(0),
+    frameCount(0),
     melodyLength(length) {
 
   float summand = 0.0f;
@@ -14,15 +15,13 @@ Melody::Melody(int length, float _samplerate)
 }
 
 bool Melody::tick() {
+
   frameCount++;
 
   if (frameCount >= getNoteSampleDur()) {
     noteIndex++;
 
-    if (noteIndex >= melodyLength) {
-      noteIndex = 0;
-    }
-
+    if (noteIndex > melodyLength) noteIndex = 0;
     frameCount = 0;
     return true;
   }
@@ -36,18 +35,18 @@ int Melody::lenToSamples(float qNoteValue) {
 }
 
 int Melody::getNoteSampleDur() {
-  float qNoteLength = melody[noteIndex].getQNoteLength();
+  float qNoteLength = melody[size_t(noteIndex)].getQNoteLength();
   return lenToSamples(qNoteLength);
 }
 
 float Melody::getNoteFrequency() {
-  float midiPitch = melody[noteIndex].getMidiPitch();
+  float midiPitch = melody[size_t(noteIndex)].getMidiPitch();
   mtof m(midiPitch);
   return m.output;
 }
 
 float Melody::getNoteAmplitude() {
-  double midiVel = melody[noteIndex].getMidiVel();
+  float midiVel = melody[size_t(noteIndex)].getMidiVel();
   vtoa v(midiVel);
   return v.output;
 }

@@ -58,7 +58,7 @@ int main(){
     printf("\x1B[36mTexting\033[0m\t\t");
     printf("\x1B[36mTexting\033[0m\t\t");
     printf("\x1B[36mTexting\033[0m\t\t");
-    printf("\x1B[37mTexting\033[0m\t\t");
+    printf("\x1B[37mTEST\033[0m\t\t");
     printf("\x1B[93mTexting\033[0m\n");
 
     printf("\033[3;42;30mTexting\033[0m\t\t");

@@ -1,6 +1,5 @@
 #include "synth.h"
 
-// NOTE: Implement amplitude as argument
 Synth::Synth(float _frequency, float _samplerate)
   : frequency(_frequency), amplitude(0.10f),
     samplerate(_samplerate),
@@ -31,7 +30,7 @@ void Synth::setSynthAmplitude(float amp) {
   this->amplitude = amp;
 }
 
-// Initialized with a frequency of 0;
+// Initialized with a frequency of 220.0f;
 Oscillator** Synth::setWaveType(int wave) {
   #if DEBUG
     std::cout <<

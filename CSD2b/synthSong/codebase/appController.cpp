@@ -1,15 +1,14 @@
 // appController handles UI and input and validation
-/* NOTE: There is still a lot of duplicate code,
-         but fixing this is out of scope for now */
+// For documentation, see "appController.h"
 
 #include "appController.h"
 
 appCtrl::Compare comparator;
 
+// Applies color to string printed by cout
 std::string appCtrl::color(std::string textInput,
   std::string color) {
 
-// Asci skips asciCode 38 for some reason?
   std::string ansiColors[] = {
     "black",
     "red",
@@ -34,7 +33,7 @@ std::string appCtrl::color(std::string textInput,
   for (int i = 0; i < 16; i++) {
     if (!(color.compare(ansiColors[i]))) {
       if (i <= 7) {
-        // ANSI code 30 is black and not visable in the terminal
+        // ANSI codes 1 to 7 are the non-bright variants of the colors.
         ansiCode = std::to_string(30 + i);
       }
       else {
@@ -51,6 +50,12 @@ std::string appCtrl::color(std::string textInput,
 }
 
 void appCtrl::displayTitlescreen() {
+  /*
+  Font Author: Loic Cressot
+  This font is free to use and distribute / MIT License
+  FIGFont created with: http://patorjk.com/figfont-editor
+  */
+
   system("clear");
   std::cout <<
     color("\n▄█████ ██  ██ ███  ██ ██████ ██  ██   "
@@ -65,19 +70,27 @@ void appCtrl::displayTitlescreen() {
 }
 
 void appCtrl::displayStartMessage() {
+  std::cout << "\nPress " <<
+    color("s + Enter ", "brightCyan") + "to start\n"
+  << std::endl;
 
-  std::cout <<
-    "\n\nPress " <<
-    color("S + Enter", "brightCyan") + "to start\n";
-
-  std::string input;
   bool hasStarted = false;
   while(!hasStarted) {
-    switch (std::cin.get()) {
-      case 'S':
-        hasStarted = true;
-        break;
-    }
+    if (std::cin.get() == 's') hasStarted = true;
+    else std::cout << color(">> ", "brightCyan");
+  }
+  std::cout << std::endl;
+}
+
+void appCtrl::displayQuitMessage() {
+  std::cout << "Press " <<
+    appCtrl::color("q + Enter","red") + " to quit\n"
+  << std::endl;
+
+  bool running = true;
+  while (running) {
+    if (std::cin.get() == 'q') running = false;
+    else std::cout << color(">> ", "brightCyan");
   }
 }
 
@@ -106,8 +119,6 @@ void appCtrl::questionWaveType(std::string question) {
 
 void appCtrl::displayOptions(
   strVec options, strVec numboxColor, strVec optionColor) {
-/* displayOptions displays an enumerated
-   list of options the user can pick from */
 
   int optionIndex = 0;
   int numboxIndex;

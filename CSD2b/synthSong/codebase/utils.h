@@ -64,15 +64,15 @@ namespace Utils {
   // Unused functions
   #if !EXCLUDE
 
-  // Constrain 'value' between 'min' and 'max'
-  template<typename C> struct constrain {
+    // Constrain 'value' between 'min' and 'max'
+    template<typename C> struct constrain {
 
-    C output;
-    constrain(C value, C min, C max) {
-      this->output = std::min(
-        max, std::max(min, value));
-    }
-  };
+      C output;
+      constrain(C value, C min, C max) {
+        this->output = std::min(
+          max, std::max(min, value));
+      }
+    };
 
   #endif
 }

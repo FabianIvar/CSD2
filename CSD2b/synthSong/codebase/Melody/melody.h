@@ -4,17 +4,12 @@
 #include <cmath>
 #include "../utils.h"
 
-// using namespace std;
-using namespace Utils;
-
 class Melody {
   std::vector<Note> melody;
-  // std::vector<int> timestamp;
   float samplerate;
   int noteIndex;
   int frameCount;
   int melodyLength;
-
 
 public:
   Melody(int length, float _samplerate);

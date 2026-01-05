@@ -1,13 +1,5 @@
 #include "additive.h"
 
-/* TODO:
-
-- At least one voice
-  (constrain -> input validation)
-
-*/
-
-
 Additive::Additive(
   float _frequency, float _samplerate,
   int _waveType, int _voicesAmt)
@@ -53,7 +45,6 @@ Additive::~Additive() {
   #endif
 }
 
-// TODO: constrain to voicesAmt
 void Additive::setOscAmplitude(int oscNum,
   float amp) {
   partialAmp[static_cast<size_t>(oscNum)] = amp;

@@ -2,9 +2,8 @@
 
 struct Note {
   Note(float QNoteLength,
-    float midiPitch, float midiVel);
-
-  // getters
+       float midiPitch,
+       float midiVel);
   float getQNoteLength();
   float getMidiPitch();
   float getMidiVel();

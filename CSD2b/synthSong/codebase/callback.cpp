@@ -18,8 +18,6 @@ void CustomCallback::prepare (int samplerate) {
 
   appCtrl::questionSynthType();
 
-//===========================================================//
-
 // 0 for additive, 1 for fm
   int synthType = appCtrl::getValidIntInput();
 
@@ -76,6 +74,7 @@ void CustomCallback::prepare (int samplerate) {
       synth[i]->setSynthAmplitude(melody.getNoteAmplitude());
     }
   }
+  appCtrl::displayStartMessage();
 }
 
 void CustomCallback::process (AudioBuffer buffer) {

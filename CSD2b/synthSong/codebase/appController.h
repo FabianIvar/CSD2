@@ -28,42 +28,30 @@ namespace appCtrl {
 
   std::string color(std::string textInput, std::string color);
   void displayTitlescreen();
+  void displayStartMessage();
+  void displayQuestion(std::string question);
 
+  // Display request for the user to pick synthesizer type
   void questionSynthType(); // Done
-  void questionCarWaveType(); // Done
-  void questionModWaveType(); // Done
 
+  // Display request for the user to pick a wavetype
+  void questionWaveType(std::string question);
+
+  // List enumerated options for multiple choice questions
   void displayOptions(
     strVec options, strVec numboxColor, strVec optionColor);
 
-  // void questionModIndex();
-  void questionRatio(); // Done
+  // Display request for a value within given bounds
+  void questionValInBounds(std::string question,
+    std::string lowerBound, std::string upperBound);
 
+  /* Display the lower and upper bounds, values set by the user
+     that are within these bounds are valid */
   void displayBounds(
     strVec bounds, strVec boxColor, std::string promptColor);
 
   int getValidIntInput();
-  float getValidFloatInput();
+  float getValidValInput(std::string expectedType);
 
 
-
-
-
-
-
-
-
-  // void askSynthType(std::string synthTypes[]);
-  // void askWaveType(std::string waveTypes[]);
-  // void askNumOsc(int max);
-
-  // // void confirmSettings
-  //
-  // // Function overloading
-  // std::string getUserInput(
-  //   std::string expectedType);
-  // std::string getUserInput(
-  //   std::string expectedType, float min, float max);
-  // std::string getUserInput(
-  //   std::string expectedType, float min, float max, bool constrainInput);
 }

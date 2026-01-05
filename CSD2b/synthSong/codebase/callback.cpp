@@ -20,59 +20,60 @@ void CustomCallback::prepare (int samplerate) {
 
 //===========================================================//
 
-// 0 for additive, 1 for fm, (temporary if statement)
+// 0 for additive, 1 for fm
   int synthType = appCtrl::getValidIntInput();
 
-  if (!synthType) {
+  if (!synthType) { // Additive Synth
+
+
+    appCtrl::questionWaveType("Pick Wavetype");
+    int addWaveType = appCtrl::getValidIntInput();
+
+    appCtrl::questionValInBounds("Set Amount of Partials", "1", "50");
+    int voicesAmt = static_cast<int>(appCtrl::getValidValInput("int"));
+
+    std::vector<float> partialAmps;
+    for (int i = 0; i < voicesAmt; i++) {
+      appCtrl::questionValInBounds(
+        "Set Amplitude of Voice "+ std::to_string(i), "0.0", "1.0");
+        partialAmps.push_back(appCtrl::getValidValInput("float"));
+    }
+
     for (int i = 0; i < 2; i++) {
 
 /* args: [1]frequency, [2]samplerate, [3]waveType, [4]voicesAmt */
       synth[i] = new Additive(
-        melody.getNoteFrequency(), samplerate, 0, 4);
+        melody.getNoteFrequency(), samplerate, addWaveType, voicesAmt);
 
-      // synth[i]->setOscAmplitude(1, 0.0f);
-      // synth[i]->setOscAmplitude(3, 0.0f);
-      // synth[i]->setOscAmplitude(5, 0.0f);
-      // synth[i]->setOscAmplitude(7, 0.0f);
-      // synth[i]->setOscAmplitude(9, 0.0f);
+      int partialNum = 0;
+      for (auto j : partialAmps) { // Sets amplitude of partials
+        synth[i]->setOscAmplitude(partialNum, j);
+        partialNum++;
+      }
+
       synth[i]->setSynthAmplitude(melody.getNoteAmplitude());
     }
   }
-  else if (synthType) {
-    appCtrl::questionModWaveType();
-    int modWaveType = appCtrl::getValidIntInput();
-
-    appCtrl::questionCarWaveType();
+  else if (synthType) { // FM Synth
+    appCtrl::questionWaveType("Pick Carrier Wavetype");
     int carWaveType = appCtrl::getValidIntInput();
 
-    appCtrl::questionRatio();
-    float ratio = appCtrl::getValidFloatInput();
-/* TODO
+    appCtrl::questionWaveType("Pick Modulator Wavetype");
+    int modWaveType = appCtrl::getValidIntInput();
 
-- carrierWaveType
-- modulatorWaveType
-- ratio
-- modulationIndex
+    appCtrl::questionValInBounds("Set Ratio", "0.5", "25.0");
+    float ratio = appCtrl::getValidValInput("float");
 
-*/
+    appCtrl::questionValInBounds("Set Modulation Index", "0.0", "100.0");
+    float modIndex = appCtrl::getValidValInput("float");
+
     for (int i = 0; i < 2; i++) {
 
 /* args: [1]carrierFrequency, [2]samplerate, [3]carrierWaveType,
         [4]modulatorWaveType, [5]ratio, [6]modulationIndex */
-      synth[i] = new Fm(melody.getNoteFrequency(), samplerate, 0, 0, 1.0f, 5.0f);
+      synth[i] = new Fm(melody.getNoteFrequency(), samplerate,
+        carWaveType, modWaveType, ratio, modIndex);
       synth[i]->setSynthAmplitude(melody.getNoteAmplitude());
-    }
-  }
-
-  // TODO: move this to appCtrl color brightCyan
-  std::cout << "\nPress Enter to start" << std::endl;
-
-  std::string input;
-  bool hasStarted = false;
-  while(!hasStarted) {
-    switch (std::cin.get()) {
-      default:
-        hasStarted = true;
     }
   }
 }
@@ -99,12 +100,6 @@ void CustomCallback::process (AudioBuffer buffer) {
           synth[i]->setSynthAmplitude(melody.getNoteAmplitude());
         }
       }
-
-
-
-
-      // oscillatorFifth.tick();
-      // oscillatorFifthDetuned.tick();
     }
   }
 }

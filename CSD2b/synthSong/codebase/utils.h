@@ -33,16 +33,6 @@ namespace Utils {
     }
   };
 
-  // Constrain 'value' between 'min' and 'max'
-  template<typename C> struct constrain {
-
-    C output;
-    constrain(C value, C min, C max) {
-      this->output = std::min(
-        max, std::max(min, value));
-    }
-  };
-
   // Sums values in a vector between 'start' and 'stop'
   template<typename S> struct vectorSum {
 
@@ -71,14 +61,18 @@ namespace Utils {
     }
   };
 
+  // Unused functions
   #if !EXCLUDE
-  // Note length to amount of samples
-  static int lenToSamples(
-    double qNotes,
-    double sampleRate) {
-    double calculation = ((60.0 / 120.0) * qNotes) * sampleRate;
 
-    return static_cast<int>(calculation);
-  }
+  // Constrain 'value' between 'min' and 'max'
+  template<typename C> struct constrain {
+
+    C output;
+    constrain(C value, C min, C max) {
+      this->output = std::min(
+        max, std::max(min, value));
+    }
+  };
+
   #endif
 }

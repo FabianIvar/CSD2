@@ -1,4 +1,7 @@
 // appController handles UI and input and validation
+/* NOTE: There is still a lot of duplicate code,
+         but fixing this is out of scope for now */
+
 #include "appController.h"
 
 appCtrl::Compare comparator;
@@ -61,33 +64,40 @@ void appCtrl::displayTitlescreen() {
   << std::endl;
 }
 
-void appCtrl::questionSynthType() {
+void appCtrl::displayStartMessage() {
+
+  std::cout <<
+    "\n\nPress " <<
+    color("S + Enter", "brightCyan") + "to start\n";
+
+  std::string input;
+  bool hasStarted = false;
+  while(!hasStarted) {
+    switch (std::cin.get()) {
+      case 'S':
+        hasStarted = true;
+        break;
+    }
+  }
+}
+
+void appCtrl::displayQuestion(std::string question) {
   std::cout<<
     color("\n-=<(", "brightBlack") <<
-    color("Pick Synth Type", "brightCyan") <<
+    color(question, "brightCyan") <<
     color(")>=-\n\n", "brightBlack");
+}
+
+void appCtrl::questionSynthType() {
+  appCtrl::displayQuestion("Pick Synth Type");
   strVec options = {"Additive Synth", "FM Synth"};
   strVec numboxColor = {"brightBlack", "brightCyan", "brightBlack"};
   strVec optionColor = {"default", "default"};
   displayOptions(options, numboxColor, optionColor);
 }
 
-void appCtrl::questionCarWaveType() {
-  std::cout<<
-    color("\n-=<(", "brightBlack") <<
-    color("Pick Carrier Wavetype", "brightCyan") <<
-    color(")>=-\n\n", "brightBlack");
-  strVec options = {"Sine", "Square", "Saw"};
-  strVec numboxColor = {"brightBlack", "brightCyan", "brightBlack"};
-  strVec optionColor = {"default", "default", "default"};
-  displayOptions(options, numboxColor, optionColor);
-}
-
-void appCtrl::questionModWaveType() {
-  std::cout<<
-    color("\n-=<(", "brightBlack") <<
-    color("Pick Modulator Wavetype", "brightCyan") <<
-    color(")>=-\n\n", "brightBlack");
+void appCtrl::questionWaveType(std::string question) {
+  appCtrl::displayQuestion(question);
   strVec options = {"Sine", "Square", "Saw"};
   strVec numboxColor = {"brightBlack", "brightCyan", "brightBlack"};
   strVec optionColor = {"default", "default", "default"};
@@ -118,20 +128,18 @@ void appCtrl::displayOptions(
     optionIndex++;
   }
 
-  std::cout << std::endl;
-
+  std::cout << "\n";
 
   intVec validInput;
   for (int i = 0; i < int(options.size()); i++) validInput.push_back(i);
   comparator.setValidIntegers(validInput);
 }
 
-void appCtrl::questionRatio() {
-  std::cout<<
-    color("\n-=<(", "brightBlack") <<
-    color("Set Ratio", "brightCyan") <<
-    color(")>=-\n\n", "brightBlack");
-  strVec boundsAsString = {"0.5", "25.0"};
+void appCtrl::questionValInBounds(std::string question,
+  std::string lowerBound, std::string upperBound) {
+
+  displayQuestion(question);
+  strVec boundsAsString = {lowerBound, upperBound};
   strVec boxColor = {"brightBlack","brightCyan","brightBlack",
     "brightCyan","brightBlack"};
   std::string promptColor = "default";
@@ -146,7 +154,6 @@ void appCtrl::displayBounds(
   box[1] = boundsAsString[0];
   box[3] = boundsAsString[1];
 
-
   int boxIndex = 0;
   for (auto i : boxColor) {
     std::cout << appCtrl::color(box[size_t(boxIndex)], i);
@@ -157,7 +164,7 @@ void appCtrl::displayBounds(
   << std::endl;
   floatVec bounds = {std::stof(boundsAsString[0]),
      std::stof(boundsAsString[1])};
-  comparator.setValidFloats(bounds); //TODO change to bounds
+  comparator.setValidFloats(bounds);
 }
 
 void appCtrl::Compare::setValidIntegers(std::vector<int> values) {
@@ -165,7 +172,7 @@ void appCtrl::Compare::setValidIntegers(std::vector<int> values) {
    the vector to type string, stores the strings inside a
    new vector and assignes this vector to the
    member-variable 'validIntInput' inside the 'Compare'
-   class */
+   class. */
   strVec valuesAsString;
   for (auto i : values) valuesAsString.push_back(std::to_string(i));
   this->validIntegers = valuesAsString;
@@ -182,6 +189,9 @@ appCtrl::strVec appCtrl::Compare::getValidIntegers() {
 }
 
 std::vector<float> appCtrl::Compare::getValidFloats() {
+/* returns the vector<float> which contains two float values
+   representing the lowerbound and the upperbound. All float
+   values between these bounds are valid. */
   return validFloats;
 }
 
@@ -199,8 +209,7 @@ int appCtrl::getValidIntInput() {
     }
     else
       std::cout <<
-        appCtrl::color("\nInput not valid","red") <<
-        appCtrl::color(" (expected ","red") <<
+        appCtrl::color("\nInput not valid (expected ","red") <<
         appCtrl::color("int","brightRed") <<
         appCtrl::color("), try again\n", "red")
       << std::endl;
@@ -208,7 +217,7 @@ int appCtrl::getValidIntInput() {
   return std::stoi(input);
 }
 
-float appCtrl::getValidFloatInput() {
+float appCtrl::getValidValInput(std::string expectedType) {
   floatVec validFloat = comparator.getValidFloats();
   bool notValid = true;
   std::string input;
@@ -221,8 +230,11 @@ float appCtrl::getValidFloatInput() {
       std::stof(input);
     }
     catch (std::invalid_argument) {
-      std::cout << "\n'" << input << "' " <<
-        appCtrl::color("not a float, try again\n", "red")
+      std::cout <<
+        appCtrl::color("\n'" + input + "' "
+          "not valid (expected ", "red") <<
+        appCtrl::color(expectedType,"brightRed") <<
+        appCtrl::color("), try again\n", "red")
       << std::endl;
       continue;
     }

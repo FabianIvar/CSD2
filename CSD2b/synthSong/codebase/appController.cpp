@@ -77,20 +77,17 @@ void appCtrl::displayStartMessage() {
   bool hasStarted = false;
   while(!hasStarted) {
     if (std::cin.get() == 's') hasStarted = true;
-    else std::cout << color(">> ", "brightCyan");
   }
-  std::cout << std::endl;
 }
 
 void appCtrl::displayQuitMessage() {
-  std::cout << "Press " <<
+  std::cout << "\nPress " <<
     appCtrl::color("q + Enter","red") + " to quit\n"
   << std::endl;
 
   bool running = true;
   while (running) {
     if (std::cin.get() == 'q') running = false;
-    else std::cout << color(">> ", "brightCyan");
   }
 }
 

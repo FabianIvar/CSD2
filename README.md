@@ -4,10 +4,11 @@
 > ## &nbsp;&nbsp;&nbsp;*C++*
 > <h5>Synth Song</h5>
 >
-> - [Final Assignment SynthSong *NOT FINISHED YET*](/CSD2b/synthSong)
+> - [Final Assignment SynthSong](/CSD2b/synthSong)
 > - [Design & Pseudo code](/CSD2b/synthSong/design.pdf)
 > - [Learning Goals](/CSD2b/synthSong/learningGoals.pdf)
 > - [Class Diagram](/CSD2b/synthSong/class_diagram.pdf)
+> - [Reflection](/CSD2b/synthSong/reflection.pdf)
 >
 > <h5>Assignments and Self_study</h5>
 >

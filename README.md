@@ -9,8 +9,8 @@
 
 > [!NOTE]
 > **Goal:** *Making a multi-effect audio plugin with a single
-control knob*
-> **Language:** *C++*
+control knob* <br>
+> **Language:** *C++* <br>
 > **Semester:** *CSD2c*
 
 > ##### Deliverables (Not Finished)
@@ -26,7 +26,7 @@ control knob*
 > - [Codeclinics](/CSD2/CSD2c/codeclinics)
 > - Self-study
 > - Sources
-
+<br>
 
 <!----------------------------------------------------------------------------->
 
@@ -34,9 +34,9 @@ control knob*
 ## &nbsp;&nbsp;&nbsp;*Synth Song*
 
 > [!NOTE]
-> **Goal:** *Making a software synthesizer console application*
-> **Language:** *C++*
-> **Semester:** *CSD2b*
+> **Goal:** *Making a software synthesizer console application* <br>
+> **Language:** *C++* <br>
+> **Semester:** *CSD2b* <br>
 
 > ##### Deliverables
 >
@@ -51,7 +51,7 @@ control knob*
 > - [Self-study](/CSD2b/exercises/self_study)
 > - [Study in FM with ratios](/CSD2b/exercises/self_study/fm_synthesis_with_ratios.pdf)
 > - [Sources](/CSD2b/exercises/self_study/sources.txt)
-
+<br>
 
 <!----------------------------------------------------------------------------->
 
@@ -60,9 +60,9 @@ control knob*
 
 > [!NOTE]
 > **Goal:** *Making a irregular beat generator console application
-with MIDI output*
-> **Language:** *Python*
-> **Semester:** *CSD2a*
+with MIDI output* <br>
+> **Language:** *Python* <br>
+> **Semester:** *CSD2a* <br>
 
 > ##### Deliverables
 >
@@ -75,8 +75,8 @@ with MIDI output*
 >
 > ##### Python Exercises
 >
-> - [Self-study and exercises from opdrachten.md](/CSD2a/python_basics/exercises)<br>
-> <br><br>
+> - [Self-study and exercises from opdrachten.md](/CSD2a/python_basics/exercises)
+<br>
 
 
 <!----------------------------------------------------------------------------->

@@ -20,12 +20,12 @@
 > - Self-study
 > - Sources
 
-> ## &nbsp;&nbsp;&nbsp;*Synth Song*
+## &nbsp;&nbsp;&nbsp;*Synth Song*
 
-> [!NOTE]
-> **Goal:** *Making a software synthesizer console application*
-> **Language:** *C++*
-> **Semester:** *CSD2b*
+>> [!NOTE]
+>> **Goal:** *Making a software synthesizer console application*
+>> **Language:** *C++*
+>> **Semester:** *CSD2b*
 > ##### Deliverables
 >
 > - [Synth Song (Final Assignment)](/CSD2b/synthSong)

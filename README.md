@@ -21,6 +21,7 @@
 > - Sources
 
 > ## &nbsp;&nbsp;&nbsp;*Synth Song*
+>
 >> [!NOTE]
 >> **Goal:** *Making a software synthesizer console application*
 >> **Language:** *C++*

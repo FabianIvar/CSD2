@@ -2,9 +2,10 @@
 <br>
 
 > ## &nbsp;&nbsp;&nbsp;*Single Gesture Multi-effect*
->> [!NOTE] CSD2c
+>> [!NOTE]
 >> **Goal:** *Making a multi-effect audio plugin with a single control knob*
 >> **Language:** *C++*
+>> **Semester:** *CSD2c*
 > ##### Deliverables (Not Finished)
 > - [ShaperStack (Final Assignment)](/CSD2/CSD2c/ShaperStack)
 > - Design & Motivation
@@ -20,9 +21,10 @@
 > - Sources
 
 > ## &nbsp;&nbsp;&nbsp;*Synth Song*
->> [!NOTE] CSD2b
+>> [!NOTE]
 >> **Goal:** *Making a software synthesizer console application*
 >> **Language:** *C++*
+>> **Semester:** *CSD2b*
 > ##### Deliverables
 >
 > - [Synth Song (Final Assignment)](/CSD2b/synthSong)
@@ -41,9 +43,10 @@
 
 
 > ## &nbsp;&nbsp;&nbsp;*Irregular Beat Generator*
->> [!NOTE] CSD2a
+>> [!NOTE]
 >> **Goal:** *Making a irregular beat generator console application with MIDI output*
 >> **Language:** *Python*
+>> **Semester:** *CSD2a*
 > ##### Deliverables
 >
 > - [Irregular Beat Generator (Final Assignment)](/CSD2a/python_basics/irregularBeatGenerator/irregular_beat_generator.py)
@@ -59,9 +62,3 @@
 > <br><br>
 
 <!-- Markdown Syntax: https://www.markdownguide.org/basic-syntax/ -->
-
-[^CSD2a]:
-
-> [!NOTE] CSD2b - Synth Song
-> **Goal:** *Making a software synthesizer console application* <br>
-> **Language:** *C++*

@@ -2,7 +2,7 @@
 <br>
 
 > ## &nbsp;&nbsp;&nbsp;*Single Gesture Multi-effect*
->> [!INFO] CSD2c
+>> [!NOTE] CSD2c
 >> **Goal:** *Making a multi-effect audio plugin with a single control knob*
 >> **Language:** *C++*
 > ##### Deliverables (Not Finished)
@@ -20,7 +20,7 @@
 > - Sources
 
 > ## &nbsp;&nbsp;&nbsp;*Synth Song*
->> [!INFO] CSD2b
+>> [!NOTE] CSD2b
 >> **Goal:** *Making a software synthesizer console application*
 >> **Language:** *C++*
 > ##### Deliverables
@@ -41,7 +41,7 @@
 
 
 > ## &nbsp;&nbsp;&nbsp;*Irregular Beat Generator*
->> [!INFO] CSD2a
+>> [!NOTE] CSD2a
 >> **Goal:** *Making a irregular beat generator console application with MIDI output*
 >> **Language:** *Python*
 > ##### Deliverables
@@ -62,6 +62,6 @@
 
 [^CSD2a]:
 
-> [!INFO] CSD2b - Synth Song
+> [!NOTE] CSD2b - Synth Song
 > **Goal:** *Making a software synthesizer console application* <br>
 > **Language:** *C++*

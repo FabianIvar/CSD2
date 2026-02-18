@@ -1,16 +1,37 @@
 # CSD2
 <br>
 
-> ## &nbsp;&nbsp;&nbsp;*C++*
-> <h5>Synth Song</h5>
+> ## &nbsp;&nbsp;&nbsp;*Single Gesture Multi-effect*
+>> [!INFO] CSD2c
+>> **Goal:** *Making a multi-effect audio plugin with a single control knob*
+>> **Language:** *C++*
+> ##### Deliverables (Not Finished)
+> - [ShaperStack (Final Assignment)](/CSD2/CSD2c/ShaperStack)
+> - Design & Motivation
+> - Learning Goals
+> - Diagrams
+> - Process
+> - Reflection
 >
-> - [Final Assignment SynthSong](/CSD2b/synthSong)
+> ##### Assignments and Self-study
+> - [Sessions](/CSD2/CSD2c/sessions)
+> - [Codeclinics](/CSD2/CSD2c/codeclinics)
+> - Self-study
+> - Sources
+
+> ## &nbsp;&nbsp;&nbsp;*Synth Song*
+>> [!INFO] CSD2b
+>> **Goal:** *Making a software synthesizer console application*
+>> **Language:** *C++*
+> ##### Deliverables
+>
+> - [Synth Song (Final Assignment)](/CSD2b/synthSong)
 > - [Design & Pseudo code](/CSD2b/synthSong/design.pdf)
 > - [Learning Goals](/CSD2b/synthSong/learningGoals.pdf)
 > - [Class Diagram](/CSD2b/synthSong/class_diagram.pdf)
 > - [Reflection](/CSD2b/synthSong/reflection.pdf)
 >
-> <h5>Assignments and Self_study</h5>
+> ##### Assignments and Self-study
 >
 > - [Assignments](/CSD2b/exercises)
 > - [Self-study](/CSD2b/exercises/self_study)
@@ -18,19 +39,29 @@
 > - [Sources](/CSD2b/exercises/self_study/sources.txt)
 > <br><br><br>
 
-> ## &nbsp;&nbsp;&nbsp;*Python*
-> <h5>Irregular Beat Generator</h5>
+
+> ## &nbsp;&nbsp;&nbsp;*Irregular Beat Generator*
+>> [!INFO] CSD2a
+>> **Goal:** *Making a irregular beat generator console application with MIDI output*
+>> **Language:** *Python*
+> ##### Deliverables
 >
-> - [Irregular Beat Generator](/CSD2a/python_basics/irregularBeatGenerator/irregular_beat_generator.py)
+> - [Irregular Beat Generator (Final Assignment)](/CSD2a/python_basics/irregularBeatGenerator/irregular_beat_generator.py)
 > - [Pseudo code](/CSD2a/python_basics/irregularBeatGenerator/pseudo_code.pdf)
 > - [Description Generation Strategy](/CSD2a/python_basics/irregularBeatGenerator/strategy_pros_cons.pdf)
 > - [Generation Strategy Flow Diagram](/CSD2a/python_basics/irregularBeatGenerator/strategy_flowchart.pdf)
 > - [Slides](/CSD2a/python_basics/irregularBeatGenerator/slides.pdf)
 > - [Reflection](/CSD2a/python_basics/irregularBeatGenerator/reflection.pdf)
 >
-> <h5>Python Exercises</h5>
+> ##### Python Exercises
 >
 > - [Self-study and exercises from opdrachten.md](/CSD2a/python_basics/exercises)<br>
 > <br><br>
 
 <!-- Markdown Syntax: https://www.markdownguide.org/basic-syntax/ -->
+
+[^CSD2a]:
+
+> [!INFO] CSD2b - Synth Song
+> **Goal:** *Making a software synthesizer console application* <br>
+> **Language:** *C++*

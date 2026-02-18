@@ -1,11 +1,18 @@
 # CSD2
 <br>
 
-> ## &nbsp;&nbsp;&nbsp;*Single Gesture Multi-effect*
->> [!NOTE]
->> **Goal:** *Making a multi-effect audio plugin with a single control knob*
->> **Language:** *C++*
->> **Semester:** *CSD2c*
+
+<!----------------------------------------------------------------------------->
+
+
+## &nbsp;&nbsp;&nbsp;*Single Gesture Multi-effect*
+
+> [!NOTE]
+> **Goal:** *Making a multi-effect audio plugin with a single
+control knob*
+> **Language:** *C++*
+> **Semester:** *CSD2c*
+
 > ##### Deliverables (Not Finished)
 > - [ShaperStack (Final Assignment)](/CSD2/CSD2c/ShaperStack)
 > - Design & Motivation
@@ -20,12 +27,17 @@
 > - Self-study
 > - Sources
 
+
+<!----------------------------------------------------------------------------->
+
+
 ## &nbsp;&nbsp;&nbsp;*Synth Song*
 
->> [!NOTE]
->> **Goal:** *Making a software synthesizer console application*
->> **Language:** *C++*
->> **Semester:** *CSD2b*
+> [!NOTE]
+> **Goal:** *Making a software synthesizer console application*
+> **Language:** *C++*
+> **Semester:** *CSD2b*
+
 > ##### Deliverables
 >
 > - [Synth Song (Final Assignment)](/CSD2b/synthSong)
@@ -35,19 +47,23 @@
 > - [Reflection](/CSD2b/synthSong/reflection.pdf)
 >
 > ##### Assignments and Self-study
->
 > - [Assignments](/CSD2b/exercises)
 > - [Self-study](/CSD2b/exercises/self_study)
 > - [Study in FM with ratios](/CSD2b/exercises/self_study/fm_synthesis_with_ratios.pdf)
 > - [Sources](/CSD2b/exercises/self_study/sources.txt)
-> <br><br><br>
 
 
-> ## &nbsp;&nbsp;&nbsp;*Irregular Beat Generator*
->> [!NOTE]
->> **Goal:** *Making a irregular beat generator console application with MIDI output*
->> **Language:** *Python*
->> **Semester:** *CSD2a*
+<!----------------------------------------------------------------------------->
+
+
+## &nbsp;&nbsp;&nbsp;*Irregular Beat Generator*
+
+> [!NOTE]
+> **Goal:** *Making a irregular beat generator console application
+with MIDI output*
+> **Language:** *Python*
+> **Semester:** *CSD2a*
+
 > ##### Deliverables
 >
 > - [Irregular Beat Generator (Final Assignment)](/CSD2a/python_basics/irregularBeatGenerator/irregular_beat_generator.py)
@@ -61,5 +77,9 @@
 >
 > - [Self-study and exercises from opdrachten.md](/CSD2a/python_basics/exercises)<br>
 > <br><br>
+
+
+<!----------------------------------------------------------------------------->
+
 
 <!-- Markdown Syntax: https://www.markdownguide.org/basic-syntax/ -->

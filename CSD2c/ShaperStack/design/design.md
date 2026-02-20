@@ -23,6 +23,6 @@ Oranje = equalizer 2 dry/wet $`y=\frac{4^x-1}{3}`$
 
 Geel = equalizer 3 dry/wet $`y=\frac{20^x-1}{19}`$
 
-Groen = Feedback-delay dry/wet $`\begin{multline} y=\frac{10^{3x}-1}{10^3-1}\end{multline}&&`$
+Groen = Feedback-delay dry/wet $`\begin{align} y=\frac{10^{3x}-1}{10^3-1}\end{align}`$
 
 Ik heb deze mapping gekozen omdat ik een minder lineair verloop wil in het effect. Ik wil het boosten van specifieke frequenties op een enigszins onverwachte manier laten gebeuren. Ik wil de feedback delay pas op het einde infaden. Ik verwacht dat dit het gevoel zal geven dat het systeem op springen staat, of dat er wat gevaarlijks dreigt te gebeuren.

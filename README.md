@@ -14,20 +14,20 @@ control knob* <br>
 > **Semester:** *CSD2c*
 
 > ##### Deliverables (Not Finished)
-> - [ShaperStack (Final Assignment)](/CSD2/CSD2c/ShaperStack)
-> - [Design & Motivation](/CSD2/CSD2c/ShaperStack/design/design.md)
-> - [Learning Goals](/CSD2/CSD2c/ShaperStack/learningGoals.md)
+> - [ShaperStack (Final Assignment)](/CSD2c/ShaperStack)
+> - [Design & Motivation](/CSD2c/ShaperStack/design/design.md)
+> - [Learning Goals](/CSD2c/ShaperStack/learningGoals.md)
 > - Diagrams
 > - Logbook
 > - Hourly Breakdown
 > - Reflection
 >
 > ##### Assignments and Self-study
-> - [Sessions](/CSD2/CSD2c/sessions)
-> - [Codeclinics](/CSD2/CSD2c/codeclinics)
+> - [Sessions](/CSD2c/sessions)
+> - [Codeclinics](/CSD2c/codeclinics)
 > - Self-study
 > - Sources
-> - [Syntax Reference](/CSD2/CSD2c/ShaperStack/syntax_reference.md)
+> - [Syntax Reference](/CSD2c/ShaperStack/syntax_reference.md)
 <br>
 
 <!----------------------------------------------------------------------------->

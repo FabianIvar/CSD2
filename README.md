@@ -15,10 +15,11 @@ control knob* <br>
 
 > ##### Deliverables (Not Finished)
 > - [ShaperStack (Final Assignment)](/CSD2/CSD2c/ShaperStack)
-> - Design & Motivation
+> - [Design & Motivation](/CSD2/CSD2c/ShaperStack/design/design.md)
 > - [Learning Goals](/CSD2/CSD2c/ShaperStack/learningGoals.md)
 > - Diagrams
-> - Process
+> - Logbook
+> - Hourly Breakdown
 > - Reflection
 >
 > ##### Assignments and Self-study
@@ -26,6 +27,7 @@ control knob* <br>
 > - [Codeclinics](/CSD2/CSD2c/codeclinics)
 > - Self-study
 > - Sources
+> - [Syntax Reference](/CSD2/CSD2c/ShaperStack/syntax_reference.md)
 <br>
 
 <!----------------------------------------------------------------------------->
@@ -50,7 +52,7 @@ control knob* <br>
 > - [Assignments](/CSD2b/exercises)
 > - [Self-study](/CSD2b/exercises/self_study)
 > - [Study in FM with ratios](/CSD2b/exercises/self_study/fm_synthesis_with_ratios.pdf)
-> - [Sources](/CSD2b/exercises/self_study/sources.txt)
+> - [Syntax Reference](/CSD2b/exercises/self_study/sources.txt)
 <br>
 
 <!----------------------------------------------------------------------------->

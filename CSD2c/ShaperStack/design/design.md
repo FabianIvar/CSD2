@@ -1,4 +1,5 @@
-## Overall Design <br>
+## Overall Design
+<br>
 
 ### The chosen focus
 Ik heb gekozen voor **pluginFocus**. Plugins maken voor audio workstations is iets wat heel goed aansluit bij wat ik wil doen in het werkveld. Ook wil ik graag een eindresultaat hebben dat ik kan gebruiken in mijn eigen muziek.

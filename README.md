@@ -16,7 +16,7 @@ control knob* <br>
 > ##### Deliverables (Not Finished)
 > - [ShaperStack (Final Assignment)](/CSD2/CSD2c/ShaperStack)
 > - Design & Motivation
-> - Learning Goals
+> - [Learning Goals](/CSD2/CSD2c/ShaperStack/learningGoals.md)
 > - Diagrams
 > - Process
 > - Reflection

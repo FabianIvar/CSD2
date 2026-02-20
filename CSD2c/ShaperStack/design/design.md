@@ -17,19 +17,19 @@ Ik ga gebruik maken van drie **asymmetrische waveshapers**, drie **biquad filter
 ![[mapping.png]]
 Rood = equalizer 1 dry/wet
 ```math
-y=x
+\begin{multline} y=x\end{multline}
 ```
 Oranje = equalizer 2 dry/wet
 ```math
-y=\frac{4^x-1}{3}
+\begin{multline} y=\frac{4^x-1}{3}\end{multline}
 ```
 Geel = equalizer 3 dry/wet
 ```math
-\frac{20^x-1}{19}
+\begin{multline} \frac{20^x-1}{19}\end{multline}
 ```
 Groen = Feedback-delay dry/wet
 ```math
-\frac{10^{3x}-1}{10^3-1}
+\begin{multline} \frac{10^{3x}-1}{10^3-1}\end{multline} 
 ```
 
 Ik heb deze mapping gekozen omdat ik een minder lineair verloop wil in het effect. Ik wil het boosten van specifieke frequenties op een enigszins onverwachte manier laten gebeuren. Ik wil de feedback delay pas op het einde infaden. Ik verwacht dat dit het gevoel zal geven dat het systeem op springen staat, of dat er wat gevaarlijks dreigt te gebeuren.

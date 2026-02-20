@@ -3,7 +3,8 @@ Ik heb gekozen voor **pluginFocus**. Plugins maken voor audio workstations is ie
 
 #### Design process, proposed effects and reasoning
 
-![[eqs.png]]![[waveshapers.png]]
+![eqs](/assets/eqs.png) <br>
+![waveshapers](/assets/waveshapers.png)
 
 Ik heb bij mijn design voor deze opdracht veel inspiratie gehaald uit de Advanced Synthesis lessen van Sjef. Veel van de technieken die we krijgen aangeleerd in deze lessen vereisen een ingewikkelde effect chain, waardoor het effect niet toegankelijk is voor muzikanten die zich niet in deze mate willen verdiepen in synthese. Ik wil deze technieken versimpelen door effect chains te bundelen in plugins. <br>
 Ik wil voor deze opdracht een techniek versimpelen waarbij je een effect chain maakt met waveshapers en equalizers. In deze effect chain wisselen de equalizers en waveshapers elkaar af. De equalizers gebruik je om specifieke frequenties in de ceiling van de waveshaper te duwen, of juist om te voorkomen dat bepaalde frequenties gaan distorten. <br>
@@ -14,22 +15,26 @@ Ik ga gebruik maken van drie **asymmetrische waveshapers**, drie **biquad filter
 
 #### Mapping
 
-![[mapping.png]]
+![mapping](/assets/mapping.png)
 Rood = equalizer 1 dry/wet
 ```math
-\begin{multline} y=x\end{multline}
+y=x
 ```
 Oranje = equalizer 2 dry/wet
 ```math
-\begin{multline} y=\frac{4^x-1}{3}\end{multline}
+y=\frac{4^x-1}{3}
 ```
 Geel = equalizer 3 dry/wet
 ```math
-\begin{multline} \frac{20^x-1}{19}\end{multline}
+y=\frac{20^x-1}{19}
 ```
 Groen = Feedback-delay dry/wet
 ```math
-\begin{multline} \frac{10^{3x}-1}{10^3-1}\end{multline} 
+y=\frac{10^{3x}-1}{10^3-1}
 ```
 
 Ik heb deze mapping gekozen omdat ik een minder lineair verloop wil in het effect. Ik wil het boosten van specifieke frequenties op een enigszins onverwachte manier laten gebeuren. Ik wil de feedback delay pas op het einde infaden. Ik verwacht dat dit het gevoel zal geven dat het systeem op springen staat, of dat er wat gevaarlijks dreigt te gebeuren.
+
+<br>
+test:
+$y=x$

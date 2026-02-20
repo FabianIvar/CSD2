@@ -1,7 +1,9 @@
-#### The chosen focus
+## Overall Design <br><br><br>
+
+### The chosen focus
 Ik heb gekozen voor **pluginFocus**. Plugins maken voor audio workstations is iets wat heel goed aansluit bij wat ik wil doen in het werkveld. Ook wil ik graag een eindresultaat hebben dat ik kan gebruiken in mijn eigen muziek.
 
-#### Design process, proposed effects and reasoning
+### Design process, proposed effects and reasoning
 
 <img src="/CSD2c/ShaperStack/design/assets/equalizers.png" width="400"> <br>
 <img src="/CSD2c/ShaperStack/design/assets/waveshapers.png" width="800">
@@ -13,7 +15,7 @@ Ook wil ik een extra feedback delay toevoegen aan de effect chain die de input m
 
 Ik ga gebruik maken van drie **asymmetrische waveshapers**, drie **biquad filters** en een **feedback delay**.
 
-#### Mapping
+### Mapping
 
 <img src="/CSD2c/ShaperStack/design/assets/mapping.png" width="400"> <br>
 

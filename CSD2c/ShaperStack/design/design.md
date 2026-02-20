@@ -3,7 +3,7 @@ Ik heb gekozen voor **pluginFocus**. Plugins maken voor audio workstations is ie
 
 #### Design process, proposed effects and reasoning
 
-<img src="/assets/eqs.png"> <br>
+<img src="/assets/equalizers.png"> <br>
 <img src="/assets/waveshapers.png">
 
 Ik heb bij mijn design voor deze opdracht veel inspiratie gehaald uit de Advanced Synthesis lessen van Sjef. Veel van de technieken die we krijgen aangeleerd in deze lessen vereisen een ingewikkelde effect chain, waardoor het effect niet toegankelijk is voor muzikanten die zich niet in deze mate willen verdiepen in synthese. Ik wil deze technieken versimpelen door effect chains te bundelen in plugins. <br>
@@ -21,8 +21,10 @@ Rood = equalizer 1 dry/wet $`y=x`$
 
 Oranje = equalizer 2 dry/wet $`y=\frac{4^x-1}{3}`$
 
-Geel = equalizer 3 dry/wet $`y=\frac{20^x-1}{19}`$
-
+Geel = equalizer 3 dry/wet $`y=\frac{20^x-1}{19}$
+```math
+\left( y=\frac{20^x-1}{19})
+```
 Groen = Feedback-delay dry/wet
   $`\begin{multline} &&y=\frac{10^{3x}-1}{10^3-1}\end{multline}`$
 

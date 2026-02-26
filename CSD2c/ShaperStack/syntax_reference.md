@@ -8,7 +8,7 @@ recommended to use with Obsidian: https://obsidian.md/
 <!--
 TODO:
 - Group syntax categories
-- Add tags for obsidian searching
+- Add tags openfor obsidian searching
 -->
 
 - Public and Private
@@ -88,7 +88,7 @@ TODO:
 	  - Destructors do not have any return type and do not accept any parameters/ arguments.
 	  - You can't define more than one destructor
 	  - Destructors cannot be inherited.
-	  - Destructors cannot be overloaded  .
+	  - Destructors cannot be overloaded.
 - New and Delete operators in c++
   [Link](https://www.geeksforgeeks.org/cpp/new-and-delete-operators-in-cpp-for-dynamic-memory/) <br>
 
@@ -206,3 +206,19 @@ TODO:
 
 - clear console
   [Link](https://www.geeksforgeeks.org/cpp/how-to-clear-console-in-cpp/)<br>
+
+- Multithreading
+  [Link](https://www.geeksforgeeks.org/cpp/multithreading-in-cpp/)<br>
+
+- Malloc and free
+  'malloc' (memory allocate) and 'free()' (free memory) are alternatives for new and delete. New calls the constructor. malloc only allocates the memory. Also, new will throw on failure while malloc returns Null. new is an operator and malloc() is a function.
+  [Link](https://www.geeksforgeeks.org/cpp/cpp-malloc/)<br>
+
+- Observer design pattern
+  Met 'Observer Pattern' wordt een type design bedoelt waarbij:
+  1. Een ==subject== die de 'main data' bevat
+  2. Meerdere ==observers== op de hoogte gesteld worden wanneer deze data verandert
+  [Link](https://www.geeksforgeeks.org/system-design/observer-pattern-c-design-patterns/)<br>
+
+- Inline keyword or 'inlining'
+  [Link](https://www.geeksforgeeks.org/cpp/inline-functions-cpp/)<br>

@@ -1,0 +1,2 @@
+add_subdirectory(01_circular_buffer_test)
+add_subdirectory(04_plotting_test)

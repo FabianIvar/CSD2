@@ -222,3 +222,7 @@ TODO:
 
 - Inline keyword or 'inlining'
   [Link](https://www.geeksforgeeks.org/cpp/inline-functions-cpp/)<br>
+
+- Memset
+  C++ memset() is a function that copies a single character for a specified number of times to the given bytes of memory. It is useful for filling a number of bytes with a given value starting from a specific memory location.
+  [Link](https://www.geeksforgeeks.org/cpp/memset-in-cpp/)<br>

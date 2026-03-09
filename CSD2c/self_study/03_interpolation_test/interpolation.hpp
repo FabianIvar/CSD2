@@ -43,9 +43,10 @@ namespace Interpolation {
     }
   #endif
 
-  inline float* newBuffer(uint size) {
-    float* buffer = (float*)malloc(size * sizeof(float));
-    memset(buffer, 0.0f, size * sizeof(float));
+  template<typename A>
+  inline A* allocate(uint size) {
+    A* buffer = (A*)malloc(size * sizeof(A));
+    memset(buffer, 0.0f, size * sizeof(A));
     return buffer;
   }
 
@@ -56,10 +57,19 @@ namespace Interpolation {
     return (int(half) == half) ? true : false;
   }
 
-  void logBuffer(float* buffer, uint size) {
+  template<typename L>
+  void logArray(L* buffer, uint size, std::string arrName) {
     // Printing buffer from 0 to size
-    std::cout << "\nBuffer: ";
+    std::cout << "\n" + arrName + ": ";
     for (uint i = 0; i < size; i++) std::cout << buffer[i] << ", ";
+  }
+
+  template<typename C>
+  inline bool contains(C* array, uint size, C target) {
+    for (uint i = 0; i < size; i++) {
+      if (array[i] == target) return true;
+    }
+    return false;
   }
 
 }

@@ -12,43 +12,105 @@ int main() {
     "Starting program...\n"
   << std::endl;
   #endif
+
+
 //============================================================================//
 
 
   unsigned int oldSize = OLD_SIZE;
   unsigned int newSize = NEW_SIZE;
-  float* valuesOld = newBuffer(oldSize);
+  float* valuesOld = allocate<float>(oldSize);
 
   // fill initialized buffer (buffer was initialized with 0)
   for (uint i = 0; i < oldSize; i++) valuesOld[i] = (float)i;
 
   // Printing uninterpolated buffer from index 0 to size
-  logBuffer(valuesOld, oldSize);
+  logArray<float>(valuesOld, oldSize, "valuesOld");
+
+
+  /* diff is the amount of values that should be added or deleted
+  depending on if the new buffer is bigger or smaller than the old buffer */
+  int diff = std::abs(int(newSize - oldSize));
+  std::cout << "\ndiff: " << diff << std::endl;
+
+  int stepSize = newSize/diff;
+  std::cout << "stepsize: " << stepSize << std::endl;
+  uint test1 = 5;
+  uint test2 = 10;
+  std::cout << "uint test: " << test1 * test2 << std::endl;
+
+  uint* targetIds = allocate<uint>(diff);
+
+  std::cout << "targetIds: " << targetIds << std::endl;
+
+  /* the new (resized) buffer should contain the previous buffer with the
+  missing values distributed evenly (euclidean), or the extra values deleted.
+  make an array containing the target indexes */
+  for (int i = 0; i < diff; i++) {
+    targetIds[size_t(i)] = i * stepSize;
+  }
+
+  logArray<uint>(targetIds, diff, "targetIds");
+
+  std::cout << "\n" << std::endl;
 
   // create new buffer
-  float* valuesNew = newBuffer(newSize);
+  float* valuesNew = allocate<float>(newSize);
+  uint counter = 0;
 
-  // fill new buffer interpolate previous buffer
-  uint oldBuffPos = 0;
-  for (unsigned int i = 0; i < newSize -1; i++) {
+  if (newSize > oldSize) {
+    for (uint i = 0; i < oldSize; i++) {
 
-    if (isEven(i)){
-      valuesNew[i] = valuesOld[oldBuffPos];
-      oldBuffPos++;
-      std::cout << "oldBuffPos:" << oldBuffPos << "\n\nbang\n" << std::endl;
+      if (i == targetIds[counter]) {
+        valuesNew[i+counter] = valuesOld[i-counter];
+        counter++;
+        std::cout << "value: " << valuesNew[i+counter]
+          << " <> counter: " << counter
+          << " <> index: " << i << std::endl;
+        if (i > 0) {
+          valuesNew[i+counter] = valuesOld[i-counter];
+        }
+        else {
+          valuesNew[i+counter] = valuesOld[i];
+        }
+        std::cout << "  value: " << valuesNew[i+counter]
+          << " <> counter: " << counter
+          << " <> index: " << i << std::endl;
+
       }
-    else {
-      valuesNew[i] = nearestNeighbour<float>(
-        valuesOld[oldBuffPos] + 0.5, valuesOld[oldBuffPos],
-        valuesOld[oldBuffPos+1]);
-        std::cout << "valuesOld + 0.5: " << valuesOld[oldBuffPos] + 0.5 <<
-          "\nvaluesOld[oldBuffPos]: " << valuesOld[oldBuffPos] <<
-          "\nvaluesOld[oldBuffPos+1]: " << valuesOld[oldBuffPos+1]
-          << "\nvaluesNew[i]: " << valuesNew[i] << std::endl;
+      else {
+        valuesNew[i] = valuesOld[i-counter];
+        std::cout << "    value: " << valuesNew[i+counter]
+          << " <> counter: " << counter
+          << " <> index: " << i << std::endl;
+      }
     }
   }
 
-  logBuffer(valuesNew, newSize);
+  //
+  //     if (contains<uint>(targetIds, diff, i)) {
+  //       valuesNew[i+counter] = valuesOld[i];
+  //
+  //       std::cout << "value: " << valuesNew[i+counter]
+  //       << " <> counter: " << counter
+  //       << " <> index: " << i << std::endl;
+  //     }
+  //     else {
+  //       valuesNew[i+counter] = valuesOld[i];
+  //       std::cout << "  value: " << valuesNew[i+counter]
+  //       << " <> counter: " << counter
+  //       << " <> index: " << i << std::endl;
+  //       counter++;
+  //     }
+  //
+  //
+  //   }
+  // }
+
+
+
+
+  logArray<float>(valuesNew, newSize, "valuesNew");
 
 
 //============================================================================//

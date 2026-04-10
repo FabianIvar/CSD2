@@ -8,7 +8,6 @@
 
 /* NOTE:
 
-- argc en argv?
 - First argument of CircBuffer is the size of the
   buffer in samples
 

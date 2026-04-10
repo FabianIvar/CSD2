@@ -12,7 +12,7 @@ Ik heb bij mijn design voor deze opdracht veel inspiratie gehaald uit de Advance
 Ik wil voor deze opdracht een techniek versimpelen waarbij je een effect chain maakt met waveshapers en equalizers. In deze effect chain wisselen de equalizers en waveshapers elkaar af. De equalizers gebruik je om specifieke frequenties in de ceiling van de waveshaper te duwen, of juist om te voorkomen dat bepaalde frequenties gaan distorten. <br>
 Doordat dit meerdere keren achter elkaar gebeurt gaan de harmonische die eerder in de effect chain zijn ontstaan opnieuw distorten en weer nieuwe harmonische creëren. Dit resulteert in een interessante textuur die met name heel geschikt is voor bass design. <br>
 Ook wil ik een extra feedback delay toevoegen aan de effect chain die de input meerdere keren door de effect chain heen laat gaan. Ik verwacht dat dit een interessant resultaat geeft.
-
+<!-- NOTE: waveshapers in afbeelding zijn symmetrisch -->
 Ik ga gebruik maken van drie **asymmetrische waveshapers**, drie **biquad filters** en een **feedback delay**.
 
 ### Mapping

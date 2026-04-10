@@ -1,4 +1,7 @@
 #pragma once
+/* NOTE: this design for a circularBuffer uses integers as
+indexes, for a DDL it is very handy to use floating point values
+for interpolation */
 
 typedef unsigned int uint;
 
@@ -9,6 +12,7 @@ typedef unsigned int uint;
   represents the memory block in bytes.
   sizeof() returns an unsigned int.
 
+  (malloc = memory Alloc)
 */
 
 

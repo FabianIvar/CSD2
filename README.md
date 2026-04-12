@@ -17,7 +17,7 @@ control knob* <br>
 > - [ShaperStack (Final Assignment)](/CSD2c/ShaperStack)
 > - [Design & Motivation](/CSD2c/ShaperStack/design/design.md)
 > - [Learning Goals](/CSD2c/ShaperStack/learningGoals.md)
-> - Diagrams
+> - [Diagrams](/CSD2c/ShaperStack/design/block_diagrams.md)
 > - Logbook
 > - Hourly Breakdown
 > - Reflection
@@ -25,7 +25,7 @@ control knob* <br>
 > ##### Assignments and Self-study
 > - [Sessions](/CSD2c/sessions)
 > - [Codeclinics](/CSD2c/codeclinics)
-> - Self-study
+> - [Self-study](/CSD2c/self_study)
 > - Sources
 > - [Syntax Reference](/CSD2c/ShaperStack/syntax_reference.md)
 <br>

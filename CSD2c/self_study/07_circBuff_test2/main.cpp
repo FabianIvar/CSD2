@@ -7,10 +7,12 @@ heads floats zijn, wat later logischer is voor interpolatie. */
 #include "utils/writeToFile.hpp"
 #include "oscillators/square.hpp"
 #include "circBuffer.hpp"
+#include "interpolation.hpp"
 
-//================================================
+using namespace Interpolation;
 
 
+//======[Prepare]======
 
 int main(int argc, char **argv) {
 
@@ -19,43 +21,43 @@ int main(int argc, char **argv) {
   float freq = 960; // 50 samples for one cycle??
 
 
-/* First argument is the size of the circular
-   buffer in samples */
-/* Second argument is the distance between the
-   readhead and the write head */
-  CircBuffer CircBuffer(200, 12);
+  CircBuffer CircBuffer(200, 12); // (size | dist)
 
-/* NOTE: Debug functions like 'logAllSettings'
-   might be really useful */
-
-/* makes square object initialized with
-   a frequency of 960 and a samplerate of 48000 */
-  Oscillator* square = new Square(960, 48000);
+  Oscillator* square = new Square(960, 48000); // (freq | rate)
 
   const str sourcePath = SOURCE_DIR;
 
-/* First argument is the path the output will
-   write to */
-/* Second argument (boolean) is for toggling
-   if the output file can be overwritten. */
-  WriteToFile fileWriter(
-    sourcePath + "/utils/output.csv", true);
+  WriteToFile fileWriter( // (path | overwrite)
+    sourcePath + "/utils/buffer.csv", true);
 
   float squareSample = 0;
-  for (int i = 0; i < 200; i++) {
+
+
+// ======[Circular buffer example]======
+
+  std::cout << "\n-=<(Circular Buffer Test)>=-" << std::endl;
+  for (int i = 0; i < 200; i++) { // Plot for results
     squareSample = square->getSample();
 
     CircBuffer.write(squareSample);
     std::cout << CircBuffer.read();
-    fileWriter.write(std::to_string(
-      squareSample + CircBuffer.read()) + "\n");
+    fileWriter.write(std::to_string(CircBuffer.read()) + "\n");
     CircBuffer.tick();
     square->tick();
   }
 
-  std::cout << "\n-=<( DONE )>=- "
-    "\nWrote the sum of the oscillator and the "
-    "delayed value to output.csv" << std::endl;
+  std::cout <<
+    "\nWrote results of circular buffer example to 'output.csv'\n"
+  << std::endl;
+
+
+// ======[Interpolation example]======
+
+std::cout << "-=<(Interpolation Test)>=-" << std::endl;
+
+  std::cout << nearestNeighbour<float>(0.1, 1.0, 3.0) << std::endl;
+  std::cout << linear<float>(0.1, 1.0, 3.0) << std::endl;
+  std::cout << bilinear<float>(2.3, 2, 3, 20, 30) << std::endl;
 
     return 0;
 }

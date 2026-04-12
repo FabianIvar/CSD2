@@ -1,3 +1,4 @@
+// This is an updated version of interpolation in 03_interpolation_test
 #pragma once
 #include <cmath>
 #include <iostream>
@@ -5,12 +6,16 @@
 
 #define EXCLUDE_OLD_NN 1
 #define EXCLUDE_NN 0
+#define EXCLUDE_LIN 0
+#define EXCLUDE_BLIN 0
 
 namespace Interpolation {
   typedef unsigned int uint;
   /* When used in interpolation context low can be seen as
      the previous value and high can be seen as the
      next value. */
+
+// ==[Nearest Neighbour]========
 
   #if !EXCLUDE_OLD_NN
     inline float old_nearest_neighbour(
@@ -36,36 +41,44 @@ namespace Interpolation {
   #endif
 
   #if !EXCLUDE_NN
-  template<typename T>
-    inline T nearestNeighbour(T val, T low, T high) {
-      T half = (high - low) * 0.5;
-      return (val < half) ? low : high;
+    template<typename T>
+      inline T nearestNeighbour(T val, T low, T high) {
+        T half = (high - low) * 0.5;
+        return (val < half) ? low : high;
+      }
+  #endif
+
+// ==[Linear]========
+
+  #if !EXCLUDE_LIN
+    template<typename LN>
+    inline LN linear(LN factor, LN low, LN high) {
+      if(factor < 0) return low; //        |- constrain between (0,1)
+      else if(factor > 1) return high; //  |
+      return (1.0 - factor) * low + factor * high;
+    }
+  #endif
+
+// ==[Bilinear]======
+
+  #if !EXCLUDE_BLIN
+    template<typename BL> // 'mapInRange'
+    inline BL bilinear(BL input, BL inLow, BL inHigh,
+      BL outLow, BL outHigh)
+    {
+      BL factor = (input - inLow) / (inHigh - inLow);
+      BL outDelta = outHigh - outLow;
+      return outLow + outDelta * factor;
     }
   #endif
 
 
 // ==[utility]==============================================================
 
-
-  template<typename A>
-  inline A* allocate(uint size) {
-    A* buffer = (A*)malloc(size * sizeof(A));
-    memset(buffer, 0.0f, size * sizeof(A));
-    return buffer;
-  }
-
-  bool isEven(float val) {
-    float half = val * 0.5;
-    // std::cout << "\nHalf: " << half << std::endl;
-    // std::cout << "output: " << (int(half) == half) ? true : false;
+  template<typename E>
+  bool isEven(E val) {
+    E half = val * 0.5;
     return (int(half) == half) ? true : false;
-  }
-
-  template<typename L>
-  void logArray(L* buffer, uint size, std::string arrName) {
-    // Printing buffer from 0 to size
-    std::cout << "\n" + arrName + ": ";
-    for (uint i = 0; i < size; i++) std::cout << buffer[i] << ", ";
   }
 
   template<typename C>
@@ -76,4 +89,4 @@ namespace Interpolation {
     return false;
   }
 
-}
+} // Interpolation

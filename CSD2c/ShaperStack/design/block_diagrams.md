@@ -1,5 +1,4 @@
-<!--
-  Block diagrams for each implemented effect
+<!-- Block Diagrams by fabean 13/4/26
 
   - DELAY <-[feedback]-|
   - biquad filter 1    |
@@ -10,7 +9,10 @@
   - Waveshaper 3       |
   - DELAY ->-[out]->---|
 
-  Overall block diagram displaying the effect chain together with the mapping of the one overarching parameter into multiple parameters
+  TODO:
+- [x] Block diagrams for each implemented effect
+- [ ] Overall block diagram displaying the effect chain together with the
+      mapping of the one overarching parameter into multiple parameters
 -->
 
 # Block Diagrams
@@ -20,8 +22,9 @@
 Pirkle, W.C. (2019). _Designing Audio Effect Plugins in C++_. 2nd ed. Routledge, p.386.
 ___
 #### Asymmetric waveshaper
+<img src="/CSD2c/ShaperStack/design/assets/block_diagrams/asymmetric_waveshaper.png" height="300">
 
-*work in progress*
+<img src="/CSD2c/ShaperStack/design/assets/waveshaper_graph.png" height="300">
 
 ___
 #### Biquad filter

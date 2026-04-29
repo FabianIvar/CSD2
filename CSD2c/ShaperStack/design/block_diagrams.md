@@ -24,12 +24,9 @@ Pirkle, W.C. (2019). _Designing Audio Effect Plugins in C++_. 2nd ed. Routledge,
 ___
 #### Asymmetric waveshaper
 
-<img src="/CSD2c/ShaperStack/design/assets/block_diagrams/asymmetric_waveshaper_simple.png" height="300">
-
 <img src="/CSD2c/ShaperStack/design/assets/waveshaper_graph.png" height="300">
 
-<br>
-<br>
+<img src="/CSD2c/ShaperStack/design/assets/block_diagrams/asymmetric_waveshaper_simple.png" width="300">
 
 <img src="/CSD2c/ShaperStack/design/assets/block_diagrams/asymmetric_waveshaper.png" height="300">
 

@@ -11,15 +11,17 @@
 
 struct CustomCallback : AudioCallback {
     explicit CustomCallback(double Fs) : AudioCallback(Fs) {
-        filter.setCoefficient(0.9f);
+// arguments: ( frequency in Hz | q-factor | dbGain | samplerate )
+    filter.prepare(5000.0f, 0.5f, 10.0f, static_cast<float>(Fs));
+    // filter.setCoefficient(0.9f);
     }
 
     ~CustomCallback() override {
     }
 
     void prepare(int sampleRate, int blockSize) override {
-        saw.prepare(sampleRate);
-        saw.setFrequency(110.5);
+      saw.prepare(sampleRate);
+      saw.setFrequency(200.5f);
     }
 
     void process(AudioBuffer buffer) override {

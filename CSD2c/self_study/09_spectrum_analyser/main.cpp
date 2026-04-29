@@ -32,26 +32,29 @@ y = a0*x + a1*xn_1 + a2*xn_2 - b1*yn_1 - b2*yn_2
 float sys (float x) {
   /* Private memory, inaccessable from outside.
   Reset at compile time but remembered between calls. */
+
   float coefficients[] = {
-    0.08589655933633257,
-    -0.17179311867266514,
-    0.08589655933633257,
-    1.0121423544571888,
-    0.35572859180251903};
+    2.08255,
+    -1.58671,
+    -0.0825479,
+    1.34233,
+    -1.58671,
+    0.657668};
 
 // Coefficients
   static float a0 = coefficients[0]; // Gain
   static float a1 = coefficients[1];
   static float a2 = coefficients[2];
-  static float b1 = coefficients[3];
-  static float b2 = coefficients[4];
+  static float b0 = coefficients[3];
+  static float b1 = coefficients[4];
+  static float b2 = coefficients[5];
 // Stored samples
   static float xn_1 = 0.0f;
   static float xn_2 = 0.0f;
   static float yn_1 = 0.0f;
   static float yn_2 = 0.0f;
 // Output
-  float y = 0.5*(a0*x + a1*xn_1 + a2*xn_2 - b1*yn_1 - b2*yn_2);
+  float y = (a0/b0)*x + (a1/b0)*xn_1 + (a2/b0)*xn_2 - (b1/b0)*yn_1 - (b2/b0)*yn_2;
 
   xn_2 = xn_1;
   xn_1 = x;

@@ -5,7 +5,7 @@
 // Complex Wissel Signaal
 
 #include <iostream>
-#include "Filters.h"
+#include "Filters.hpp"
 
 
 struct DeltaSequence {

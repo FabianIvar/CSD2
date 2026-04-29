@@ -9,29 +9,57 @@
     Run with:                                      ---
              ./real_spectrum_analyzer
 */
+
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>    /* Also link with math library during compilation (-lm)! */
+#include <iostream>
 
-/* System to be examined:  difference equation  y[n] = 0.6 x[n] - 0.4 x[n-1]. */
-float sys (float x)
-{
-    static float x1 = 0.0;   /* Private memory, inaccessable from outside. Reset
-                                at compile time but remembered between calls. */
-    static float x2 = 0.0;
-    static float x3 = 0.0;
+using namespace std;
 
-    static float y1 = 0.0;
-    static float y2 = 0.0;
 
-    //static float xxxx = 0.0; //n-3
 
-    float y = 0.5 * x + 0.5 * x1 + 0.5 * x2 + 0.4 * y1 + 0.4 * y2;
-    x2 = x1;
-    x1 = x;
-    y2 = y1;
-    y1 = y;
-    return y;
+/* System to be examined: Direct form
+
+Difference equation
+y[n] = a0*x(n) + a1*x(n-1) + a2*x(n-2) - b1*y(n-1) - b2*y(n-2)
+
+In code:
+y = a0*x + a1*xn_1 + a2*xn_2 - b1*yn_1 - b2*yn_2
+*/
+
+float sys (float x) {
+  /* Private memory, inaccessable from outside.
+  Reset at compile time but remembered between calls. */
+  float coefficients[] = {
+    0.08589655933633257,
+    -0.17179311867266514,
+    0.08589655933633257,
+    1.0121423544571888,
+    0.35572859180251903};
+
+// Coefficients
+  static float a0 = coefficients[0]; // Gain
+  static float a1 = coefficients[1];
+  static float a2 = coefficients[2];
+  static float b1 = coefficients[3];
+  static float b2 = coefficients[4];
+// Stored samples
+  static float xn_1 = 0.0f;
+  static float xn_2 = 0.0f;
+  static float yn_1 = 0.0f;
+  static float yn_2 = 0.0f;
+// Output
+  float y = 0.5*(a0*x + a1*xn_1 + a2*xn_2 - b1*yn_1 - b2*yn_2);
+
+  xn_2 = xn_1;
+  xn_1 = x;
+  yn_2 = yn_1;
+  yn_1 = y;
+
+  return y;
+
 }
 
 float sys_id (float x) /* Identity system to test this software: y[n] = x[n]. */
@@ -105,9 +133,10 @@ void plot_spectrum ()
 
 int main()
 {
-    printf("System  y[n] = 0.6 x[n] - 0.4 x[n-1]\n");
-    plot_impulse_response();
-    plot_spectrum();
-    putchar('\n');
-    return 0;
+  cout << "output: " << endl;
+  plot_impulse_response();
+  cout << endl;
+  plot_spectrum();
+  putchar('\n');
+  return 0;
 }

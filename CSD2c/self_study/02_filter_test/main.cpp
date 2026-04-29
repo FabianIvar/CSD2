@@ -6,7 +6,7 @@
 #include <iostream>
 #include <oscillator.h>
 #include <saw.h>
-#include "Filters.h"
+#include "Filters.hpp"
 #include "deltasequence.h"
 
 struct CustomCallback : AudioCallback {
@@ -38,7 +38,7 @@ struct CustomCallback : AudioCallback {
 
 
     Saw saw {200};
-    IIRFilter filter; // set Filter!
+    Biquad filter; // set Filter!
 };
 
 #define Delta_Sequence 0

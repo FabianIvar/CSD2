@@ -59,6 +59,55 @@ private:
 
 };
 
+class Biquad :  public Filter {
+  // float coefficients[5] = {
+  //   0.1358015398471006,
+  //   0.2716030796942012,
+  //   0.1358015398471006,
+  //   -0.7166657917686204,
+  //   0.2598719511570229};
+
+  float coefficients[5] = {
+0.6551237193210465,
+-1.310247438642093,
+0.6551237193210465,
+-0.931995440378234,
+0.6884994369059523
+};
+
+// Coefficients
+  float a0 = coefficients[0];
+  float a1 = coefficients[1];
+  float a2 = coefficients[2];
+  float b1 = coefficients[3];
+  float b2 = coefficients[4];
+// Stored samples
+  float xn_1 = 0.0f;
+  float xn_2 = 0.0f;
+  float yn_1 = 0.0f;
+  float yn_2 = 0.0f;
+  float gain;
+
+public:
+  float process(float x) override {
+    float y = gain*(a0*x + a1*xn_1 + a2*xn_2 - b1*yn_1 - b2*yn_2);
+
+    xn_2 = xn_1;
+    xn_1 = x;
+    yn_2 = yn_1;
+    yn_1 = y;
+
+    return y;
+
+  }
+
+  void setCoefficient(float gain) {
+    this->gain = gain;
+  }
+
+
+
+};
 
 //                   OnePole
 //   X[n] --(b)->(+)--->[ 1 sample ] ---> Y[n]
@@ -70,6 +119,8 @@ class OnePole : public Filter {
     float process(float input) override {
         // Y[n] = bX[n] + aY[n-1]
         // You make this one:
+
+        std::cout << "input" << std::endl;
 
     }
 
@@ -171,12 +222,12 @@ private:
 };
 
 
-class Biquad :  public Filter {
-public:
-    // Zoek een Biquad, en maak  'm :- )
-    // Probeer het internet, of Will Pirkle, zijn verschillende benaderingen
-    // Succes.
-
-};
-
-class PirkleBiquad
+// class Biquad :  public Filter {
+// public:
+//     // Zoek een Biquad, en maak  'm :- )
+//     // Probeer het internet, of Will Pirkle, zijn verschillende benaderingen
+//     // Succes.
+//
+//
+//
+// };

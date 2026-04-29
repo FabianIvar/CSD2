@@ -1,4 +1,5 @@
 add_subdirectory(01_circular_buffer_test)
+add_subdirectory(02_filter_test)
 #add_subdirectory(03_interpolation_test)
 add_subdirectory(04_plotting_test)
 add_subdirectory(07_circBuff_test2)

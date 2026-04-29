@@ -9,18 +9,16 @@ struct CircBuffer {
 
   void resetSize(uint size);
 
-  /* 'setDistRW' sets the distance between the read
-     head and the write head */
   void setDistRW(uint distRW); // sets Distance
   uint getDistRW();
 
   inline void write(float val) { // Writes val in buffer at writeH
     m_buffer[m_writeH] = val; }
 
-  inline float readH() { // Reads val in buffer at readH
+  inline float readH() { // Returns value at readH
     return m_buffer[m_readH]; }
 
-  inline float read(uint index) { // Reads val at provided index arg1
+  inline float read(uint index) { // Reads value at provided index arg1
     wrap(index);
     return m_buffer[index];
   }

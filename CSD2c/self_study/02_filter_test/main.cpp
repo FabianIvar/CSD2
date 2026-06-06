@@ -12,7 +12,7 @@
 struct CustomCallback : AudioCallback {
     explicit CustomCallback(double Fs) : AudioCallback(Fs) {
 // arguments: ( frequency in Hz | q-factor | dbGain | samplerate )
-    filter.prepare(5000.0f, 0.5f, 10.0f, static_cast<float>(Fs));
+    filter.prepare(5000.0f, 2.0f, 4.0f, static_cast<float>(Fs));
     // filter.setCoefficient(0.9f);
     }
 
@@ -46,7 +46,6 @@ struct CustomCallback : AudioCallback {
 #define Delta_Sequence 0
 
 int main() {
-
 
 #if Delta_Sequence
     ScopedMessageThreadEnabler scopedMessageThreadEnabler;

@@ -34,12 +34,12 @@ float sys (float x) {
   Reset at compile time but remembered between calls. */
 
   float coefficients[] = {
-    2.08255,
+    1.1916,
     -1.58671,
-    -0.0825479,
-    1.34233,
+    0.808404,
+    1.12089,
     -1.58671,
-    0.657668};
+    0.879111};
 
 // Coefficients
   static float a0 = coefficients[0]; // Gain

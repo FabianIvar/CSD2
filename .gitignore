@@ -11,6 +11,7 @@
 # C++
 **/build
 **/_empty_test
+**/_empty_audio_test
 **/_temporary
 **/_backup
 CSD2/CSD2c/codeclinics

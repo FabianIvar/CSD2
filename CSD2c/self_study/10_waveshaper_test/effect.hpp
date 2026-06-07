@@ -18,5 +18,4 @@ private:
   float m_dryWet;
   float m_sample;
   bool m_bypass;
-  float m_samplerate;
 };

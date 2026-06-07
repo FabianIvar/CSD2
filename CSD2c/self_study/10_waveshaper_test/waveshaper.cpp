@@ -1,5 +1,4 @@
 #include "waveshaper.hpp"
-#include "math.hpp"
 #include <iostream>
 
 Waveshaper::Waveshaper(float dryWet, float kFactor,
@@ -51,9 +50,12 @@ void Waveshaper::applyEffect(
 
   float indexFloat = bilinear(
     sample, -1.0f, 1.0f, 0.0f, static_cast<float>(m_bufferSize - 1));
+
   int index = static_cast<int>(indexFloat);
   float remainder = indexFloat - index;
+  float low = static_cast<float>(m_buffer[static_cast<size_t>(index)]);
+  float high = static_cast<float>(m_buffer[static_cast<size_t>(index + 1)]);
 
-  output =
+  output = linear(remainder, low, high);
 
 }

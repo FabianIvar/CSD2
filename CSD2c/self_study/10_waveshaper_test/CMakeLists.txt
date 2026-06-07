@@ -1,20 +1,17 @@
-cmake_minimum_required(VERSION 3.10)
-project(main)
+project(Waveshaper VERSION 0.0.1)
+juce_add_console_app(Waveshaper PRODUCT_NAME "Waveshaper")
 
 add_subdirectory(oscillators)
 
-add_executable(main main.cpp)
-set_property(TARGET main PROPERTY CXX_STANDARD 20)
+target_sources(Waveshaper PRIVATE
+        main.cpp
+        effect.cpp
+        waveshaper.cpp)
 
-project(main)
-juce_add_console_app(main PRODUCT_NAME "main")
-target_sources(main PRIVATE main.cpp)
-target_compile_definitions(main PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+target_compile_definitions(Waveshaper PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
 
-target_link_libraries(Filters
+target_link_libraries(Waveshaper
         PRIVATE
-        csd_lib
-
         juce::juce_audio_basics
         juce::juce_audio_devices
         juce::juce_audio_formats
@@ -25,4 +22,4 @@ target_link_libraries(Filters
         juce::juce_recommended_warning_flags
 )
 
-target_compile_features(Filters PRIVATE cxx_std_20)
+target_compile_features(Waveshaper PRIVATE cxx_std_20)

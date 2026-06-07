@@ -10,11 +10,6 @@ namespace BufferTools {
     return buffer;
   }
 
-  bool isEven(float val) {
-    float half = val * 0.5;
-    return (static_cast<int>(half) == half) ? true : false;
-  }
-
   template<typename L>
   void logArray(L* buffer, uint size, std::string arrName) {
     // Printing buffer from 0 to size

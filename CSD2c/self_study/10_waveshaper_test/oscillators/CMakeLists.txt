@@ -1,1 +1,4 @@
-target_sources(csd_lib PRIVATE oscillator.cpp sine.cpp)
+target_sources(Waveshaper
+      PRIVATE
+      oscillator.cpp
+      sine.cpp)

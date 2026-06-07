@@ -17,5 +17,5 @@ protected:
 private:
   float m_dryWet;
   float m_sample;
-  bool m_bypass;
+  bool m_bypass = false;
 };

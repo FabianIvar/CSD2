@@ -1,25 +1,21 @@
 #pragma once
 #include <cmath>
 #include "effect.hpp"
-#include "bufferTools.hpp"
-#include "interpolation.hpp"
+#define DEBUG 1
 
-using namespace Interpolation
-using namespace BufferTools;
-
-struct Waveshaper : public Effect{
-  Waveshaper(float dryWet, float kFactor);
+struct Waveshaper : public Effect {
   Waveshaper(float dryWet, float kFactor, int bufSize);
+  Waveshaper(float dryWet, float kFactor);
   ~Waveshaper();
 
   void generateSCurve();
 
   void applyEffect(const float& input, float& output) override;
+  void setKFactor(float kFactor);
 
 
 private:
-  float m_normalizeFactor;
   int m_bufferSize;
-  flat m_kFactor;
+  float m_kFactor;
   float* m_buffer;
-}
+};

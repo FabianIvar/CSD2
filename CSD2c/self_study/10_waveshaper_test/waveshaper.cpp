@@ -1,12 +1,22 @@
 #include "waveshaper.hpp"
 #include <iostream>
+#include "bufferTools.hpp"
+#include "interpolation.hpp"
+
+using namespace Interpolation;
+using namespace BufferTools;
 
 Waveshaper::Waveshaper(float dryWet, float kFactor,
   int bufferSize) : Effect(dryWet), m_kFactor(kFactor),
     m_bufferSize(bufferSize) {
 
+  #if DEBUG
+    std::cout <<
+      "Waveshaper Constructor"
+    << std::endl;
+  #endif
+
   generateSCurve();
-  m_normalizeFactor = 1.0f / atan(m_kFactor);
 }
 
 Waveshaper::Waveshaper(float dryWet, float kFactor) :
@@ -14,28 +24,33 @@ Waveshaper::Waveshaper(float dryWet, float kFactor) :
 
 Waveshaper::~Waveshaper() {
   free(m_buffer);
-  std::cout <<
-    "Waveshaper Destroyed"
-  << std::endl;
+  #if DEBUG
+    std::cout <<
+      "Waveshaper Destroyed"
+    << std::endl;
+  #endif
 }
 
 void Waveshaper::generateSCurve() {
   m_buffer = allocate<float>(m_bufferSize);
+  float normalizeFactor = 1.0f / atan(m_kFactor);
 
   for(int i = 0; i < m_bufferSize; i++) {
     float x = bilinear<float>(
       static_cast<float>(i), 0.0f,
       static_cast<float>(m_bufferSize), -1.0f, 1.0f);
-    m_buffer[static_cast<size_t>(i)] =
-      normalizeFactor * atan(m_kFactor * x);
+    m_buffer[i] = normalizeFactor * atan(m_kFactor * x);
   }
+  #if DEBUG
+    logArray<float>(m_buffer, 512, "S-Curve buffer");
+  #endif
 }
 
 void Waveshaper::applyEffect(
   const float &input, float &output) {
   float sample = input;
   if(sample > 1.0f) sample = 1.0f;
-  if(sample < -1.0f) sample = -0.0f;
+  if(sample < -1.0f) sample = -1.0f;
 
 /* pseudo code waveshaper interpolatie
 
@@ -48,7 +63,7 @@ void Waveshaper::applyEffect(
 
 */
 
-  float indexFloat = bilinear(
+  float indexFloat = bilinear<float>(
     sample, -1.0f, 1.0f, 0.0f, static_cast<float>(m_bufferSize - 1));
 
   int index = static_cast<int>(indexFloat);
@@ -56,6 +71,8 @@ void Waveshaper::applyEffect(
   float low = static_cast<float>(m_buffer[static_cast<size_t>(index)]);
   float high = static_cast<float>(m_buffer[static_cast<size_t>(index + 1)]);
 
-  output = linear(remainder, low, high);
+  output = linear<float>(remainder, low, high);
 
 }
+
+void Waveshaper::setKFactor(float kFactor) {m_kFactor = kFactor; }

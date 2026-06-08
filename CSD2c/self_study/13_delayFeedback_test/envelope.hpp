@@ -17,7 +17,7 @@ private:
   float m_decay;
   float m_release;
 
-  float m_target[4] = {0.0f, 1.0f, 0.9f, 0.0f};
+  float m_target[4] = {0.0f, 1.0f, 0.6f, 0.0f};
   float m_samplerate;
   float m_factor;
   float m_amplitude;

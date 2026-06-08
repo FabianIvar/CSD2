@@ -35,37 +35,37 @@ struct CustomCallback : AudioCallback {
     auto [inputChannels, outputChannels, numInputChannels,
     numOutputChannels, numFrames] = buffer;
 
-    // Main Loop here
-    for (auto sample = 0; sample < numFrames; ++sample) {
+//========[Main Loop]========
 
-//========================================================================
+    for (auto sample = 0; sample < numFrames; ++sample) {
+    // for every frame, so both channels get the same sample as input
 
       osc->tick();
       env.tick();
-      float amp = env.getAmplitude();
+      float out;
 
-      float oscSample = osc->getSample();
-      float distSample;
+      // float amp = env.getAmplitude();
 
-      waveshaper->processFrame(oscSample, distSample);
+      // dat gedoe met &output in processFrame is raar man
+      // TODO verander dat misschien
 
-      float processedSample = waveshaper->getSample()*amp;
-//========================================================================
+      waveshaper->processFrame(osc->getSample(), out);
+      delay->processFrame(waveshaper->getSample() * env.getAmplitude(), out);
+
+      float processedSample = delay->getSample();
 
       for(auto channel = 0; channel < numOutputChannels; ++channel) {
+      // for every channel, so channels get a different sample as input
         outputChannels[channel][sample] = processedSample;
-/*=============================================================================
 
-      outputChannels[channel][sample] = theSampleProcessed
-
-=============================================================================*/
       }
     }
   }
 
   Oscillator* osc = new Sine;
   Effect* waveshaper = new Waveshaper(1.0f, 25.0f);
-  Envelope env = Envelope(48000.0f, 15.0f, 15.0f, 10000.0f);
+  Envelope env = Envelope(48000.0f, 15.0f, 100.0f, 250.0f);
+  Effect* delay = new FeedbackDelay(500.0f, 1000.0f, 0.8f, 1.0f, 48000.0f);
 
 };
 

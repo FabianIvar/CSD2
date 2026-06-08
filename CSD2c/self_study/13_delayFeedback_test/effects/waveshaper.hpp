@@ -1,6 +1,12 @@
 #pragma once
 #include <cmath>
 #include "effect.hpp"
+#include "../utils/bufferToolkit.hpp"
+#include "../utils/interpolation.hpp"
+
+using namespace Interpolation;
+using namespace BufferToolkit;
+
 #define DEBUG 1
 
 struct Waveshaper : public Effect {

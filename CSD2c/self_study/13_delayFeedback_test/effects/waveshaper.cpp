@@ -1,10 +1,5 @@
 #include "waveshaper.hpp"
 #include <iostream>
-#include "../utils/bufferTools.hpp"
-#include "../utils/interpolation.hpp"
-
-using namespace Interpolation;
-using namespace BufferTools;
 
 Waveshaper::Waveshaper(float dryWet, float kFactor,
   int bufferSize) : Effect(dryWet), m_kFactor(kFactor),

@@ -4,7 +4,7 @@
 #include "oscillators/oscillator.h"
 #include "effects/effect.hpp"
 #include "effects/waveshaper.hpp"
-#include "utils/bufferTools.hpp"
+#include "utils/bufferToolkit.hpp"
 #include "utils/interpolation.hpp"
 #include "envelope.hpp"
 

@@ -3,11 +3,12 @@
 #include "../utils/bufferToolkit.hpp"
 
 using namespace BufferToolkit;
+using namespace Interpolation;
 
 struct CircularBuffer {
 
-  CircBuffer(uint size, uint distRW);
-  ~CircBuffer();
+  CircularBuffer(uint size, uint distRW);
+  ~CircularBuffer();
 
   void resetSize(uint size);
   void setDistRW(uint distRW); // sets Distance
@@ -19,7 +20,7 @@ struct CircularBuffer {
   inline void write(int index, float value) {
     uint i = static_cast<uint>(index);
     wrap(i);
-    m_buffer[i] = value
+    m_buffer[i] = value;
   }
 
   inline float readH() { // Reads val in buffer at readH

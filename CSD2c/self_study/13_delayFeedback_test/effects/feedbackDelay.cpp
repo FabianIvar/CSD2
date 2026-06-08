@@ -28,19 +28,19 @@ FeedbackDelay::~FeedbackDelay() {
 
 }
 
-void feedbackDelay::applyEffect(const float &input,
+void FeedbackDelay::applyEffect(const float &input,
   float &output) {
 
   output = m_circularBuffer->readH();
-  m_circularBuffer->writeH(output * feedback + input);
+  m_circularBuffer->writeH(output * m_feedback + input);
   m_circularBuffer->tick();
 }
 
-void feedbackDelay::setDelayTimeMS(float delayMillisec) {
+void FeedbackDelay::setDelayTimeMS(float delayMillisec) {
   m_numDelaySamples = static_cast<uint>(
     msToSamples(delayMillisec, m_samplerate));
   if (m_numDelaySamples < m_bufferSize) {
-    m_numDelaySamples = m_bufferSize
+    m_numDelaySamples = m_bufferSize;
   }
 
   m_circularBuffer->setDistRW(m_numDelaySamples);

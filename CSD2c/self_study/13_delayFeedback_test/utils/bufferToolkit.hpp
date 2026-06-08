@@ -1,6 +1,8 @@
 // By Fabean 8-6-26
 
 #pragma once
+#include <cstdlib>
+#include <iostream>
 
 namespace BufferToolkit {
   typedef unsigned int uint;
@@ -27,7 +29,7 @@ namespace BufferToolkit {
     return false;
   }
 
-  int msToSamples(float millisec, float rate) {
+  static int msToSamples(float millisec, float rate) {
     return static_cast<int>(rate*0.001f*millisec);
   }
 }

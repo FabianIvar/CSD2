@@ -10,7 +10,10 @@ target_sources(DelayFeedback
         main.cpp
         envelope.cpp)
 
-target_compile_definitions(DelayFeedback PRIVATE JUCE_WEB_BROWSER=0 JUCE_USE_CURL=0)
+target_compile_definitions(DelayFeedback
+        PRIVATE
+        JUCE_WEB_BROWSER=0
+        JUCE_USE_CURL=0)
 
 target_link_libraries(DelayFeedback
         PRIVATE

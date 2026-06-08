@@ -29,5 +29,5 @@ protected:
 
 private:
   float amplitude;
-  float samplerate = 44100;
+  float samplerate = 48000;
 };

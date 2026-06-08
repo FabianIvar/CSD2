@@ -1,6 +1,6 @@
-#include "PluginProcessor.h"
-#include "EffectsChain.h"
-#include "PluginEditor.h"
+#include "PluginProcessor.hpp"
+#include "EffectsChain.hpp"
+#include "PluginEditor.hpp"
 
 #include "ParameterID.hpp"
 
@@ -133,7 +133,7 @@ void AudioPluginAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
         buffer.clear (i, 0, buffer.getNumSamples());
 
     effectsChain.getNextBlock(buffer);
-    
+
 }
 
 //==============================================================================

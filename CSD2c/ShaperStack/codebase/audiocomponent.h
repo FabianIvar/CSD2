@@ -1,9 +1,8 @@
-//
-// Created by Dean on 02/12/2023.
-//
+// TODO switch this in for the version in ../self_study/13_delayFeedback_test
+
 #pragma once
 
-#include <writeToFile.h>
+#include "utils/writeToFile.hpp"
 #include <juce_audio_basics/juce_audio_basics.h>
 #include <juce_audio_devices/juce_audio_devices.h>
 #include <iostream>
@@ -23,7 +22,7 @@ class AudioCallback : public juce::AudioSource {
 public:
   explicit AudioCallback (float sampleRate,
                           int startMs = 0,
-                          int endMs = 1000, 
+                          int endMs = 1000,
                           const std::string& fileName = ".")
     : Fs (sampleRate) {
     startFrame = msToSamples ((int) Fs, startMs);
@@ -138,8 +137,8 @@ private:
 
     process (buffer);
 
-#if WRITE_TO_FILE_MODE == 1 || WRITE_TO_FILE_MODE == 3 
-    writeBlock (buffer, WriteMode::OUTPUT); 
+#if WRITE_TO_FILE_MODE == 1 || WRITE_TO_FILE_MODE == 3
+    writeBlock (buffer, WriteMode::OUTPUT);
     clearOutput(buffer);
 #endif
 
@@ -154,7 +153,6 @@ struct ScopedMessageThreadEnabler {
   ScopedMessageThreadEnabler() { juce::initialiseJuce_GUI(); }
   ~ScopedMessageThreadEnabler() { juce::shutdownJuce_GUI(); }
 };
-
 
 class JUCEModule {
 public:
@@ -177,14 +175,14 @@ public:
     }
 #elif AUDIO_DEVICE_MODE == 1
     auto useDefaults = false;
-    
+
     auto& deviceTypes = audioDeviceManager.getAvailableDeviceTypes();
-    
+
     std::cout << "Available audio device types:" << std::endl;
     for (int i = 0; i < deviceTypes.size(); ++i) {
       std::cout << "  " << i << ": " << deviceTypes[i]->getTypeName() << std::endl;
     }
-    
+
     std::cout << "Select device type (0-" << deviceTypes.size() - 1 << "): ";
     int typeIndex;
     if (!(std::cin >> typeIndex) || typeIndex < 0 || typeIndex >= deviceTypes.size()) {
@@ -193,10 +191,10 @@ public:
       std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
       useDefaults = true;
     }
-    
+
     if (!useDefaults) {
       audioDeviceManager.setCurrentAudioDeviceType (deviceTypes[typeIndex]->getTypeName(), true);
-      
+
       auto* currentType = audioDeviceManager.getCurrentDeviceTypeObject();
       if (currentType != nullptr) {
         auto outputDevices = currentType->getDeviceNames (false);
@@ -204,7 +202,7 @@ public:
         for (int i = 0; i < outputDevices.size(); ++i) {
           std::cout << "  " << i << ": " << outputDevices[i] << std::endl;
         }
-        
+
         std::cout << "Select output device (0-" << outputDevices.size() - 1 << "): ";
         int outputIndex;
         if (!(std::cin >> outputIndex) || outputIndex < 0 || outputIndex >= outputDevices.size()) {
@@ -213,14 +211,14 @@ public:
           std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
           useDefaults = true;
         }
-        
+
         if (!useDefaults) {
           auto inputDevices = currentType->getDeviceNames (true);
           std::cout << "\nAvailable input devices:" << std::endl;
           for (int i = 0; i < inputDevices.size(); ++i) {
             std::cout << "  " << i << ": " << inputDevices[i] << std::endl;
           }
-          
+
           std::cout << "Select input device (0-" << inputDevices.size() - 1 << "): ";
           int inputIndex;
           if (!(std::cin >> inputIndex) || inputIndex < 0 || inputIndex >= inputDevices.size()) {
@@ -229,7 +227,7 @@ public:
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             useDefaults = true;
           }
-          
+
           if (!useDefaults) {
             juce::AudioDeviceManager::AudioDeviceSetup setup;
             setup.outputDeviceName = outputDevices[outputIndex];
@@ -240,7 +238,7 @@ public:
             setup.outputChannels.setRange (0, numOutputChannels, true);
             setup.useDefaultInputChannels = false;
             setup.useDefaultOutputChannels = false;
-            
+
             auto error = audioDeviceManager.setAudioDeviceSetup (setup, true);
             if (error.isNotEmpty()) {
               std::cerr << "Error setting up audio device: " << error << std::endl;
@@ -252,7 +250,7 @@ public:
         useDefaults = true;
       }
     }
-    
+
     if (useDefaults) {
       auto error = audioDeviceManager.initialiseWithDefaultDevices (numInputChannels, numOutputChannels);
       if (error.isNotEmpty()) {

@@ -1,5 +1,5 @@
-#include "PluginProcessor.h"
-#include "PluginEditor.h"
+#include "PluginProcessor.hpp"
+#include "PluginEditor.hpp"
 
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <juce_events/juce_events.h>
@@ -10,7 +10,7 @@ namespace plugin_focus {
 
 //==============================================================================
 AudioPluginAudioProcessorEditor::AudioPluginAudioProcessorEditor (AudioPluginAudioProcessor& p)
-    : AudioProcessorEditor (&p), processorRef (p), 
+    : AudioProcessorEditor (&p), processorRef (p),
     sliderAttachment {
         *processorRef.getState().getParameter(id::PARAM.getParamID()), slider, nullptr
     }
@@ -19,7 +19,7 @@ AudioPluginAudioProcessorEditor::AudioPluginAudioProcessorEditor (AudioPluginAud
     addAndMakeVisible(slider);
     slider.setSliderStyle(juce::Slider::SliderStyle::RotaryVerticalDrag);
     slider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 120, 40);
-    
+
 
     setSize (450, 500);
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <juce_audio_processors/juce_audio_processors.h>
-#include "EffectsChain.h"
+#include "EffectsChain.hpp"
 #include "ParameterID.hpp"
 
 namespace plugin_focus {
@@ -44,7 +44,7 @@ public:
     //==============================================================================
     void getStateInformation (juce::MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-    
+
     [[nodiscard]] juce::AudioProcessorValueTreeState& getState() noexcept {
         return Params;
     }

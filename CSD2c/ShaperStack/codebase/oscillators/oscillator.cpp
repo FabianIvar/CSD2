@@ -1,7 +1,7 @@
 #include "oscillator.h"
 
 Oscillator::Oscillator(float frequency) :
-Oscillator(frequency, 44100) {}
+Oscillator(frequency, 48000) {}
 
 Oscillator::Oscillator(float frequency, float samplerate) :
   frequency(frequency),  phase(0), sample(0),amplitude(1.0),

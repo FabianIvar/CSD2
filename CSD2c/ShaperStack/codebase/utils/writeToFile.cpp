@@ -1,4 +1,4 @@
-#include "writeToFile.h"
+#include "writeToFile.hpp"
 
 WriteToFile::WriteToFile (const std::string& fileName, bool overwrite) {
   // check if we are allowed to overwrite file

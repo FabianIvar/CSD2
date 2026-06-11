@@ -11,7 +11,26 @@
 
 class EffectsChain {
 public:
-  EffectsChain() {}
+  EffectsChain() {
+    #if DEBUG
+      std::cout << "EffectsChain Constructor" << std::endl;
+    #endif
+  }
+
+  ~EffectsChain() {
+
+    delete waveshaper;
+    waveshaper = nullptr;
+    delete delay;
+    delay = nullptr;
+    // delete filter;
+    // filter = nullptr;
+
+    #if DEBUG
+      std::cout << "EffectsChain Destroyed" << std::endl;
+    #endif
+  }
+
   void prepareToPlay(float sampleRate, int numSamplesPerBlock){
     // Your Prepare Goes Here
 
@@ -41,7 +60,8 @@ public:
     }
 
     void setParameter(float parameter){
-        // Your Code goes here
+      // Your Code goes here
+      std::cout << "\n---->parameter: " << parameter << std::endl;
     }
 
 private:

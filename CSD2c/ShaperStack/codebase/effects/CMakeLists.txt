@@ -1,4 +1,4 @@
-target_sources(PuginFocus2
+target_sources(PluginFocus2
       PRIVATE
       circularBuffer.cpp
       filter.cpp

@@ -1,18 +1,6 @@
-cmake_minimum_required(VERSION 3.22)
 project(PluginFocus2 VERSION 0.0.1)
 set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
-
-# header only files need INTERFACE
-add_library(audio_header INTERFACE)
-target_include_directories(audio_header INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/audiocomponent.h)
-
-add_subdirectory(effects)
-add_subdirectory(oscillators)
-add_subdirectory(utils)
-
-
 juce_add_plugin(PluginFocus2
-        VERSION 0.0.1
         # ICON_BIG ...
         # ICON_SMALL ...
         COMPANY_NAME CSD
@@ -24,22 +12,35 @@ juce_add_plugin(PluginFocus2
         # COPY_PLUGIN_AFTER_BUILD TRUE/FALSE
         PLUGIN_MANUFACTURER_CODE Csd2
         PLUGIN_CODE Fab2
-        FORMATS Standalone # AU VST3
-        PRODUCT_NAME "Plugin Focus2"
-)
+        FORMATS AU VST3 Standalone
+        PRODUCT_NAME "Plugin Focus2")
+
+add_subdirectory(effects)
+add_subdirectory(utils)
+#add_subdirectory(oscillators)
 
 target_sources(PluginFocus2
         PRIVATE
         PluginEditor.cpp
-        PluginProcessor.cpp
-)
+        PluginProcessor.cpp)
 
 target_compile_definitions(PluginFocus2
         PUBLIC
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
-        JUCE_VST3_CAN_REPLACE_VST2=0
-)
+        JUCE_VST3_CAN_REPLACE_VST2=0)
+
+
+
+# hier gaat ie misschien fout |
+#                             V
+
+# header only files need INTERFACE
+add_library(audio_header INTERFACE)
+target_include_directories(audio_header INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/audiocomponent.h)
+
+
+
 
 
 target_link_libraries(PluginFocus2

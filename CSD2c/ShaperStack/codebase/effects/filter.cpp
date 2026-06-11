@@ -1,7 +1,7 @@
 #include "filter.hpp"
 
 Filter::Filter(float dryWet, float cutoff, float qFactor, float dBgain,
-  float samplerate) : Effect(dryWet), m_samplerate(samplerate), m_cutoff(cutoff), m_qfactor(qFactor), m_dBgain(dBgain) {
+  float samplerate) : Effect(dryWet), m_samplerate(samplerate), m_cutoff(cutoff), m_qFactor(qFactor), m_dBgain(dBgain) {
 
   #if DEBUG
     std::cout << "Filter Constructor" << std::endl;

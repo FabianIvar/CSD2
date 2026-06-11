@@ -36,7 +36,7 @@ void Waveshaper::generateSCurve() {
       static_cast<float>(m_bufferSize), -1.0f, 1.0f);
     m_buffer[i] = normalizeFactor * atan(m_kFactor * x);
   }
-  #if DEBUG
+  #if LOG_SCURVE
     logArray<float>(m_buffer, 512, "S-Curve buffer");
   #endif
 }

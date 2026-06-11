@@ -12,7 +12,7 @@ juce_add_plugin(PluginFocus2
         # COPY_PLUGIN_AFTER_BUILD TRUE/FALSE
         PLUGIN_MANUFACTURER_CODE Csd2
         PLUGIN_CODE Fab2
-        FORMATS AU VST3 Standalone
+        FORMATS Standalone AU VST3
         PRODUCT_NAME "Plugin Focus2")
 
 add_subdirectory(effects)

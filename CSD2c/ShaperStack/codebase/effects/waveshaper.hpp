@@ -8,6 +8,7 @@ using namespace Interpolation;
 using namespace BufferToolkit;
 
 #define DEBUG 1
+#define LOG_SCURVE 0
 
 struct Waveshaper : public Effect {
   Waveshaper(float dryWet, float kFactor, int bufferSize);

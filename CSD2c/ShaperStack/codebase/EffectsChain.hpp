@@ -21,10 +21,10 @@ public:
       std::cout << "EffectsChain Constructor" << std::endl;
     #endif
 
-    for (uint i = 0; i < 2; i++) {
+    //  (dryWet | kFactor)
+    waveshaper = new Waveshaper(1.0f, 25.0f);
 
-      //  (dryWet | kFactor)
-      waveshaper[i] = new Waveshaper(1.0f, 25.0f);
+    for (uint i = 0; i < 2; i++) {
 
       //   dryWet | delayTimeMS | maxDelayTimeMS |feedback | samplerate)
       delay[i] = new FeedbackDelay(0.3f, 125.0f, 1000.0f, 0.3f, 48000.0f);
@@ -38,9 +38,10 @@ public:
 
   ~EffectsChain() {
 
+    delete waveshaper;
+    waveshaper = nullptr;
+
     for (int i = 0; i < 2; i++) {
-        delete waveshaper[i];
-        waveshaper[i] = nullptr;
         delete delay[i];
         delay[i] = nullptr;
       }
@@ -68,23 +69,23 @@ public:
 
       for (int frame = 0; frame < buffer.getNumSamples(); ++frame){
         // outputChannel[sample] = inputChannel[sample];
-        waveshaper[channel]->processFrame(input[frame], sample[channel]);
-        // delay[channel]->applyEffect()
+        // waveshaper[channel]->processFrame(input[frame], sample[channel]);
+        // // delay[channel]->applyEffect()
+        // delay[channel]->setDryWet(m_parameter);
+        // delay[channel]->processFrame(waveshaper[channel]->getSample(), sample[channel]);
+        //
+        // sample[channel] = delay[channel]->getSample();
+        //
+        // output[frame] = sample[channel];
 
-        delay[channel]->processFrame(waveshaper[channel]->getSample(), sample[channel]);
-
-        sample[channel] = delay[channel]->getSample();
-
-        output[frame] = sample[channel];
+        waveshaper->processFrame(input[frame], output[frame]);
 
       }
     }
   }
 
-  void setParameter(float parameter) {
-    for (uint i = 0; i < 2; i++) {
-      delay[i]->setDryWet(parameter);
-    }
+  void setParameter(float parameter) { m_parameter = parameter; }
+
     // m_parameter = parameter;
     // for (uint i = 0; i < 2; i++) {
     //   delay[i]->setDelayTimeMs(linear<float>(parameter, 125.0f, 1000.0f));
@@ -92,11 +93,10 @@ public:
 
     // Your Code goes here
     // std::cout << "\n---->parameter: " << parameter << std::endl;
-  }
 
 private:
-  Effect* waveshaper[2];
+  Effect* waveshaper;
   Effect* delay[2];
-  // float m_parameter;
+  float m_parameter;
   // Effect* filter;
 };

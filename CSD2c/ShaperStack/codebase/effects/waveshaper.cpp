@@ -44,8 +44,26 @@ void Waveshaper::generateSCurve() {
 void Waveshaper::applyEffect(
   const float &input, float &output) {
   float sample = input;
-  if(sample > 1.0f) sample = 1.0f;
-  if(sample < -1.0f) sample = -1.0f;
+  if(input > 1.0f) output = 1.0f;
+  else if(input < -1.0f) output = -1.0f;
+  else {
+    float indexFloat = bilinear<float>(
+      sample, -1.0f, 1.0f, 0.0f, static_cast<float>(m_bufferSize));
+
+    int index = static_cast<int>(indexFloat);
+    float remainder = indexFloat - index;
+    float low = static_cast<float>(m_buffer[index]);
+    float high;
+    if (index < 512) {
+      high = static_cast<float>(m_buffer[index + 1]);
+    }
+    else high = low;
+
+    output = linear<float>(remainder, low, high);
+  }
+}
+
+void Waveshaper::setKFactor(float kFactor) {m_kFactor = kFactor; }
 
 /* pseudo code waveshaper interpolatie
 
@@ -57,17 +75,3 @@ void Waveshaper::applyEffect(
 3) output = linear(factor, low, high)
 
 */
-
-  float indexFloat = bilinear<float>(
-    sample, -1.0f, 1.0f, 0.0f, static_cast<float>(m_bufferSize - 1));
-
-  int index = static_cast<int>(indexFloat);
-  float remainder = indexFloat - index;
-  float low = static_cast<float>(m_buffer[static_cast<size_t>(index)]);
-  float high = static_cast<float>(m_buffer[static_cast<size_t>(index + 1)]);
-
-  output = linear<float>(remainder, low, high);
-
-}
-
-void Waveshaper::setKFactor(float kFactor) {m_kFactor = kFactor; }

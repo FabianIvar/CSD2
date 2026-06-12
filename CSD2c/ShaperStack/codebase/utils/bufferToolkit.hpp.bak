@@ -29,7 +29,7 @@ namespace BufferToolkit {
     return false;
   }
 
-  static float msToSamples(float millisec, float rate) {
+  static int msToSamples(float millisec, float rate) {
     return (rate*0.001f*millisec);
   }
 }

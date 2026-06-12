@@ -66,9 +66,11 @@ public:
     for(int channel = 0; channel < buffer.getNumChannels(); ++channel){
       auto* input = buffer.getReadPointer(channel); // was inputChannel
       auto* output = buffer.getWritePointer(channel); // was outputChannel
+      delay[channel]->setParam(m_parameter);
 
       for (int frame = 0; frame < buffer.getNumSamples(); ++frame){
         // outputChannel[sample] = inputChannel[sample];
+
         // waveshaper[channel]->processFrame(input[frame], sample[channel]);
         // // delay[channel]->applyEffect()
         // delay[channel]->setDryWet(m_parameter);
@@ -79,20 +81,27 @@ public:
         // output[frame] = sample[channel];
 
         waveshaper->processFrame(input[frame], output[frame]);
+        delay[channel]->processFrame(waveshaper->getSample(), output[frame]);
+        output[frame] = delay[channel]->getSample();
+
 
       }
     }
   }
 
-  void setParameter(float parameter) { m_parameter = parameter; }
+  void setParameter(float parameter) {
+    for (int i = 0; i < 2; i++) {
+      m_parameter = parameter;
+    }
+  }
+  // std::cout << "\n---->parameter: " << parameter << std::endl;
 
-    // m_parameter = parameter;
     // for (uint i = 0; i < 2; i++) {
     //   delay[i]->setDelayTimeMs(linear<float>(parameter, 125.0f, 1000.0f));
     // }
 
     // Your Code goes here
-    // std::cout << "\n---->parameter: " << parameter << std::endl;
+    //
 
 private:
   Effect* waveshaper;

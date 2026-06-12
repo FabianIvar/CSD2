@@ -8,10 +8,12 @@ using namespace Interpolation;
 struct CircularBuffer {
 
   CircularBuffer(uint size, uint distRW);
+  CircularBuffer(uint size, float distRW);
   ~CircularBuffer();
 
   void resetSize(uint size);
   void setDistRW(uint distRW); // sets Distance
+  void setDistRW(float distRW); // sets Distance
   uint getDistRW();
 
   inline void writeH(float val) { // Writes val in buffer at writeH
@@ -60,6 +62,10 @@ private:
     if (head >= m_size) head -= m_size;
   }
 
+  inline void wrap(uint& head) { // Wrap head if necessary
+    if (head >= m_size) head -= m_size;
+  }
+
   void allocateBuffer();
   void releaseBuffer();
 
@@ -68,4 +74,5 @@ private:
   uint m_readH;  // index in buffer, position of the readhead
   uint m_writeH; // index in buffer, position of the writehead
   uint m_distRW; // Distance between the readH and writeH
+  uint m_floatDistRW; // Distance between the readH and writeH as float
 };

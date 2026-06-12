@@ -13,9 +13,8 @@ FeedbackDelay::FeedbackDelay(
   else if (feedback > 0.99f) m_feedback = 0.99f;
   else m_feedback = feedback;
 
-  // uint distRW = static_cast<uint>(
-  //   msToSamples(delayTimeMS, m_samplerate));
-  float distRW = msToSamples(delayTimeMS, m_samplerate);
+  uint distRW = static_cast<uint>(
+    msToSamples(delayTimeMS, m_samplerate));
 
   m_bufferSize = static_cast<uint>(
     msToSamples(maxDelayTimeMS, m_samplerate));

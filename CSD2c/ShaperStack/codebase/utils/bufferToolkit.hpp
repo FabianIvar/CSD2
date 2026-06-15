@@ -15,8 +15,8 @@ namespace BufferToolkit {
     return buffer;
   }
 
-  template<typename L>
-  void logArray(L* buffer, uint size, std::string arrName) { // Printing buffer from 0 to size
+  template<typename L> // log buffer from 0 to size
+  void logArray(L* buffer, uint size, std::string arrName) {
     std::cout << "\n" + arrName + ":\n";
     for (uint i = 0; i < size; i++) std::cout << buffer[i] << ", ";
   }
@@ -31,5 +31,9 @@ namespace BufferToolkit {
 
   static float msToSamples(float millisec, float rate) {
     return (rate*0.001f*millisec);
+  }
+
+  static float samplesToMS(float samples, float rate) {
+    return samples/rate;
   }
 }

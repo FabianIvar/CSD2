@@ -16,12 +16,29 @@ struct CircularBuffer {
   void setDistRW(float floatDistRW); // sets Distance
   uint getDistRW();
 
-  inline void write(float val) { // Writes val in buffer at writeH
+  inline void writeH(float val) { // Writes val in buffer at writeH
     m_buffer[m_writeH] = val; }
 
-  inline float read() { // Reads val in buffer at readH
-    uint i = static_cast<uint>(readH);
-    return linear<float>(readH - i, m_buffer[i], readIndex[i+1])
+  inline void write(int index, float value) {
+    uint i = static_cast<uint>(index);
+    wrap(i);
+    m_buffer[i] = value;
+  }
+
+  inline float readH() { // Reads val in buffer at readH
+    return m_buffer[m_readH]; }
+
+  inline float read(int index) { // Reads val at index
+    uint i = static_cast<uint>(index);
+    wrap(i);
+    return m_buffer[i];
+  }
+
+  inline float readInterpolated(float indexFloat) {
+    int index = static_cast<int>(indexFloat);
+    float remainder = indexFloat - index;
+
+    return linear<float>(remainder, read(index), read(index + 1));
   }
 
   inline void tick() { // move to next sample
@@ -50,17 +67,15 @@ private:
     if (head >= floatSize) head -= floatSize;
   }
 
-  inline float readIndex(uint index) {
-    wrap(index);
-    return m_buffer[index];
-  }
-
   void allocateBuffer();
   void releaseBuffer();
 
   float* m_buffer;
   uint m_size;   // Number of samples in the buffer
-  float m_readH;  // index in buffer, position of the readhead
-  float m_writeH; // index in buffer, position of the writehead
+  uint m_readH;  // index in buffer, position of the readhead
+  uint m_writeH; // index in buffer, position of the writehead
+  float m_floatReadH;  // index in buffer, position of the readhead
+  float m_floatWriteH; // index in buffer, position of the writehead
   uint m_distRW; // Distance between the readH and writeH
+  uint m_floatDistRW; // Distance between the readH and writeH as float
 };

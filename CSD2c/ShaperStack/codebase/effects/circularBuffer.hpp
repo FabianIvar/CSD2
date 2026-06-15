@@ -7,14 +7,77 @@ using namespace Interpolation;
 
 struct CircularBuffer {
 
-  CircularBuffer(uint size, uint distRW);
   CircularBuffer(uint size, float distRW);
   ~CircularBuffer();
 
   void resetSize(uint size);
-  void setDistRW(uint distRW); // sets Distance
   void setDistRW(float floatDistRW); // sets Distance
   uint getDistRW();
+
+  inline void write(float val) { // Writes val in buffer at writeH
+    uint index = static_cast<uint>(m_writeH);
+    float remainder = m_writeH - static_cast<float>(index);
+    float low = static_cast<float>(index) - remainder;
+    m_buffer[index] = linear<float>(0.5f, readFloat(low), val);
+  }
+
+  inline float read() { // Reads val in buffer at readH
+    uint i = static_cast<uint>(readH);
+    return linear<float>(readH - i, m_buffer[i], readIndex[i+1])
+  }
+
+  inline void tick() { // move to next sample
+    incrWriteH();
+    incrReadH();
+  }
+
+private:
+
+  inline readFloat(float index) {
+    // returns value in buffer using floating point as index,
+    // interpolates between two values in buffer using the remainder
+    wrap(index);
+    uint i = static_cast<uint>(index);
+    return linear<float>(index - i), m_buffer[i], readIndex(i+1));
+  }
+
+  inline float readIndex(uint index) {
+    // returns value in buffer using argument as parameter;
+    wrap(index);
+    return m_buffer[index];
+  }
+
+  inline void incrWriteH() {
+    m_writeH++;
+    wrap(m_writeH);
+  }
+
+  inline void incrReadH() {
+    m_readH++;
+    wrap(m_readH);
+  }
+
+  inline void wrap(uint& head) { // Wrap head if necessary
+    if (head >= m_size) head -= m_size;
+  }
+
+  inline void wrap(float& head) { // Wrap floatIndex if necessary
+    if (head >= m_size) head -= m_size;
+  }
+
+  void allocateBuffer();
+  void releaseBuffer();
+
+  float* m_buffer;
+  uint m_size;   // Number of samples in the buffer
+  float m_readH;  // index in buffer, position of the readhead
+  float m_writeH; // index in buffer, position of the writehead
+  float m_distRW; // Distance between the readH and writeH
+};
+
+
+
+
 
 /*
 writeHead is at floating point location in buffer. It should never
@@ -74,64 +137,3 @@ readIndex(uint index) {
 }
 
 */
-
-  inline void write(float val) { // Writes val in buffer at writeH
-    uint index = static_cast<uint>(m_writeH);
-    float remainder = m_writeH - static_cast<float>(index);
-    float low = static_cast<float>(index) - remainder;
-    m_buffer[index] = linear<float>(0.5f, readFloat(low), val);
-  }
-
-  inline float read() { // Reads val in buffer at readH
-    uint i = static_cast<uint>(readH);
-    return linear<float>(readH - i, m_buffer[i], readIndex[i+1])
-  }
-
-  inline void tick() { // move to next sample
-    incrWriteH();
-    incrReadH();
-  }
-
-private:
-
-  inline readFloat(float index) {
-    // returns value in buffer using floating point as index,
-    // interpolates between two values in buffer using the remainder
-    wrap(index);
-    i = static_cast<uint(index);
-    return linear<float>(index - i), m_buffer[i], readIndex(i+1));
-  }
-
-  inline float readIndex(uint index) {
-    // returns value in buffer using argument as parameter;
-    wrap(index);
-    return m_buffer[index];
-  }
-
-  inline void incrWriteH() {
-    m_writeH++;
-    wrap(m_writeH);
-  }
-
-  inline void incrReadH() {
-    m_readH++;
-    wrap(m_readH);
-  }
-
-  inline void wrap(uint& head) { // Wrap head if necessary
-    if (head >= m_size) head -= m_size;
-  }
-
-  inline void wrap(float& head) { // Wrap floatIndex if necessary
-    if (head >= m_size) head -= m_size;
-  }
-
-  void allocateBuffer();
-  void releaseBuffer();
-
-  float* m_buffer;
-  uint m_size;   // Number of samples in the buffer
-  float m_readH;  // index in buffer, position of the readhead
-  float m_writeH; // index in buffer, position of the writehead
-  float m_distRW; // Distance between the readH and writeH
-};

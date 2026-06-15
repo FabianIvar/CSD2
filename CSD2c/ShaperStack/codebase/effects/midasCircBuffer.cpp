@@ -78,7 +78,7 @@ void CircularBuffer::m_calculatePhaseStep() // aka grainIncrement
 
 void CircularBuffer::setGrainSize(int grainSize)
 {
-  m_grainSize = grainSize; // aka factor when its not scaled to a value
+  m_grainSize = grainSize; // aka factor scaled to a value
   m_calculatePhaseStep();
 }
 
@@ -111,7 +111,7 @@ float CircularBuffer::calculateAmp(float phase) // aka getGrainAmp
 }
 
 void CircularBuffer::prepare(int parameter) // aka prepareParam
-{
+{ // this was calculateGrainStep
   difference = parameter - m_grainSize;
 
 

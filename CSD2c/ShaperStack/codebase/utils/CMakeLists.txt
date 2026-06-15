@@ -1,3 +1,4 @@
 target_sources(PluginFocus2
         PRIVATE
-        writeToFile.cpp)
+        writeToFile.cpp
+        smoothing.cpp)

@@ -7,7 +7,8 @@
 
 namespace Interpolation {
   typedef unsigned int uint;
-  /* When used in interpolation context low can be seen as
+
+/* When used in interpolation context low can be seen as
      the previous value and high can be seen as the
      next value. */
 

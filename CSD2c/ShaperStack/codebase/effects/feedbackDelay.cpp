@@ -4,7 +4,8 @@
 FeedbackDelay::FeedbackDelay(
   float dryWet, float delayTimeMS, float maxDelayTimeMS,
   float feedback, float samplerate) :
-  Effect(dryWet), m_samplerate(samplerate), m_factor(0.0f) {
+  Effect(dryWet), m_samplerate(samplerate), m_factor(0.0f),
+  m_output(0.0f) {
 
   #if DEBUG
     std::cout << "FeedbackDelay Constructor" << std::endl;
@@ -14,16 +15,12 @@ FeedbackDelay::FeedbackDelay(
   else if (feedback > 0.99f) m_feedback = 0.99f;
   else m_feedback = feedback;
 
-
+  m_size = static_cast<uint>(msToSamples(maxDelayTimeMS, m_samplerate));
+  m_distRW = msToSamples(delayTimeMS, m_samplerate);
 
   // (size | distRW)
-  m_buffer = new CircularBuffer(static_cast<uint>(
-    msToSamples(maxDelayTimeMS, m_samplerate)), static_cast<uint>(
-    msToSamples(delayTimeMS, m_samplerate)));
+  m_buffer = new CircularBuffer(m_size, m_distRW);
 
-  m_buffer->calculateGrainIncrement();
-  m_distRW = m_buffer->getDistRW();
-  m_size = m_buffer->getSize();
 }
 
 FeedbackDelay::~FeedbackDelay() {
@@ -37,29 +34,29 @@ FeedbackDelay::~FeedbackDelay() {
 }
 
 void FeedbackDelay::setParam(float parameter) {
-  m_buffer->prepareParam(parameter);
-  std::cout << "\nworking here? --> line 41 fbDelay.cpp --> setparam" << std::endl;
+  m_buffer->setDistRW(linear<float>(
+    parameter, m_distRW, static_cast<float>(m_size)));
+
+  // std::cout << "-----[ m_size ]-----> " << m_size << std::endl;
 }
 
 void FeedbackDelay::applyEffect(const float &input, float &output) {
-  // std::cout << "\nworking here? --> line 46 fbDelay.cpp --> applyEffect func" << std::endl;
-  m_buffer->smootheValue();
+
   output = m_buffer->read();
-  // std::cout << "\nworking here? --> line 47 fbDelay.cpp --> post read()" << std::endl;
-  m_buffer->write(output * m_feedback + input);
+
+  m_output *= m_feedback;
+  m_output += input;
+
+  // std::cout << "-----[ feedback ]-----> " << m_feedback << std::endl;
+  // std::cout << "-----[ m_output ]-----> " << m_output << std::endl;
+  m_buffer->write(m_output);
   m_buffer->tick();
-  // std::cout << "\nworking here? --> line 50 fbDelay.cpp --> after tick();" << std::endl;
+
+
 }
 
+// this function might be redundant
 void FeedbackDelay::setDelayTimeMS(float delayMS) {
-
-  // #if DEBUG
-    // std::cout << "--> delaytime in milliseconds: " <<
-    //   delayMS << "\n--> number of samples delay: " <<
-      // msToSamples(delayMS, m_samplerate) << "\n--> size of buffer: " <<
-    //   m_size
-    // << std::endl;
-  // #endif
 
   m_distRW = msToSamples(delayMS, m_samplerate);
 
@@ -67,6 +64,7 @@ void FeedbackDelay::setDelayTimeMS(float delayMS) {
 
   m_buffer->setDistRW(m_distRW);
 }
+
 
 
 

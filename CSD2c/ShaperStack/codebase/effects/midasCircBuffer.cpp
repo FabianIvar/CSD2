@@ -62,6 +62,7 @@ void CircularBuffer::resetSize(int size)
 void CircularBuffer::setDistanceRW(int distanceRW)
 {
   m_distanceRW = distanceRW;
+
   std::cout << "setDistanceRW\n";
 }
 
@@ -110,7 +111,7 @@ float CircularBuffer::calculateAmp(float phase) // aka getGrainAmp
   return m_envelope[index];
 }
 
-void CircularBuffer::prepare(int parameter) // aka prepareParam
+void CircularBuffer::calculateGrainStep(int parameter) // update Size
 { // this was calculateGrainStep
   difference = parameter - m_grainSize;
 
@@ -140,9 +141,6 @@ void CircularBuffer::smoothGrain() // aka smootheValue
   }
   // setGrainSize(parameterGrainSize);
 }
-
-
-
 
 void CircularBuffer::calculateReadH() // inside read() function
 {

@@ -1,7 +1,6 @@
 #pragma once
 #include "effect.hpp"
 #include "circularBuffer.hpp"
-#include "../utils/smoothing.hpp"
 #include "../utils/bufferToolkit.hpp"
 #include "../utils/interpolation.hpp"
 
@@ -33,5 +32,6 @@ private:
   uint m_size;
   float m_distRW;
   float m_factor;
+  float m_output;
 
 };

@@ -22,8 +22,8 @@ struct CircularBuffer {
   }
 
   inline float read() { // Reads val in buffer at readH
-    uint i = static_cast<uint>(readH);
-    return linear<float>(readH - i, m_buffer[i], readIndex[i+1])
+    int i = static_cast<int>(m_readH);
+    return linear<float>(m_readH - i, m_buffer[i], readIndex(i+1));
   }
 
   inline void tick() { // move to next sample
@@ -33,12 +33,12 @@ struct CircularBuffer {
 
 private:
 
-  inline readFloat(float index) {
+  inline float readFloat(float index) {
     // returns value in buffer using floating point as index,
     // interpolates between two values in buffer using the remainder
     wrap(index);
     uint i = static_cast<uint>(index);
-    return linear<float>(index - i), m_buffer[i], readIndex(i+1));
+    return linear<float>(index - i, m_buffer[i], readIndex(i+1));
   }
 
   inline float readIndex(uint index) {

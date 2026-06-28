@@ -30,6 +30,10 @@ void CircularBuffer::setDistRW(float distRW) {
   // NOTE: smoothing sould be applied
   m_distRW = distRW;
   m_readH = m_writeH - m_distRW;
+
+  if (m_readH < 0.0f) {
+    std::cout << "-----[ m_readH ]-----> " << m_readH << std::endl;
+  }
   wrap(m_readH);
 }
 

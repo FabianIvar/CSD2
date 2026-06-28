@@ -3,9 +3,9 @@
 #include <juce_audio_processors/juce_audio_processors.h>
 #include <iostream>
 #include "effects/waveshaper.hpp"
-// #include "effects/feedbackDelay.hpp"
 #include "effects/feedbackDelay.hpp"
 #include "effects/filter.hpp"
+#include "utils/smoothing.hpp"
 #include "utils/bufferToolkit.hpp"
 #include "utils/interpolation.hpp"
 
@@ -14,26 +14,16 @@ using namespace Interpolation;
 
 #define DEBUG 1
 
+
+//===============================================
+
+
 class EffectsChain {
 public:
   EffectsChain() {
     #if DEBUG
       std::cout << "EffectsChain Constructor" << std::endl;
     #endif
-
-    //  (dryWet | kFactor)
-    waveshaper = new Waveshaper(1.0f, 25.0f);
-
-    for (uint i = 0; i < 2; i++) {
-
-      //   dryWet | delayTimeMS | maxDelayTimeMS |feedback | samplerate)
-      delay[i] = new FeedbackDelay(0.3f, 150.0f, 1000.0f, 0.3f, 48000.0f);
-
-      //  (dryWet | cutoff | qFactor | dBgain | samplerate)
-      // filter = new Filter(1.0, );
-
-    }
-
   }
 
   ~EffectsChain() {
@@ -42,77 +32,77 @@ public:
     waveshaper = nullptr;
 
     for (int i = 0; i < 2; i++) {
-        delete delay[i];
-        delay[i] = nullptr;
-      }
+      delete smooth[i];
+      smooth[i] = nullptr;
+      delete delay[i];
+      delay[i] = nullptr;
+    }
 
     #if DEBUG
       std::cout << "EffectsChain Destroyed" << std::endl;
     #endif
   }
 
-  void prepareToPlay(float sampleRate, int numSamplesPerBlock){
-    // Your Prepare Goes Here
+  void prepareToPlay(float samplerate, int numSamplesPerBlock){
+
+    //  (dryWet | kFactor)
+    waveshaper = new Waveshaper(1.0f, 25.0f);
 
 
+    for (uint i = 0; i < 2; i++) {
+      //  (samplerate | ms)
+      smooth[i] = new Smoothing(samplerate, 500.0f);
+
+      //  (dryWet | delayTimeMS | maxDelayTimeMS |feedback | samplerate)
+      delay[i] = new FeedbackDelay(0.3f, 150.0f, 4000.0f, 0.0f, samplerate);
+
+      //  (dryWet | cutoff | qFactor | dBgain | samplerate)
+      // filter[i] = new Filter(1.0, );
+    }
+    m_prepared = true;
   }
 
   void getNextBlock(juce::AudioBuffer<float>& buffer){
     // performance can be improved with interleaving, out of scope for now
-    // also multithreading? where would I use this?
+    // also multithreading could improve performance
+    // also also, plugin won't work if more then two channels are used
 
     float sample[2];
-    // Your DSP goes here
+
     for(int channel = 0; channel < buffer.getNumChannels(); ++channel){
       auto* input = buffer.getReadPointer(channel); // was inputChannel
       auto* output = buffer.getWritePointer(channel); // was outputChannel
       // delay[channel]->setParam(m_parameter);
 
-      for (int frame = 0; frame < buffer.getNumSamples(); ++frame){
-        // outputChannel[sample] = inputChannel[sample];
+      for (int frame = 0; frame < buffer.getNumSamples(); ++frame) {
+        m_parameter = smooth[channel]->getNextValue();
 
-        // waveshaper[channel]->processFrame(input[frame], sample[channel]);
-        // // delay[channel]->applyEffect()
-        // delay[channel]->setDryWet(m_parameter);
-        // delay[channel]->processFrame(waveshaper[channel]->getSample(), sample[channel]);
-        //
-        // sample[channel] = delay[channel]->getSample();
-        //
-        // output[frame] = sample[channel];
-
+        delay[channel]->setParam(m_parameter);
         waveshaper->processFrame(input[frame], output[frame]);
         delay[channel]->processFrame(waveshaper->getSample(), output[frame]);
-        std::cout << "\nworking here? --> line 96 effectschain --> setparam " << std::endl;
         output[frame] = delay[channel]->getSample();
-        std::cout << "\n here? <-- ?? " << std::endl;
-
-
+        if (output[frame] > 1.0f) output[frame] = 1.0f;
+        else if (output[frame] < -1.0f) output[frame] = -1.;
       }
+
     }
   }
 
   void setParameter(float parameter) {
-    if (m_storedParameter != parameter) {
-      for (int i = 0; i < 2; i++) {
-        std::cout << "parameter: " << parameter << std::endl;
-        // delay[i]->setParam(parameter);
-      }
-      m_parameter = parameter;
+    if (m_storedParameter != parameter && m_prepared) {
+      for (int i = 0; i < 2; i++) smooth[i]->setTargetValue(parameter);
+      #if DEBUG
+        std::cout << "-----[ parameter ]-----> " << parameter << std::endl;
+      #endif
     }
   }
-  // std::cout << "\n---->parameter: " << parameter << std::endl;
-
-    // for (uint i = 0; i < 2; i++) {
-    //   delay[i]->setDelayTimeMs(linear<float>(parameter, 125.0f, 1000.0f));
-    // }
-
-    // Your Code goes here
-    //
 
 private:
   Effect* waveshaper;
   Effect* delay[2];
+  Smoothing* smooth[2];
   float m_parameter;
   float m_storedParameter;
+  bool m_prepared;
   // Effect* filter;
 };

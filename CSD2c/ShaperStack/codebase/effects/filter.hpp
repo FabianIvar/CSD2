@@ -7,7 +7,18 @@
 
 #pragma once
 
-class Filter : public Effect { // peakingEQ
+struct Filter : public Effect { // peakingEQ
+
+  Filter(float dryWet, float cutoff, float qFactor,
+    float dBgain, float samplerate);
+
+  ~Filter() override;
+
+  void applyEffect(const float& input, float& output) override;
+
+  void calculateCoefficients();
+
+private:
 
 // Coefficients
   float a0; // |-- Zeros
@@ -28,15 +39,8 @@ class Filter : public Effect { // peakingEQ
   float m_qFactor;
   float m_dBgain;
 
-public:
 
-  Filter(float dryWet, float cutoff, float qFactor,
-    float dBgain, float samplerate);
 
-  ~Filter() override;
 
-  void applyEffect(const float& input, float& output) override;
-
-  void calculateCoefficients();
 
 };

@@ -1,42 +1,23 @@
 #include "circularBuffer.hpp"
-#include <iostream>
 
-CircularBuffer::CircularBuffer(uint size, float distRW) :
-  m_size(size), m_readH(0.0f), m_writeH(0.0f) {
+
+CircularBuffer::CircularBuffer(int size, float distRW) : m_size(size),
+  m_readH(0), m_writeH(0) {
+
+  std::cout << "CircularBuffer Constructor" << std::endl;
   allocateBuffer();
   setDistRW(distRW);
 }
 
 CircularBuffer::~CircularBuffer() {
-  releaseBuffer();
-  #if DEBUG
-    std::cout << "Circular Buffer Destroyed" << std::endl;
-  #endif
+  free(m_buffer);
+  std::cout << "CircularBuffer Destroyed" << std::endl;
 }
 
-void CircularBuffer::resetSize(uint size) {
+void CircularBuffer::resetSize(int size) {
   m_size = size;
-  releaseBuffer();
+  free(m_buffer);
   allocateBuffer();
 }
 
-void CircularBuffer::allocateBuffer() {
-  m_buffer = allocate<float>(m_size);
-}
-
-void CircularBuffer::releaseBuffer() { free(m_buffer); }
-
-void CircularBuffer::setDistRW(float distRW) {
-  // NOTE: smoothing sould be applied
-  m_distRW = distRW;
-  m_readH = m_writeH - m_distRW;
-
-  if (m_readH < 0.0f) {
-    std::cout << "-----[ m_readH ]-----> " << m_readH << std::endl;
-  }
-  wrap(m_readH);
-}
-
-uint CircularBuffer::getDistRW() {
-  return m_distRW;
-}
+void CircularBuffer::allocateBuffer() { m_buffer = allocate<float>(m_size); }

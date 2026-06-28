@@ -20,7 +20,7 @@ using namespace Interpolation;
 
 class EffectsChain {
 public:
-  EffectsChain() {
+  EffectsChain() : m_prepared(false) {
     #if DEBUG
       std::cout << "EffectsChain Constructor" << std::endl;
     #endif
@@ -51,10 +51,10 @@ public:
 
     for (uint i = 0; i < 2; i++) {
       //  (samplerate | ms)
-      smooth[i] = new Smoothing(samplerate, 500.0f);
+      smooth[i] = new Smoothing(samplerate, 300.0f);
 
       //  (dryWet | delayTimeMS | maxDelayTimeMS |feedback | samplerate)
-      delay[i] = new FeedbackDelay(0.3f, 150.0f, 4000.0f, 0.0f, samplerate);
+      delay[i] = new FeedbackDelay(0.9f, 150.0f, 1000.0f, 0.4f, samplerate);
 
       //  (dryWet | cutoff | qFactor | dBgain | samplerate)
       // filter[i] = new Filter(1.0, );
@@ -84,25 +84,21 @@ public:
         if (output[frame] > 1.0f) output[frame] = 1.0f;
         else if (output[frame] < -1.0f) output[frame] = -1.;
       }
-
     }
   }
 
   void setParameter(float parameter) {
     if (m_storedParameter != parameter && m_prepared) {
       for (int i = 0; i < 2; i++) smooth[i]->setTargetValue(parameter);
-      #if DEBUG
-        std::cout << "-----[ parameter ]-----> " << parameter << std::endl;
-      #endif
     }
   }
 
 private:
   Effect* waveshaper;
   Effect* delay[2];
+  Effect* filter[2];
   Smoothing* smooth[2];
   float m_parameter;
   float m_storedParameter;
   bool m_prepared;
-  // Effect* filter;
 };

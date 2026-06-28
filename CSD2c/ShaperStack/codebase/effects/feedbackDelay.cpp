@@ -15,7 +15,7 @@ FeedbackDelay::FeedbackDelay(
   else if (feedback > 0.99f) m_feedback = 0.99f;
   else m_feedback = feedback;
 
-  m_size = static_cast<uint>(msToSamples(maxDelayTimeMS, m_samplerate));
+  m_size = static_cast<int>(msToSamples(maxDelayTimeMS, m_samplerate));
   m_distRW = msToSamples(delayTimeMS, m_samplerate);
 
   // (size | distRW)
@@ -37,20 +37,19 @@ void FeedbackDelay::setParam(float parameter) {
   m_buffer->setDistRW(linear<float>(
     parameter, m_distRW, static_cast<float>(m_size)));
 
-  // std::cout << "-----[ m_size ]-----> " << m_size << std::endl;
+    std::cout << " distRW -> [ " << linear<float>(
+      parameter, m_distRW, static_cast<float>(m_size)) << " ]";
 }
 
 void FeedbackDelay::applyEffect(const float &input, float &output) {
 
   output = m_buffer->read();
+  m_buffer->write(output * m_feedback + input);
+  m_buffer->tick();
 
-  m_output *= m_feedback;
-  m_output += input;
 
   // std::cout << "-----[ feedback ]-----> " << m_feedback << std::endl;
   // std::cout << "-----[ m_output ]-----> " << m_output << std::endl;
-  m_buffer->write(m_output);
-  m_buffer->tick();
 
 
 }

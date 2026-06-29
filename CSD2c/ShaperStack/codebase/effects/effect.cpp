@@ -17,8 +17,11 @@ Effect::~Effect() {
 
 void Effect::processFrame(const float& input, float& output) {
   if (m_bypass == false) {
-    applyEffect(input, output);
-    m_sample = output * m_dryWet + input * (1.0f - m_dryWet);
+    float sampl;
+    applyEffect(input, sampl);
+    m_sample = sampl * m_dryWet + input * (1.0f - m_dryWet);
+    output = sampl;
+    std::cout << " m_dryWet:" << m_dryWet << " ";
   }
   else m_sample = input;
 }
@@ -26,7 +29,7 @@ void Effect::processFrame(const float& input, float& output) {
 float Effect::getSample() { return m_sample; }
 
 void Effect::setDryWet(float dryWet) {
-  std::cout << "dryWet: " << dryWet << std::endl;
+  // std::cout << "dryWet: " << dryWet << std::endl;
   if (dryWet < 0.0f) m_dryWet = 0.0f;
   else if (dryWet > 1.0f) m_dryWet = 1.0f;
   else m_dryWet = dryWet;

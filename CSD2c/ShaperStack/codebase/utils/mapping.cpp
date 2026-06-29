@@ -28,8 +28,8 @@ Mapping::~Mapping() {
 }
 
 void Mapping::genEq1Curve() {
-  for (int x = 0.0f; x < 512.0f; x++) {
-    float value = (pow(4.0f, x/512.0f) - 1.0f) / 3.0f;
+  for (int x = 0; x < 512; x++) {
+    float value = (pow(4.0f, x/511.0f) - 1.0f) / 3.0f;
     if (value < 0.0f) value = 0.0f;
 
     eq1Curve[x] = value;
@@ -40,8 +40,8 @@ void Mapping::genEq1Curve() {
 }
 
 void Mapping::genEq2Curve() {
-  for (int x = 0.0f; x < 512.0f; x++) {
-    float value = (pow(16.0f, (x/512.0f)-0.25f) - 1.0f) / 7.0f;
+  for (int x = 0; x < 512; x++) {
+    float value = (pow(16.0f, (x/511.0f)-0.25f) - 1.0f) / 7.0f;
     if (value < 0.0f) value = 0.0f;
 
     eq2Curve[x] = value;
@@ -53,8 +53,8 @@ void Mapping::genEq2Curve() {
 }
 
 void Mapping::genEq3Curve() {
-  for (int x = 0.0f; x < 512.0f; x++) {
-    float value = (pow(9.0f, (x/512.0f)-0.5f) - 1.0f) / 2.0f;
+  for (int x = 0; x < 512; x++) {
+    float value = (pow(9.0f, (x/511.0f)-0.5f) - 1.0f) / 2.0f;
     if (value < 0.0f) value = 0.0f;
 
     eq3Curve[x] = value;
@@ -67,7 +67,7 @@ void Mapping::genEq3Curve() {
 
 void Mapping::genDelayCurve() {
   for (int x = 0; x < 512; x++) {
-    delayCurve[x] = (pow(10.0f, 5.0f * (x/512.0f)) - 1.0f) / 99999.0f;
+    delayCurve[x] = (pow(10.0f, 5.0f * (x/511.0f)) - 1.0f) / 99999.0f;
 
   }
   #if MAPPING_DEBUG
@@ -77,11 +77,11 @@ void Mapping::genDelayCurve() {
 
 float Mapping::getValue(int curve, float parameter) {
 
-  float floatIndex = parameter * 512.0f;
+  float floatIndex = parameter * 511.0f;
   int index = static_cast<int>(floatIndex);
   float remainder = floatIndex-index;
   int high;
-  (index == 512) ? high = 512 : high = index+1;
+  (index == 511) ? high = 511 : high = index+1;
 
   switch(curve) {
     case 1:

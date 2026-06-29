@@ -21,14 +21,22 @@ struct Smoothing {
 
   void setTargetValue(float parameter) {
     m_targetValue = parameter;
+    if (m_targetValue < 0.0f) m_targetValue = 0.0f;
     m_distance = m_targetValue - m_currentValue;
     m_delta = m_distance / m_time;
+    if (m_delta < 0.0f) m_delta *= -1.0f;
     m_smoothing = true;
   }
 
   float getNextValue() {
     if (m_smoothing) {
-      m_currentValue += m_delta;
+      if (m_currentValue < m_targetValue) {
+        m_currentValue += m_delta;
+      }
+      else if (m_currentValue > m_targetValue) {
+        m_currentValue -= m_delta;
+      }
+      else m_smoothing = false;
     }
     return m_currentValue;
   }

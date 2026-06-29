@@ -26,7 +26,9 @@ void Filter::applyEffect(const float& input, float& output) {
   yn_2 = yn_1;
   yn_1 = y;
 
-  output = y; // normalize
+  if (y > 1.0f) y = 1.0f;
+  else if (y < -1.0f) y = -1.0f;
+  else output = y; 
 
   // std::cout << "----[ y * 1/amp ]-----> " << y*1.0f/m_amplitude << std::endl;
   // std::cout << "----[ output - input ]-----> " << output - input << std::endl;

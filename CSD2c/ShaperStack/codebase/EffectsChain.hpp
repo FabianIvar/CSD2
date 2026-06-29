@@ -59,7 +59,7 @@ public:
     mapping = new Mapping();
 
     //  (dryWet | kFactor)
-    waveshaper = new Waveshaper(1.0f, 25.0f);
+    waveshaper = new Waveshaper(1.0f, 7.5f);
 
 
     for (uint i = 0; i < 2; i++) {
@@ -67,12 +67,12 @@ public:
       smooth[i] = new Smoothing(samplerate, 300.0f);
 
       //  (dryWet | delayTimeMS | maxDelayTimeMS |feedback | samplerate)
-      delay[i] = new FeedbackDelay(0.9f, 150.0f, 1000.0f, 0.4f, samplerate);
+      delay[i] = new FeedbackDelay(0.9f, 75.0f, 850.0f, 0.8f, samplerate);
 
       //  (dryWet | cutoff | qFactor | dBgain | samplerate)
-      filter1[i] = new Filter(1.0, 500.0f, 4.0f, 20.0f, samplerate);
-      filter2[i] = new Filter(1.0, 1200.0f, 4.0f, 20.0f, samplerate);
-      filter3[i] = new Filter(1.0, 2800.0f, 4.0f, 20.0f, samplerate);
+      filter1[i] = new Filter(1.0, 500.0f, 4.0f, 15.0f, samplerate);
+      filter2[i] = new Filter(1.0, 1500.0f, 8.0f, 16.0f, samplerate);
+      filter3[i] = new Filter(1.0, 1900.0f, 4.0f, 15.5f, samplerate);
     }
     m_prepared = true;
   }
@@ -93,7 +93,7 @@ public:
         m_parameter = smooth[channel]->getNextValue();
         std::cout << "m_parameter: " << m_parameter << std::endl;
 
-        delay[channel]->setParam(m_parameter);
+        delay[channel]->setParam(1.0f - m_parameter);
 
         filter1[channel]->setDryWet(
           mapping->getValue(static_cast<int>(map::EQ1), m_parameter));
@@ -105,15 +105,16 @@ public:
           mapping->getValue(static_cast<int>(map::DELAY), m_parameter));
 
 
-        filter1[channel]->processFrame(input[frame], output[frame]);
+        delay[channel]->processFrame(input[frame], output[frame]);
+        filter1[channel]->processFrame(
+          delay[channel]->getSample(), output[frame]);
         waveshaper->processFrame(filter1[channel]->getSample(), output[frame]);
         filter2[channel]->processFrame(waveshaper->getSample(), output[frame]);
         waveshaper->processFrame(filter2[channel]->getSample(), output[frame]);
         filter3[channel]->processFrame(waveshaper->getSample(), output[frame]);
         waveshaper->processFrame(filter3[channel]->getSample(), output[frame]);
 
-        delay[channel]->processFrame(waveshaper->getSample(), output[frame]);
-        output[frame] = delay[channel]->getSample();
+        output[frame] = waveshaper->getSample();
 
         // clip if output exceeds bounds
         if (output[frame] > 1.0f) output[frame] = 1.0f;

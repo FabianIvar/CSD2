@@ -13,12 +13,11 @@ control knob* <br>
 > **Language:** *C++* <br>
 > **Semester:** *CSD2c*
 
-> ##### Deliverables (Not Finished)
+> ##### Deliverables
 > - [ShaperStack (Final Assignment)](/CSD2c/ShaperStack)
 > - [Design & Motivation](/CSD2c/ShaperStack/design/design.md)
 > - [Learning Goals](/CSD2c/ShaperStack/learningGoals.md)
 > - [Diagrams](/CSD2c/ShaperStack/design/block_diagrams.md)
-> - Logbook
 > - Hourly Breakdown
 > - Reflection
 >

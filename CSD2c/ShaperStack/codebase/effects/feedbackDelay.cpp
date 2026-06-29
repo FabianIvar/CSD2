@@ -43,7 +43,11 @@ void FeedbackDelay::setParam(float parameter) {
 
 void FeedbackDelay::applyEffect(const float &input, float &output) {
 
-  output = m_buffer->read();
+  float sampl = m_buffer->read();
+  if (sampl < -1.0f) sampl = -1.0f;
+  else if (sampl > 1.0f) sampl = 1.0f;
+
+  output = sampl;
   m_buffer->write(output * m_feedback + input);
   m_buffer->tick();
 

@@ -26,6 +26,7 @@ void Effect::processFrame(const float& input, float& output) {
 float Effect::getSample() { return m_sample; }
 
 void Effect::setDryWet(float dryWet) {
+  std::cout << "dryWet: " << dryWet << std::endl;
   if (dryWet < 0.0f) m_dryWet = 0.0f;
   else if (dryWet > 1.0f) m_dryWet = 1.0f;
   else m_dryWet = dryWet;

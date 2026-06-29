@@ -1,3 +1,5 @@
+// by Fabean 29/06/26
+
 #include <iostream>
 #define DEBUG 1
 
@@ -48,7 +50,7 @@ private:
 };
 
 
-/*
+/* pseudo code
 
 
 setTargetValue();

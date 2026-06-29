@@ -19,6 +19,7 @@ namespace BufferToolkit {
   void logArray(L* buffer, uint size, std::string arrName) {
     std::cout << "\n" + arrName + ":\n";
     for (uint i = 0; i < size; i++) std::cout << buffer[i] << ", ";
+    std::cout << std::endl;
   }
 
   template<typename C>

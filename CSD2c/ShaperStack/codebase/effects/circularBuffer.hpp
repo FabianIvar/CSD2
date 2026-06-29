@@ -16,7 +16,7 @@ struct CircularBuffer {
     m_readH = m_writeH - numSamples + m_size;
     wrap(m_readH);
     m_remainder = m_distRW - numSamples;
-    std::cout << " [ m_readH ] -> " << m_readH << std::endl;
+    // std::cout << " [ m_readH ] -> " << m_readH << std::endl;
     // std::cout << "-----[ m_remainder ]-----> " << m_remainder << std::endl;
   }
 

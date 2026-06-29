@@ -38,6 +38,7 @@ private:
   float m_cutoff;
   float m_qFactor;
   float m_dBgain;
+  float m_amplitude;
 
 
 

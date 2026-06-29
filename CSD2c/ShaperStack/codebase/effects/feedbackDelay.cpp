@@ -37,8 +37,8 @@ void FeedbackDelay::setParam(float parameter) {
   m_buffer->setDistRW(linear<float>(
     parameter, m_distRW, static_cast<float>(m_size)));
 
-    std::cout << " distRW -> [ " << linear<float>(
-      parameter, m_distRW, static_cast<float>(m_size)) << " ]";
+    // std::cout << " distRW -> [ " << linear<float>(
+    //   parameter, m_distRW, static_cast<float>(m_size)) << " ]";
 }
 
 void FeedbackDelay::applyEffect(const float &input, float &output) {

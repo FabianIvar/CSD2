@@ -13,6 +13,7 @@
 - [x] Block diagrams for each implemented effect
 - [ ] Overall block diagram displaying the effect chain together with the
       mapping of the one overarching parameter into multiple parameters
+- [x] Class diagram
 -->
 
 
@@ -32,6 +33,6 @@ ___
 
 ___
 #### Biquad filter
-<img src="/CSD2c/ShaperStack/design/assets/block_diagrams/biquad_pirkle.png" height="300"> <br>
+<img src="/CSD2c/ShaperStack/design/assets/block_diagrams/biquad_direct_form_pirkle.png" height="300"> <br>
 Pirkle, W.C. (2019). _Designing Audio Effect Plugins in C++_. 2nd ed. Routledge, p.249.
 ___

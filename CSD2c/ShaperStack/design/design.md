@@ -5,26 +5,23 @@ Ik heb gekozen voor **pluginFocus**. Plugins maken voor audio workstations is ie
 
 ### Design process, proposed effects and reasoning
 
-<img src="/CSD2c/ShaperStack/design/assets/equalizers.png" width="400"> <br>
-<img src="/CSD2c/ShaperStack/design/assets/waveshapers.png" width="800">
-
-Ik heb bij mijn design voor deze opdracht veel inspiratie gehaald uit de Advanced Synthesis lessen van Sjef. Veel van de technieken die we krijgen aangeleerd in deze lessen vereisen een ingewikkelde effect chain, waardoor het effect niet toegankelijk is voor muzikanten die zich niet in deze mate willen verdiepen in synthese. Ik wil deze technieken versimpelen door effect chains te bundelen in plugins. <br>
-Ik wil voor deze opdracht een techniek versimpelen waarbij je een effect chain maakt met waveshapers en equalizers. In deze effect chain wisselen de equalizers en waveshapers elkaar af. De equalizers gebruik je om specifieke frequenties in de ceiling van de waveshaper te duwen, of juist om te voorkomen dat bepaalde frequenties gaan distorten. <br>
-Doordat dit meerdere keren achter elkaar gebeurt gaan de harmonische die eerder in de effect chain zijn ontstaan opnieuw distorten en weer nieuwe harmonische creëren. Dit resulteert in een interessante textuur die met name heel geschikt is voor bass design. <br>
-Ook wil ik een extra feedback delay toevoegen aan de effect chain die de input meerdere keren door de effect chain heen laat gaan. Ik verwacht dat dit een interessant resultaat geeft.
+Ik heb bij mijn design voor deze opdracht veel inspiratie gehaald uit de Advanced Synthesis lessen van Sjef. Veel van de technieken die we krijgen aangeleerd in deze lessen vereisen een ingewikkelde effect chain, waardoor het effect niet toegankelijk is voor muzikanten die zich niet in deze mate willen verdiepen in synthese. Ik wil deze technieken versimpelen door effect chains te bundelen in een plugin. <br> Ik wil voor deze opdracht een techniek versimpelen waarbij je een effect chain maakt met waveshapers en equalizers. In deze chain wisselen de equalizers en waveshapers elkaar af. De equalizers duwen bepaalde frequenties in de ceiling van de waveshapers. <br> Doordat dit meerdere keren achter elkaar gebeurt gaan de harmonics die eerder in de effect chain zijn ontstaan opnieuw distorten en weer nieuwe harmonische creëren. Dit resulteert in een interessante textuur die met name heel geschikt is voor bass design.<br>
 <!-- NOTE: waveshapers in afbeelding zijn symmetrisch -->
-Ik ga gebruik maken van drie **asymmetrische waveshapers**, drie **biquad filters** en een **feedback delay**.
+In mijn multi-effect plugin zitten drie **asymmetrische waveshapers**, drie **biquad filters** en een **feedback delay**.
 
 ### Mapping
 
 <img src="/CSD2c/ShaperStack/design/assets/mapping.png" width="400"> <br>
 
-Rood = equalizer 1 dry/wet &nbsp; -> &nbsp; $`\begin{align} y=x\end{align}`$
+Geel = equalizer 1 dry/wet
+- $y=\frac{-10^{-x}+1}{0,9}$
+Oranje = equalizer 2 dry/wet
+- $y=\frac{-16^{-x+0,25}+1}{0,875}$
+Rood = equalizer 3 dry/wet
+- $y=\frac{-25^{-x+0,5}+1}{0,8}$
+Bruin = Feedback-delay dry/wet
+- $y=\frac{10^{5x}-1}{10^{5}-1}$
 
-Oranje = equalizer 2 dry/wet &nbsp; -> &nbsp; $`\begin{align} y=\frac{4^x-1}{3}\end{align}`$
+Verder heb ik een lineaire mapping voor de delay-time van de feedback delay.
 
-Geel = equalizer 3 dry/wet &nbsp; -> &nbsp; $`\begin{align} y=\frac{20^x-1}{19}\end{align}`$
-
-Groen = Feedback-delay dry/wet &nbsp; -> &nbsp; $`\begin{align} y=\frac{10^{3x}-1}{10^3-1}\end{align}`$
-
-Ik heb deze mapping gekozen omdat ik een minder lineair verloop wil in het effect. Ik wil het boosten van specifieke frequenties op een enigszins onverwachte manier laten gebeuren. Ik wil de feedback delay pas op het einde infaden. Ik verwacht dat dit het gevoel zal geven dat het systeem op springen staat, of dat er wat gevaarlijks dreigt te gebeuren.
+Ik heb deze mapping gekozen omdat wilde dat het boosten van de peaks enigszins onverwacht voelt. Ik wil de feedback delay pas op het einde infaden. Ik hoop dat dit een soort 'gevaarlijk' gevoel geeft. Alsof het systeem op instorten staat. 

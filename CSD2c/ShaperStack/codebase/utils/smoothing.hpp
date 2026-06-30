@@ -1,7 +1,7 @@
 // by Fabean 29/06/26
 
 #include <iostream>
-#define DEBUG 1
+#define DEBUG 0
 
 struct Smoothing {
   Smoothing(float samplerate, float ms) :
@@ -56,21 +56,3 @@ private:
   float m_time; // time in samples
   bool m_smoothing;
 };
-
-
-/* pseudo code
-
-
-setTargetValue();
-getNextValue();
-reset(samplerate, ms)
-
-
-currentValue
-targetValue
-distance
-delta = distance / [ time ]-->( in samples )
-currentValue += delta
-bool isSmoothing = false
-
-*/

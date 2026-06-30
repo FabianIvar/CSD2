@@ -20,9 +20,7 @@ Waveshaper::Waveshaper(float dryWet, float kFactor) :
 Waveshaper::~Waveshaper() {
   free(m_buffer);
   #if DEBUG
-    std::cout <<
-      "Waveshaper Destroyed"
-    << std::endl;
+    std::cout << "Waveshaper Destroyed" << std::endl;
   #endif
 }
 
@@ -36,6 +34,7 @@ void Waveshaper::generateSCurve() {
       static_cast<float>(m_bufferSize), -1.0f, 1.0f);
     m_buffer[i] = normalizeFactor * atan(m_kFactor * x);
   }
+
   #if LOG_SCURVE
     logArray<float>(m_buffer, 512, "S-Curve buffer");
   #endif
@@ -64,14 +63,3 @@ void Waveshaper::applyEffect(
 }
 
 void Waveshaper::setKFactor(float kFactor) {m_kFactor = kFactor; }
-
-/* pseudo code waveshaper interpolatie
-
-1) get floating point "index" in buffer
-2) calculate remainder
-  factor = remainder
-  low = buffer[int(floatingPointIndex)]
-  high = buffer[int(floatingPointIndex) + 1]
-3) output = linear(factor, low, high)
-
-*/

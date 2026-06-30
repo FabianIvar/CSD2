@@ -1,3 +1,9 @@
+/* performance can be improved with interleaving,
+also multithreading could improve performance
+the filters are in the direct form and could be more efficient
+also, plugin won't work if more then two channels are being used.
+improving performance is out of scope for now */
+
 #pragma once
 
 #include <juce_audio_processors/juce_audio_processors.h>
@@ -54,7 +60,7 @@ public:
 
   void prepareToPlay(float samplerate, int numSamplesPerBlock){
 
-    //  generates buffers with the mapping for the different effects.
+    //  generates the mapping for the different effects.
     //  1 = eq1 mapping | 2 = eq2 mapping | 3 = eq3 mapping | 4 = delay mapping
     mapping = new Mapping();
 
@@ -78,9 +84,6 @@ public:
   }
 
   void getNextBlock(juce::AudioBuffer<float>& buffer){
-    // performance can be improved with interleaving, out of scope for now
-    // also multithreading could improve performance
-    // also also, plugin won't work if more then two channels are used
 
     float sample[2];
 
@@ -91,7 +94,9 @@ public:
 
       for (int frame = 0; frame < buffer.getNumSamples(); ++frame) {
         m_parameter = smooth[channel]->getNextValue();
-        std::cout << "m_parameter: " << m_parameter << std::endl;
+        #if DEBUG
+          std::cout << "m_parameter: " << m_parameter << std::endl;
+        #endif
 
         delay[channel]->setParam(1.0f - m_parameter);
 
@@ -131,12 +136,7 @@ public:
 
 private:
 
-  enum class map {
-    EQ1 = 1,
-    EQ2,
-    EQ3,
-    DELAY
-  };
+  enum class map { EQ1 = 1, EQ2, EQ3, DELAY };
 
   Effect* waveshaper;
   Effect* delay[2];

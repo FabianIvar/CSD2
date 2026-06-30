@@ -7,7 +7,7 @@
 using namespace Interpolation;
 using namespace BufferToolkit;
 
-#define DEBUG 1
+#define DEBUG 0
 #define LOG_SCURVE 0
 
 struct Waveshaper : public Effect {

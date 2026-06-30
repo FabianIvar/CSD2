@@ -35,7 +35,7 @@ void Mapping::genEq1Curve() {
     eq1Curve[x] = value;
   }
   #if MAPPING_DEBUG
-  logArray<float>(eq1Curve, 512, "eq1");
+    logArray<float>(eq1Curve, 512, "eq1");
   #endif
 }
 
@@ -48,7 +48,7 @@ void Mapping::genEq2Curve() {
 
   }
   #if MAPPING_DEBUG
-  logArray<float>(eq2Curve, 512, "eq2");
+    logArray<float>(eq2Curve, 512, "eq2");
   #endif
 }
 
@@ -61,7 +61,7 @@ void Mapping::genEq3Curve() {
 
   }
   #if MAPPING_DEBUG
-  logArray<float>(eq3Curve, 512, "eq3");
+    logArray<float>(eq3Curve, 512, "eq3");
   #endif
 }
 
@@ -71,7 +71,7 @@ void Mapping::genDelayCurve() {
 
   }
   #if MAPPING_DEBUG
-  logArray<float>(eq3Curve, 512, "delay");
+    logArray<float>(eq3Curve, 512, "delay");
   #endif
 }
 

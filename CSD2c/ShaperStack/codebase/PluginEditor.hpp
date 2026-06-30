@@ -6,14 +6,14 @@
 #include <juce_gui_extra/juce_gui_extra.h>
 
 namespace plugin_focus {
-//==============================================================================
+
+
 class AudioPluginAudioProcessorEditor final : public juce::AudioProcessorEditor
 {
 public:
     explicit AudioPluginAudioProcessorEditor (AudioPluginAudioProcessor&);
     ~AudioPluginAudioProcessorEditor() override;
 
-    //==============================================================================
     void paint (juce::Graphics& g) override;
     void resized() override;
 

@@ -8,9 +8,8 @@
 namespace Interpolation {
   typedef unsigned int uint;
 
-/* When used in interpolation context low can be seen as
-     the previous value and high can be seen as the
-     next value. */
+/* When used in interpolation context low = previous value
+   and high = next value in buffer */
 
 // ==[Nearest Neighbour]========
 

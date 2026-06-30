@@ -1,5 +1,7 @@
-// Biquad filter based on direct form
-// y[n] = a0*x[n] + a1*x[n-1] - b1*y[n-1] - b2*y[n-2]
+/*
+Biquad filter based on direct form
+y[n] = a0*x[n] + a1*x[n-1] - b1*y[n-1] - b2*y[n-2]
+*/
 
 #include <math.h>
 #include <iostream>
@@ -28,11 +30,13 @@ private:
   float b0; // |-- Poles
   float b1; // |
   float b2; // |
+
 // Stored samples
   float xn_1 = 0.0f;
   float xn_2 = 0.0f;
   float yn_1 = 0.0f;
   float yn_2 = 0.0f;
+
 // Member variables
   float m_samplerate;
   float m_cutoff;

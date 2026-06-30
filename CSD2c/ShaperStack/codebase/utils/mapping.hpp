@@ -19,8 +19,8 @@ fill a buffer and interpolate */
 using namespace Interpolation;
 using namespace BufferToolkit;
 
-#define MAPPING_DEBUG 1
-#define DEBUG 1
+#define MAPPING_DEBUG 0
+#define DEBUG 0
 
 struct Mapping {
 

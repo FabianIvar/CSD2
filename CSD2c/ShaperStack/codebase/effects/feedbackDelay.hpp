@@ -18,7 +18,6 @@ struct FeedbackDelay : public Effect {
     float &output) override;
 
   virtual void setParam(float parameter) override;
-  void setDelayTimeMS(float delayMillisec);
   void setFeedback(float feedback);
 
 private:

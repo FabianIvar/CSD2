@@ -1,6 +1,7 @@
 #pragma once
 #include "../utils/interpolation.hpp"
 #include "../utils/bufferToolkit.hpp"
+#define DEBUG 0
 
 using namespace BufferToolkit;
 using namespace Interpolation;
@@ -16,8 +17,6 @@ struct CircularBuffer {
     m_readH = m_writeH - numSamples + m_size;
     wrap(m_readH);
     m_remainder = m_distRW - numSamples;
-    // std::cout << " [ m_readH ] -> " << m_readH << std::endl;
-    // std::cout << "-----[ m_remainder ]-----> " << m_remainder << std::endl;
   }
 
   inline float read() {

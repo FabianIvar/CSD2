@@ -1,6 +1,6 @@
-project(PluginFocus2 VERSION 0.0.1)
+project(ShaperStack VERSION 0.0.2)
 set(CMAKE_OSX_ARCHITECTURES "x86_64;arm64")
-juce_add_plugin(PluginFocus2
+juce_add_plugin(ShaperStack
         # ICON_BIG ...
         # ICON_SMALL ...
         COMPANY_NAME CSD
@@ -11,19 +11,19 @@ juce_add_plugin(PluginFocus2
         # EDITOR_WANTS_KEYBOARD_FOCUS TRUE/FALSE
         # COPY_PLUGIN_AFTER_BUILD TRUE/FALSE
         PLUGIN_MANUFACTURER_CODE Csd2
-        PLUGIN_CODE Fab2
+        PLUGIN_CODE Fab3
         FORMATS Standalone VST3 AU
-        PRODUCT_NAME "Plugin Focus2")
+        PRODUCT_NAME "ShaperStack")
 
 add_subdirectory(effects)
 add_subdirectory(utils)
 
-target_sources(PluginFocus2
+target_sources(ShaperStack
         PRIVATE
         PluginEditor.cpp
         PluginProcessor.cpp)
 
-target_compile_definitions(PluginFocus2
+target_compile_definitions(ShaperStack
         PUBLIC
         JUCE_WEB_BROWSER=0
         JUCE_USE_CURL=0
@@ -33,7 +33,6 @@ target_compile_definitions(PluginFocus2
 
 # hier gaat ie misschien fout |
 #                             V
-
 # header only files need INTERFACE
 add_library(audio_header INTERFACE)
 target_include_directories(audio_header INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/audiocomponent.h)
@@ -42,7 +41,7 @@ target_include_directories(audio_header INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/au
 
 
 
-target_link_libraries(PluginFocus2
+target_link_libraries(ShaperStack
         PRIVATE
         juce::juce_audio_utils
         juce::juce_product_unlocking
@@ -62,4 +61,4 @@ if(MSVC)
     add_definitions(-DNOMINMAX)
 endif()
 
-target_compile_features(PluginFocus2 PRIVATE cxx_std_20)
+target_compile_features(ShaperStack PRIVATE cxx_std_20)

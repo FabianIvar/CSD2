@@ -1,9 +1,7 @@
-target_sources(PluginFocus2
+target_sources(ShaperStack
       PRIVATE
       filter.cpp
       effect.cpp
-      #circFloatBuffer.cpp
-      #fbDelay.cpp
       circularBuffer.cpp
       feedbackDelay.cpp
       waveshaper.cpp)

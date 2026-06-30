@@ -1,4 +1,4 @@
-target_sources(PluginFocus2
+target_sources(ShaperStack
         PRIVATE
         writeToFile.cpp
         mapping.cpp

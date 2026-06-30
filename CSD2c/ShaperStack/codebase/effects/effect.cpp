@@ -7,12 +7,15 @@ Effect::Effect(float dryWet) : Effect(dryWet, false) { }
 
 Effect::Effect(float dryWet, bool bypass) : m_bypass(bypass) {
   setDryWet(dryWet);
+  #if DEBUG
+    std::cout << "Effect Constructor" << std::endl;
+  #endif
 }
 
 Effect::~Effect() {
-  // #if DEBUG
+  #if DEBUG
     std::cout << "Effect Destroyed" << std::endl;
-  // #endif
+  #endif
 }
 
 void Effect::processFrame(const float& input, float& output) {
@@ -20,8 +23,7 @@ void Effect::processFrame(const float& input, float& output) {
     float sampl;
     applyEffect(input, sampl);
     m_sample = sampl * m_dryWet + input * (1.0f - m_dryWet);
-    output = sampl;
-    std::cout << " m_dryWet:" << m_dryWet << " ";
+    output = m_sample; // used to be sampl <-- check if it still works
   }
   else m_sample = input;
 }
@@ -29,10 +31,7 @@ void Effect::processFrame(const float& input, float& output) {
 float Effect::getSample() { return m_sample; }
 
 void Effect::setDryWet(float dryWet) {
-  // std::cout << "dryWet: " << dryWet << std::endl;
   if (dryWet < 0.0f) m_dryWet = 0.0f;
   else if (dryWet > 1.0f) m_dryWet = 1.0f;
   else m_dryWet = dryWet;
 }
-
-// applyEffect is a pure virtual function

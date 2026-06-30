@@ -28,11 +28,13 @@ Mapping::~Mapping() {
 }
 
 void Mapping::genEq1Curve() {
-  for (int x = 0; x < 512; x++) {
-    float value = (pow(4.0f, x/511.0f) - 1.0f) / 3.0f;
+  for (int i = 0; i < 512; i++) {
+    float x = -1.0f*(i/511.0f);
+
+    float value = ((pow(10.0f, x) - 1.0f) / -0.9f);
     if (value < 0.0f) value = 0.0f;
 
-    eq1Curve[x] = value;
+    eq1Curve[i] = value;
   }
   #if MAPPING_DEBUG
     logArray<float>(eq1Curve, 512, "eq1");
@@ -40,11 +42,13 @@ void Mapping::genEq1Curve() {
 }
 
 void Mapping::genEq2Curve() {
-  for (int x = 0; x < 512; x++) {
-    float value = (pow(16.0f, (x/511.0f)-0.25f) - 1.0f) / 7.0f;
+  for (int i = 0; i < 512; i++) {
+    float x = -1.0f*(i/511.0f);
+
+    float value = (pow(16.0f, x+0.25f) - 1.0f) / -0.875f;
     if (value < 0.0f) value = 0.0f;
 
-    eq2Curve[x] = value;
+    eq2Curve[i] = value;
 
   }
   #if MAPPING_DEBUG
@@ -53,11 +57,13 @@ void Mapping::genEq2Curve() {
 }
 
 void Mapping::genEq3Curve() {
-  for (int x = 0; x < 512; x++) {
-    float value = (pow(9.0f, (x/511.0f)-0.5f) - 1.0f) / 2.0f;
+  for (int i = 0; i < 512; i++) {
+    float x = -1.0f*(i/511.0f);
+
+    float value = (pow(25.0f, x+0.5f) - 1.0f) / -0.8f;
     if (value < 0.0f) value = 0.0f;
 
-    eq3Curve[x] = value;
+    eq3Curve[i] = value;
 
   }
   #if MAPPING_DEBUG
@@ -71,7 +77,7 @@ void Mapping::genDelayCurve() {
 
   }
   #if MAPPING_DEBUG
-    logArray<float>(eq3Curve, 512, "delay");
+    logArray<float>(delayCurve, 512, "delay");
   #endif
 }
 

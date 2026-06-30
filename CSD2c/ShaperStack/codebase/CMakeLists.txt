@@ -12,7 +12,7 @@ juce_add_plugin(ShaperStack
         # COPY_PLUGIN_AFTER_BUILD TRUE/FALSE
         PLUGIN_MANUFACTURER_CODE Csd2
         PLUGIN_CODE Fab3
-        FORMATS Standalone VST3 AU
+        FORMATS Standalone VST3 #AU
         PRODUCT_NAME "ShaperStack")
 
 add_subdirectory(effects)

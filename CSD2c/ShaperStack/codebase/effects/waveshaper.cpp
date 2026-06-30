@@ -46,9 +46,11 @@ void Waveshaper::applyEffect(
   if(input > 1.0f) output = 1.0f;
   else if(input < -1.0f) output = -1.0f;
   else {
-    float indexFloat = bilinear<float>(
-      sample, -1.0f, 1.0f, 0.0f, static_cast<float>(m_bufferSize));
+      // Check if this still works
+    // float indexFloat = bilinear<float>(
+    //   sample, -1.0f, 1.0f, 0.0f, static_cast<float>(m_bufferSize));
 
+    float indexFloat = m_bufferSize * 0.5f * (sample + 1.0f);
     int index = static_cast<int>(indexFloat);
     float remainder = indexFloat - index;
     float low = static_cast<float>(m_buffer[index]);

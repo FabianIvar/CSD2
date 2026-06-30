@@ -19,7 +19,7 @@ improving performance is out of scope for now */
 using namespace BufferToolkit;
 using namespace Interpolation;
 
-#define DEBUG 1
+#define DEBUG 0
 
 
 //===============================================
@@ -76,16 +76,16 @@ public:
       delay[i] = new FeedbackDelay(0.9f, 75.0f, 850.0f, 0.8f, samplerate);
 
       //  (dryWet | cutoff | qFactor | dBgain | samplerate)
-      filter1[i] = new Filter(1.0, 500.0f, 4.0f, 15.0f, samplerate);
-      filter2[i] = new Filter(1.0, 1500.0f, 8.0f, 16.0f, samplerate);
-      filter3[i] = new Filter(1.0, 1900.0f, 4.0f, 15.5f, samplerate);
+      filter1[i] = new Filter(1.0, 500.0f, 4.0f, 16.0f, samplerate);
+      filter2[i] = new Filter(1.0, 1500.0f, 8.0f, 17.0f, samplerate);
+      filter3[i] = new Filter(1.0, 1900.0f, 4.0f, 16.5f, samplerate);
     }
     m_prepared = true;
   }
 
   void getNextBlock(juce::AudioBuffer<float>& buffer){
 
-    float sample[2];
+    float sample;
 
     for(int channel = 0; channel < buffer.getNumChannels(); ++channel){
       auto* input = buffer.getReadPointer(channel); // was inputChannel
@@ -111,15 +111,19 @@ public:
 
 
         delay[channel]->processFrame(input[frame], output[frame]);
-        filter1[channel]->processFrame(
-          delay[channel]->getSample(), output[frame]);
+        sample = delay[channel]->getSample();
+        filter1[channel]->processFrame(sample, output[frame]);
         waveshaper->processFrame(filter1[channel]->getSample(), output[frame]);
+
         filter2[channel]->processFrame(waveshaper->getSample(), output[frame]);
         waveshaper->processFrame(filter2[channel]->getSample(), output[frame]);
+
         filter3[channel]->processFrame(waveshaper->getSample(), output[frame]);
         waveshaper->processFrame(filter3[channel]->getSample(), output[frame]);
 
-        output[frame] = waveshaper->getSample();
+        sample = waveshaper->getSample() * 0.2f;
+
+        output[frame] = sample;
 
         // clip if output exceeds bounds
         if (output[frame] > 1.0f) output[frame] = 1.0f;

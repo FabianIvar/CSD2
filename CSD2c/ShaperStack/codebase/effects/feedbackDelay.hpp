@@ -21,13 +21,12 @@ struct FeedbackDelay : public Effect {
   void setFeedback(float feedback);
 
 private:
-  /* using Pointer Composition rn, smart pointers would
+  /* using Pointer Composition, smart pointers would
    be better, but that's out of scope for now */
 
   CircularBuffer* m_buffer;
   float m_samplerate;
   float m_feedback;
-  // uint m_numDelaySamples; // misschien niet meer nodig?
   uint m_size;
   float m_distRW;
   float m_factor;

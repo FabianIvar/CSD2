@@ -20,7 +20,8 @@
 # Block Diagrams
 
 #### Digital delay line with feedback
-<img src="/CSD2c/ShaperStack/design/assets/block_diagrams/ddl_pirkle.png" height="300"> <br>
+<img src="/CSD2c/ShaperStack/design/assets/block_diagrams/ddl_pirkle.png" height="300">
+
 Pirkle, W.C. (2019). _Designing Audio Effect Plugins in C++_. 2nd ed. Routledge, p.386.
 ___
 #### Asymmetric waveshaper
@@ -33,6 +34,10 @@ ___
 
 ___
 #### Biquad filter
-<img src="/CSD2c/ShaperStack/design/assets/block_diagrams/biquad_direct_form_pirkle.png" height="300"> <br>
+<img src="/CSD2c/ShaperStack/design/assets/block_diagrams/biquad_direct_form_pirkle.png" height="300">
+
 Pirkle, W.C. (2019). _Designing Audio Effect Plugins in C++_. 2nd ed. Routledge, p.249.
 ___
+#### Overall block diagram
+
+<img src="/CSD2c/ShaperStack/design/assets/block_diagrams/overall_block_diagram.png" heigt="300">

@@ -11,7 +11,7 @@ In mijn multi-effect plugin zitten drie **asymmetrische waveshapers**, drie **bi
 
 ### Mapping
 
-<img src="/CSD2c/ShaperStack/design/assets/mapping.png" width="400"> <br>
+<img src="/CSD2c/ShaperStack/deliverables/assets/mapping.png" width="400"> <br>
 
 Geel = equalizer 1 dry/wet
 - $y=\frac{-10^{-x}+1}{0,9}$
@@ -24,4 +24,4 @@ Bruin = Feedback-delay dry/wet
 
 Verder heb ik een lineaire mapping voor de delay-time van de feedback delay.
 
-Ik heb deze mapping gekozen omdat wilde dat het boosten van de peaks enigszins onverwacht voelt. Ik wil de feedback delay pas op het einde infaden. Ik hoop dat dit een soort 'gevaarlijk' gevoel geeft. Alsof het systeem op instorten staat. 
+Ik heb deze mapping gekozen omdat wilde dat het boosten van de peaks enigszins onverwacht voelt. Ik wil de feedback delay pas op het einde infaden. Ik hoop dat dit een soort 'gevaarlijk' gevoel geeft. Alsof het systeem op instorten staat.

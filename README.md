@@ -15,19 +15,19 @@ control knob* <br>
 
 > ##### Deliverables
 > - [ShaperStack (Final Assignment)](/CSD2c/ShaperStack)
-> - [Design & Motivation](/CSD2c/ShaperStack/design/design.md)
-> - [Learning Goals](/CSD2c/ShaperStack/learningGoals.md)
-> - [Diagrams](/CSD2c/ShaperStack/design/block_diagrams.md)
-> - Hourly Breakdown
-> - Reflection
+> - [Design & Motivation](/CSD2c/ShaperStack/deliverables/design/design.md)
+> - [Learning Goals](/CSD2c/ShaperStack/deliverables/learningGoals.md)
+> - [Diagrams](/CSD2c/ShaperStack/deliverables/design/block_diagrams.md)
+> - [Reflection](/CSD2c/ShaperStack/deliverables/reflection/reflection.md)
+> - [Hourly Breakdown](/CSD2c/ShaperStack/deliverables/reflection/hourly_breakdown.md)
+> - [Sources](/CSD2c/ShaperStack/deliverables/sources.md)
 >
 > ##### Assignments and Self-study
-> - [Sessions](/CSD2c/sessions)
-> - [Codeclinics](/CSD2c/codeclinics)
 > - [Self-study](/CSD2c/self_study)
-> - Sources
-> - [Syntax Reference](/CSD2c/ShaperStack/syntax_reference.md)
+> - [Syntax Reference](/CSD2c/ShaperStack/self_study/00_syntax_reference.md)
+> - [Logbook](/CSD2c/ShaperStack/deliverables/reflection/logbook.md)
 <br>
+
 
 <!----------------------------------------------------------------------------->
 
@@ -53,6 +53,7 @@ control knob* <br>
 > - [Study in FM with ratios](/CSD2b/exercises/self_study/fm_synthesis_with_ratios.pdf)
 > - [Syntax Reference](/CSD2b/exercises/self_study/sources.txt)
 <br>
+
 
 <!----------------------------------------------------------------------------->
 

@@ -1,4 +1,4 @@
-# Syntax Reference <br>
+# Syntax Reference
 
 <!--
 Made on 20-2-25 by Fabean
@@ -8,72 +8,74 @@ recommended to use with Obsidian: https://obsidian.md/
 <!--
 TODO:
 - Group syntax categories
-- Add tags openfor obsidian searching
+- Add tags for better obsidian searching
+- Link related references
+- Add more example code
 -->
 
 - Public and Private
-  All the class members declared under public will be available to everyone. The data members and member functions declared public can be accessed by other classes too. The public members of a class can be accessed from anywhere in the program using the direct member access operator (.) [Link](https://www.geeksforgeeks.org/cpp/difference-between-public-and-private-in-c-with-example/) <br>
+  All the class members declared under public will be available to everyone. The data members and member functions declared public can be accessed by other classes too. The public members of a class can be accessed from anywhere in the program using the direct member access operator (.) [Link](https://www.geeksforgeeks.org/cpp/difference-between-public-and-private-in-c-with-example/)
 
 - Environment variables
-  Environment variables are globally accessible named values that store information about the system environment where your code is executed. They are also used to store configuration settings, paths to important directories, and other system-specific data as well. In this article, we will learn how to get environment variables in C++. [Link](https://www.geeksforgeeks.org/cpp/how-to-get-environment-variable-in-c/) <br>
+  Environment variables are globally accessible named values that store information about the system environment where your code is executed. They are also used to store configuration settings, paths to important directories, and other system-specific data as well. In this article, we will learn how to get environment variables in C++. [Link](https://www.geeksforgeeks.org/cpp/how-to-get-environment-variable-in-c/)
 
 - Inheritance in C++
-  [Link](https://www.geeksforgeeks.org/cpp/inheritance-in-c/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/inheritance-in-c/)
 
 - Parameter passing techniques
-  (over mutable variables enzo) [Link](https://www.geeksforgeeks.org/cpp/parameter-passing-techniques-in-cpp/) <br>
+  (over mutable variables enzo) [Link](https://www.geeksforgeeks.org/cpp/parameter-passing-techniques-in-cpp/)
 
 - Include Guards
-  [Link](https://medium.com/@tomsvoj/implementing-member-methods-in-c-classes-9eb4fb1a258f) <br>
+  [Link](https://medium.com/@tomsvoj/implementing-member-methods-in-c-classes-9eb4fb1a258f)
 
 - 'This->' pointer
-  [Link](https://www.geeksforgeeks.org/cpp/this-pointer-in-c/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/this-pointer-in-c/)
 
 - Nullptr (nullptr, NULL or 0)
-  [Link](https://cppscripts.com/cpp-null-vs-nullptr) <br>
+  [Link](https://cppscripts.com/cpp-null-vs-nullptr)
 
 - Initialization list
-  [Link](https://www.tutorialspoint.com/cplusplus/cpp_constructor_initialization_list.html) <br>
+  [Link](https://www.tutorialspoint.com/cplusplus/cpp_constructor_initialization_list.html)
 
 - Constructor delegation
   Dit kan gebruikt worden voor constructor overloading wanneer de tweede constructor dezelfde code heeft als de eerste maar nu met meer dingen erbij.
-  Het kan ook wanneer je een derived class hebt en daar code aan wilt toevoegen uit de superclass. dit heet constructor delegation in inheritance. [Link](https://www.geeksforgeeks.org/cpp/constructor-delegation-c/) <br>
+  Het kan ook wanneer je een derived class hebt en daar code aan wilt toevoegen uit de superclass. dit heet constructor delegation in inheritance. [Link](https://www.geeksforgeeks.org/cpp/constructor-delegation-c/)
 
 - iostream cin object
-  [Link](https://www.w3schools.com/cpp/ref_iostream_cin.asp) <br>
+  [Link](https://www.w3schools.com/cpp/ref_iostream_cin.asp)
 
 - if else ternery operator
-  [Link](https://www.w3schools.com/cpp/cpp_conditions_shorthand.asp) <br>
+  [Link](https://www.w3schools.com/cpp/cpp_conditions_shorthand.asp)
 
 - Comparing strings in c++
-  [Link](https://www.geeksforgeeks.org/cpp/stdstringcompare-in-c/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/stdstringcompare-in-c/)
 
 - Switch Case in c++
-  0 if the same, 1 if not the same [Link](https://www.geeksforgeeks.org/cpp/switch-statement-in-cpp/) <br>
+  0 if the same, 1 if not the same [Link](https://www.geeksforgeeks.org/cpp/switch-statement-in-cpp/)
 
 - Exceptions
-  (equivalent of try except in python)  [Link](https://www.w3schools.com/cpp/cpp_exceptions.asp) <br>
+  (equivalent of try except in python)  [Link](https://www.w3schools.com/cpp/cpp_exceptions.asp)
 
 - Input validation
-  [Link](https://www.w3schools.com/cpp/cpp_input_validation.asp) <br>
+  [Link](https://www.w3schools.com/cpp/cpp_input_validation.asp)
 
 - cin methods (cin.ignore is useful for input validation)
-  [Link](https://www.w3schools.com/cpp/ref_iostream_cin.asp) <br>
+  [Link](https://www.w3schools.com/cpp/ref_iostream_cin.asp)
 
 - getline function (is different from cin.getline!)
-  [Link](https://www.geeksforgeeks.org/cpp/getline-string-c/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/getline-string-c/)
 
 - Functions in c++
-  [Link](https://www.geeksforgeeks.org/cpp/functions-in-cpp/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/functions-in-cpp/)
 
 - Get the length of a string
-  [Link](https://www.geeksforgeeks.org/cpp/5-different-methods-to-find-length-of-a-string-in-cpp/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/5-different-methods-to-find-length-of-a-string-in-cpp/)
 
 - Object delegation
-  [Link](https://www.geeksforgeeks.org/cpp/object-delegation-in-cpp/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/object-delegation-in-cpp/)
 
 - What is const
-  Runs code in compile time -> makes things read-only. It's possible to copy and edit const values by using 'unconst' or something. can't remember. [Link](https://www.geeksforgeeks.org/cpp/const-keyword-in-cpp/) <br>
+  Runs code in compile time -> makes things read-only. It's possible to copy and edit const values by using 'unconst' or something. can't remember. [Link](https://www.geeksforgeeks.org/cpp/const-keyword-in-cpp/)
 
 - Destructor
   A destructor is a *special member function* of a class that is executed automatically whenever an object of its class goes out of scope or whenever the delete expression is applied to a pointer to the object of that class.
@@ -90,139 +92,154 @@ TODO:
 	  - Destructors cannot be inherited.
 	  - Destructors cannot be overloaded.
 - New and Delete operators in c++
-  [Link](https://www.geeksforgeeks.org/cpp/new-and-delete-operators-in-cpp-for-dynamic-memory/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/new-and-delete-operators-in-cpp-for-dynamic-memory/)
 
 - Scope resolution indicator '::'
-  [Link](https://www.tutorialspoint.com/cplusplus/cpp_scope_resolution_operator.htm) <br>
+  [Link](https://www.tutorialspoint.com/cplusplus/cpp_scope_resolution_operator.htm)
 
 - Namespace
-  A namespace is used to differentiate similar functions, classes, variables, etc., with the same name available in different libraries. To access members which are defined inside a namespace, we use the scope resolution operator '::'. [Link](https://www.tutorialspoint.com/cplusplus/cpp_scope_resolution_operator.htm) <br>
+  A namespace is used to differentiate similar functions, classes, variables, etc., with the same name available in different libraries. To access members which are defined inside a namespace, we use the scope resolution operator '::'. 
+  [Link](https://www.tutorialspoint.com/cplusplus/cpp_scope_resolution_operator.htm)
 
 - Conditional processing blocks aka Macros
   **ifdef** identifier is essentially equivalent to **if** defined identifier.
   **ifndef** identifier is essentially equivalent to **if** !defined identifier.
   **elifdef** identifier is essentially equivalent to **elif** defined identifier.
-  **elifndef** identifier is essentially equivalent to **elif** !defined identifier. (since C++23) [Link](https://en.cppreference.com/w/cpp/preprocessor/conditional)<br>
+  **elifndef** identifier is essentially equivalent to **elif** !defined identifier. (since C++23) 
+  [Link](https://en.cppreference.com/w/cpp/preprocessor/conditional)
 
 - polymorphism
-  [Link](https://www.geeksforgeeks.org/cpp/cpp-polymorphism/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/cpp-polymorphism/)
 
 - Type-inference (auto)
-  auto is a non-specific type, if it is a float array, auto will turn into a float, if it's an int auto will turn into an int etc. [Link](https://www.geeksforgeeks.org/cpp/type-inference-in-c-auto-and-decltype/) <br>
+  auto is a non-specific type, if it is a float array, auto will turn into a float, if it's an int auto will turn into an int etc. [Link](https://www.geeksforgeeks.org/cpp/type-inference-in-c-auto-and-decltype/)
 
 - Difference between signed int and unsigned int
-  [Link](https://  www.geeksforgeeks.org/c/difference-between-unsigned-int-and-signed-int-in-c/) <br>
+  [Link](https://  www.geeksforgeeks.org/c/difference-between-unsigned-int-and-signed-int-in-c/)
 
 - Struct
-  struct is just a class without public and private [Link](https://www.w3schools.com/cpp/cpp_structs.asp) <br>
+  struct is just a class without public and private [Link](https://www.w3schools.com/cpp/cpp_structs.asp)
 
 - Templates
-  Templates let you write a function or class that works with different data types, kinda cool. Might be useful with input validation? It is convention to use T as a placeholder for a data type. [Link](https://www.w3schools.com/cpp/cpp_templates.asp) <br>
+  Templates let you write a function or class that works with different data types, kinda cool. Might be useful with input validation? It is convention to use T as a placeholder for a data type. [Link](https://www.w3schools.com/cpp/cpp_templates.asp)
 
 - constexpr
   - This is a feature added in C++ 11. The main idea is a performance improvement of programs by doing computations at compile time rather than run time.
-  - Constexpr specifies that the value of an object or function can be evaluated at compile-time and the expression can be used in other constant expressions. [Link1](https://www.geeksforgeeks.org/cpp/understanding-constexper-specifier-in-cpp/) [Link2](https://www.geeksforgeeks.org/cpp/understanding-constexper-specifier-in-cpp/) <br>
+  - Constexpr specifies that the value of an object or function can be evaluated at compile-time and the expression can be used in other constant expressions. [Link1](https://www.geeksforgeeks.org/cpp/understanding-constexper-specifier-in-cpp/) [Link2](https://www.geeksforgeeks.org/cpp/understanding-constexper-specifier-in-cpp/)
 
 - template metaprogramming
-  Vgm is de basis een beetje dat je de compiler allemaal dingen laat uitrekenen zodat het geen recourses meer kost tijdens run-time! cool [Link](https://www.geeksforgeeks.org/cpp/template-metaprogramming-in-c/) <br>
+  Vgm is de basis een beetje dat je de compiler allemaal dingen laat uitrekenen zodat het geen recourses meer kost tijdens run-time! cool [Link](https://www.geeksforgeeks.org/cpp/template-metaprogramming-in-c/)
 
 - Lexical cast (typecasting)
-  [Link](https://www.geeksforgeeks.org/cpp/boost-lexical_cast-in-cpp/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/boost-lexical_cast-in-cpp/)
 
 - Converting variable type (string to char)
-  [Link](https://www.geeksforgeeks.org/cpp/how-to-convert-std-string-to-char-in-cpp/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/how-to-convert-std-string-to-char-in-cpp/)
 
 - Const to non-const (const_cast)
-  [Link](https://www.geeksforgeeks.org/cpp/const_cast-in-c-type-casting-operators/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/const_cast-in-c-type-casting-operators/)
 
 - Explicit Keyword
-  [Link](https://www.geeksforgeeks.org/cpp/use-of-explicit-keyword-in-cpp/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/use-of-explicit-keyword-in-cpp/)
 
 - Inheritance, Composition, Aggregation
-  [Link](https://dev.to/adhirajk/inheritance-vs-composition-vs-aggregation-432i) <br>
+  [Link](https://dev.to/adhirajk/inheritance-vs-composition-vs-aggregation-432i) [Link2](https://dev.to/master-rj/oop-in-c-explained-is-a-vs-has-a-relationship-inheritance-vs-composition-guide-g5o#2-has-a-relationship-composition)
 
 - Colors in terminal
-  [Link](https://stackoverflow.com/questions/4053837/colorizing-text-in-the-console-with-c#4053879) <br>
+  [Link](https://stackoverflow.com/questions/4053837/colorizing-text-in-the-console-with-c#4053879)
 
 - String concatenation
-  [Link](https://www.geeksforgeeks.org/computer-science-fundamentals/concatenation-of-two-strings/) <br>
+  [Link](https://www.geeksforgeeks.org/computer-science-fundamentals/concatenation-of-two-strings/)
 
 - Pointer Arithmatic
-  [Link](https://www.geeksforgeeks.org/cpp/cpp-pointer-arithmetic/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/cpp-pointer-arithmetic/)
 
 - Pointer Address to string
-  [Link](https://stackoverflow.com/questions/7850125/convert-this-pointer-to-string#7850160) <br>
+  [Link](https://stackoverflow.com/questions/7850125/convert-this-pointer-to-string#7850160)
 
 - Removing certain characters from a string
-  [Link](https://stackoverflow.com/questions/5891610/how-to-remove-certain-characters-from-a-string-in-c#5891643) <br>
+  [Link](https://stackoverflow.com/questions/5891610/how-to-remove-certain-characters-from-a-string-in-c#5891643)
 
 - Reinterpret_cast
-  again typecasting but cool because it converts pointer while not caring about Type [Link](https://www.geeksforgeeks.org/cpp/reinterpret_cast-in-c-type-casting-operators/) <br>
+  again typecasting but cool because it converts pointer while not caring about Type [Link](https://www.geeksforgeeks.org/cpp/reinterpret_cast-in-c-type-casting-operators/)
 
 - Convert/cast string to char array
   A constant char array is good enough for you so you go with, const char *array = tmp.c_str(); Or you need to modify the char array so constant is not ok, then just go with this char *array = &tmp[0];
 
-  Both of them are just assignment operations and most of the time that is just what you need, if you really need a new copy then follow other fellows answers. [Link](https://stackoverflow.com/questions/13294067/how-to-convert-string-to-char-array-in-c#13294114) <br>
+  Both of them are just assignment operations and most of the time that is just what you need, if you really need a new copy then follow other fellows answers. [Link](https://stackoverflow.com/questions/13294067/how-to-convert-string-to-char-array-in-c#13294114)
 
 - Convert/cast string (actually char array) to long int
 - String length .length()
-  [Link](https://www.w3schools.com/cpp/cpp_strings_length.asp) <br>
+  [Link](https://www.w3schools.com/cpp/cpp_strings_length.asp)
 
 - Vector erase()
-  Delete elements from a vector with iterators [Link](https://www.geeksforgeeks.org/cpp/vector-erase-in-cpp-stl/) <br>
+  Delete elements from a vector with iterators [Link](https://www.geeksforgeeks.org/cpp/vector-erase-in-cpp-stl/)
 
 - Vector find()
-  [Link](https://www.geeksforgeeks.org/cpp/std-find-in-cpp/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/std-find-in-cpp/)
 
 - Vector begin() 'end is kinda the same'
-  [Link](https://www.geeksforgeeks.org/cpp/vector-begin-in-cpp-stl/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/vector-begin-in-cpp-stl/)
 
 - Vector remove()
-  [Link](https://www.geeksforgeeks.org/cpp/std-remove-algorithm-in-cpp/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/std-remove-algorithm-in-cpp/)
 
 - Template non-type arguments
-  [Link](https://www.geeksforgeeks.org/cpp/template-non-type-arguments-in-c/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/template-non-type-arguments-in-c/)
 
 - Stringstream \<sstream>
-  [Link](https://www.geeksforgeeks.org/cpp/stringstream-c-applications/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/stringstream-c-applications/)
 
 - Typedef
-  [Link](https://www.geeksforgeeks.org/cpp/typedef-in-cpp/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/typedef-in-cpp/)
 
 - Factory Method "virtual constructors (but not really)"
-  [Link](https://www.geeksforgeeks.org/cpp/advanced-c-virtual-constructor/#the-factory-method-best) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/advanced-c-virtual-constructor/#the-factory-method-best)
 
 - Tuple (tuples)
-  [Link](https://www.geeksforgeeks.org/cpp/tuples-in-c/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/tuples-in-c/)
 
 - Smart-pointers (unique_ptr shared_ptr weak_ptr)
-  [Link](https://www.geeksforgeeks.org/cpp/smart-pointers-cpp/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/smart-pointers-cpp/)
 
 - iterator
-  [Link](https://www.geeksforgeeks.org/cpp/introduction-iterators-c/) <br>
+  [Link](https://www.geeksforgeeks.org/cpp/introduction-iterators-c/)
 
 - .h vs .hpp file extention
-  Both work for c++, hpp doesn't work in c coding language. People writing code for c++ inside .h files can be ambiguous because it's not clear if the code inside the header is meant for c++ or c. [Link](https://blog.fileformat.com/programming/h-vs-hpp/) <br>
+  Both work for c++, hpp doesn't work in c coding language. People writing code for c++ inside .h files can be ambiguous because it's not clear if the code inside the header is meant for c++ or c. [Link](https://blog.fileformat.com/programming/h-vs-hpp/)
 
 - clear console
-  [Link](https://www.geeksforgeeks.org/cpp/how-to-clear-console-in-cpp/)<br>
+  [Link](https://www.geeksforgeeks.org/cpp/how-to-clear-console-in-cpp/)
 
 - Multithreading
-  [Link](https://www.geeksforgeeks.org/cpp/multithreading-in-cpp/)<br>
+  [Link](https://www.geeksforgeeks.org/cpp/multithreading-in-cpp/)
 
 - Malloc and free
   'malloc' (memory allocate) and 'free()' (free memory) are alternatives for new and delete. New calls the constructor. malloc only allocates the memory. Also, new will throw on failure while malloc returns Null. new is an operator and malloc() is a function.
-  [Link](https://www.geeksforgeeks.org/cpp/cpp-malloc/)<br>
+  [Link](https://www.geeksforgeeks.org/cpp/cpp-malloc/)
 
 - Observer design pattern
   Met 'Observer Pattern' wordt een type design bedoelt waarbij:
   1. Een ==subject== die de 'main data' bevat
   2. Meerdere ==observers== op de hoogte gesteld worden wanneer deze data verandert
-  [Link](https://www.geeksforgeeks.org/system-design/observer-pattern-c-design-patterns/)<br>
+  [Link](https://www.geeksforgeeks.org/system-design/observer-pattern-c-design-patterns/)
 
 - Inline keyword or 'inlining'
-  [Link](https://www.geeksforgeeks.org/cpp/inline-functions-cpp/)<br>
+  [Link](https://www.geeksforgeeks.org/cpp/inline-functions-cpp/)
 
 - Memset
-  C++ memset() is a function that copies a single character for a specified number of times to the given bytes of memory. It is useful for filling a number of bytes with a given value starting from a specific memory location.
-  [Link](https://www.geeksforgeeks.org/cpp/memset-in-cpp/)<br>
+  C++ memset() is a function that copies a single character for a specified number of times to the given bytes of memory. It is useful for filling a number of bytes with a given value starting from a specific memory location.  
+  allocate memory and release can be used to alter the buffer size when using memset for making a dynamic array. Allocate makes sure there is memory available for the buffer and release empties the buffer.
+  memset(wat, met wat, hoeveel bytes)
+  [Link](https://www.geeksforgeeks.org/cpp/memset-in-cpp/)
+  
+- Interleaving
+  **Interleaving** is a method used to rearrange data sequences to enhance the resilience of data transmission against errors. The basic principle involves spreading out consecutive data bits or symbols over a larger sequence, thereby reducing the impact of localized errors.
+
+- References (&)
+  References in C++ provide a way to create an alternative name for an existing variable. They allow programmers to access and modify the original variable directly without creating a separate copy, making programs more efficient and easier to read.
+	- A reference acts as an alias for another variable.
+	- Changes made through a reference affect the original variable.
+	- References are commonly used in function parameters to improve performance.
+  Functions in C++ can return references to variables. This allows the returned value to be accessed or modified directly without creating a copy, making it useful for improving performance and enabling direct updates to existing objects.
+  [link](https://www.geeksforgeeks.org/cpp/references-in-cpp/) 
